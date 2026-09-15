@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PharmaCare — Pharmacist Guide</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;600&display=swap" rel="stylesheet"><style>
+:root{
+  --y:#F1AB15;--yt:#FCEDCB;--yd:#C98C0C;--k:#0B0B0C;
+  --i9:#14151A;--i7:#3B3D45;--i5:#6B6E78;--i3:#A7AAB3;--i15:#DFE1E6;--i1:#F1F2F4;
+  --bg:#F7F8FA;--ok:#1F9D55;--okb:#E9F7EF;--no:#D8332A;--nob:#FDECEA;
+  --wa:#8A6100;--wab:#FEF6E7;--in:#2568C9;--inb:#EAF2FD;
+  --fd:'Manrope','Noto Sans Ethiopic',sans-serif;
+  --fb:'Inter','Noto Sans Ethiopic',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--fb);color:var(--i9);background:#fff;line-height:1.62;font-size:14.5px}
+.page{padding:0 34px}
+
+/* ---------- cover ---------- */
+.cover{background:var(--k);color:#fff;padding:58px 40px 46px;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;width:520px;height:520px;right:-190px;top:-230px;
+  border-radius:50%;background:radial-gradient(circle,rgba(241,171,21,.30),transparent 68%)}
+.cover .mark{width:56px;height:56px;background:var(--y);border-radius:14px;display:flex;
+  align-items:center;justify-content:center;font-family:var(--fd);font-weight:800;color:var(--k);
+  font-size:19px;margin-bottom:22px;position:relative;z-index:1}
+.cover .kicker{font-family:var(--fb);font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  font-size:11.5px;color:var(--y);margin:0 0 8px;position:relative;z-index:1}
+.cover h1{font-family:var(--fd);font-weight:800;font-size:38px;line-height:1.1;margin:0 0 12px;
+  position:relative;z-index:1}
+.cover .sub{color:#C3C5CC;font-size:16px;margin:0;max-width:560px;position:relative;z-index:1}
+.cover .meta{margin-top:26px;display:flex;gap:26px;flex-wrap:wrap;position:relative;z-index:1}
+.cover .meta div{font-size:12.5px;color:#9C9FA7}
+.cover .meta strong{display:block;color:#fff;font-size:14px;font-weight:600}
+
+/* ---------- headings ---------- */
+h2{font-family:var(--fd);font-weight:800;font-size:24px;margin:34px 0 4px;padding-top:16px;
+  border-top:3px solid var(--k)}
+h3{font-family:var(--fd);font-weight:800;font-size:17.5px;margin:26px 0 8px}
+h4{font-family:var(--fd);font-weight:700;font-size:15px;margin:18px 0 6px}
+.lead{color:var(--i5);margin:0 0 16px;font-size:15px}
+
+/* ---------- blocks ---------- */
+.card{background:#fff;border:1px solid var(--i15);border-radius:13px;padding:20px 22px;margin:16px 0}
+.tint{background:var(--bg)}
+.note,.warn,.ok,.info{padding:13px 17px;border-radius:0 9px 9px 0;margin:14px 0;font-size:14px}
+.note{background:var(--yt);border-left:4px solid var(--y)}
+.warn{background:var(--nob);border-left:4px solid var(--no)}
+.ok{background:var(--okb);border-left:4px solid var(--ok)}
+.info{background:var(--inb);border-left:4px solid var(--in)}
+.note strong,.warn strong,.ok strong,.info strong{font-family:var(--fd)}
+
+/* ---------- numbered steps ---------- */
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0 0}
+.steps>li{counter-increment:s;position:relative;padding:0 0 16px 48px}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:-1px;width:32px;height:32px;
+  background:var(--y);color:var(--k);border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:var(--fd);font-weight:800;font-size:14px}
+.steps>li strong{display:block;font-size:15px;margin-bottom:1px}
+.steps>li span{color:var(--i5);font-size:14px}
+.steps>li em{color:var(--i7);font-style:normal;background:var(--i1);padding:1px 6px;border-radius:4px;
+  font-size:13px;font-family:var(--fb)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--i15);
+  border-radius:10px;overflow:hidden;margin:14px 0;font-size:13.5px}
+th{background:var(--y);color:var(--k);text-align:left;padding:10px 12px;font-size:11.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+td{padding:9px 12px;border-top:1px solid var(--i15);vertical-align:top}
+tr:nth-child(even) td{background:#FCFCFD}
+.yes{color:var(--ok);font-weight:700}.non{color:var(--no);font-weight:700}
+code{background:var(--i1);padding:1.5px 6px;border-radius:4px;font-size:12.5px}
+
+/* ---------- figures ---------- */
+.figure{border:1px solid var(--i15);border-radius:13px;padding:14px;margin:18px 0;background:#fff}
+.figure svg{display:block;width:100%;height:auto}
+.figcap{color:var(--i5);font-size:12.5px;text-align:center;margin-top:9px}
+
+/* ---------- misc ---------- */
+.toc{background:var(--bg);border:1px solid var(--i15);border-radius:13px;padding:18px 24px;margin:22px 0}
+.toc ol{margin:8px 0 0;padding-left:20px}
+.toc li{margin:4px 0;font-size:14px}
+.pill{display:inline-block;background:var(--k);color:#fff;border-radius:999px;padding:3px 12px;
+  font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.pill.y{background:var(--y);color:var(--k)}
+.kbd{border:1px solid var(--i3);border-bottom-width:2px;border-radius:5px;padding:1px 7px;
+  font-size:12.5px;background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mini{font-size:13px;color:var(--i5)}
+.tick{color:var(--ok);font-weight:700}
+.footer{margin-top:38px;padding-top:16px;border-top:1px solid var(--i15);color:var(--i5);font-size:12px}
+
+/* ---------- print ---------- */
+@page{size:A4;margin:14mm 0 16mm}
+@media print{
+  body{font-size:11.6pt}
+  .page{padding:0 16mm}
+  .cover{padding:44px 16mm 38px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2{page-break-after:avoid;break-after:avoid}
+  h3,h4{page-break-after:avoid;break-after:avoid}
+  .card,.figure,table,.note,.warn,.ok,.info,.steps>li{page-break-inside:avoid;break-inside:avoid}
+  th,.cover,.pill,.note,.warn,.ok,.info,.steps>li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pagebreak{page-break-before:always;break-before:page}
+}
+</style></head><body>
+<div class="cover">
+  <div class="mark">PC</div>
+  <p class="kicker">PharmaCare · User Guide</p>
+  <h1>Pharmacist</h1>
+  <p class="sub">Dispensing, prescription checks, stock and expiry — plus the reports and batch information you need on shift.</p>
+  <div class="meta">
+    <div>Written for<strong>Pharmacists</strong></div>
+    <div>Covers<strong>Every task in your role</strong></div>
+    <div>Languages<strong>English / አማርኛ</strong></div>
+  </div>
+</div>
+<div class="page">
+<div class="toc"><strong>What's in this guide</strong><ol><li>Signing in and finding your way</li><li>Working across branches</li><li>Dispensing at the till</li><li>Prescription-only items</li><li>What you sell — more than medicines</li><li>Where a medicine's details come from</li><li>Checking stock before you dispense</li><li>Expiry checks and what to do</li><li>Understanding batches</li><li>Tracing stock movements</li><li>Stock aging and value at risk</li><li>Suppliers</li><li>Reports you can use</li><li>Customers</li><li>Working in Amharic</li><li>What your role cannot do</li><li>When something goes wrong</li></ol></div>
+
+<h2 id="signin">Signing in and finding your way</h2>
+<p class="lead">The same three steps every shift.</p>
+
+<div class="card"><ol class="steps">
+  <li><strong>Open https://pharmacare-five-ebon.vercel.app/</strong>
+      <span>Bookmark it, or add it to your phone's home screen.</span></li>
+  <li><strong>Type your username and password</strong>
+      <span>Your username is personal — never share it or sign in as someone else. Everything
+      you do is recorded against your name.</span></li>
+  <li><strong>You land on the <strong>Point of Sale</strong> screen</strong>
+      <span>The system sends each role to the page they use most.</span></li>
+</ol></div>
+
+<div class="note"><strong>First sign-in, or after a password reset.</strong> You are asked to
+create your own password before you can do anything else. This is deliberate — it means nobody
+else knows it, including your manager. You need at least <strong>10 characters</strong> with a
+capital letter, a small letter, a number and a symbol. Example of the right shape (do not use
+this one): <code>Bole#Pharm24</code></div>
+
+<div class="warn"><strong>Five wrong passwords locks you out for 30 minutes.</strong> This is a
+safety measure against someone guessing their way in. Wait it out, or ask an Administrator to
+clear it. Use <strong>Forgot your password?</strong> on the sign-in page if you truly cannot
+remember it.</div>
+
+
+<div class="figure">
+<svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagram of the three parts of every screen">
+ <rect width="880" height="400" fill="#fff"/>
+ <rect x="14" y="14" width="190" height="372" rx="10" fill="#0B0B0C"/>
+ <rect x="30" y="30" width="24" height="24" rx="6" fill="#F1AB15"/>
+ <rect x="62" y="34" width="98" height="7" rx="3" fill="#fff" opacity=".85"/>
+ <rect x="62" y="46" width="66" height="5" rx="2" fill="#fff" opacity=".4"/>
+ <g fill="#fff" opacity=".5">
+  <rect x="30" y="84" width="140" height="8" rx="4"/><rect x="30" y="106" width="122" height="8" rx="4"/>
+  <rect x="30" y="152" width="136" height="8" rx="4"/><rect x="30" y="174" width="110" height="8" rx="4"/>
+  <rect x="30" y="196" width="128" height="8" rx="4"/>
+ </g>
+ <rect x="22" y="122" width="174" height="21" rx="6" fill="#F1AB15" opacity=".2"/>
+ <rect x="22" y="122" width="3" height="21" fill="#F1AB15"/>
+ <rect x="30" y="128" width="112" height="8" rx="4" fill="#fff"/>
+ <rect x="218" y="14" width="648" height="54" rx="10" fill="#fff" stroke="#DFE1E6"/>
+ <rect x="236" y="28" width="140" height="9" rx="4" fill="#0B0B0C"/>
+ <rect x="236" y="43" width="88" height="6" rx="3" fill="#6B6E78"/>
+ <circle cx="686" cy="41" r="13" fill="#F7F8FA" stroke="#DFE1E6"/><text x="686" y="46" font-size="12" text-anchor="middle">🌐</text>
+ <circle cx="726" cy="41" r="13" fill="#F7F8FA" stroke="#DFE1E6"/><text x="726" y="46" font-size="12" text-anchor="middle">🔔</text>
+ <circle cx="737" cy="31" r="6.5" fill="#D8332A"/><text x="737" y="34.5" font-size="8" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+ <rect x="762" y="28" width="86" height="26" rx="7" fill="#F7F8FA" stroke="#DFE1E6"/>
+ <text x="805" y="45" font-size="11.5" text-anchor="middle" fill="#3B3D45" font-family="Inter">Your name ▾</text>
+ <rect x="218" y="80" width="648" height="306" rx="10" fill="#F7F8FA" stroke="#DFE1E6" stroke-dasharray="5 4"/>
+ <text x="542" y="238" font-size="15.5" text-anchor="middle" fill="#6B6E78" font-family="Inter">Your work appears here</text>
+ <g font-family="Manrope" font-weight="800" font-size="12">
+  <circle cx="109" cy="290" r="14" fill="#F1AB15"/><text x="109" y="295" text-anchor="middle" fill="#0B0B0C">1</text>
+  <circle cx="470" cy="41" r="14" fill="#F1AB15"/><text x="470" y="46" text-anchor="middle" fill="#0B0B0C">2</text>
+  <circle cx="542" cy="310" r="14" fill="#F1AB15"/><text x="542" y="315" text-anchor="middle" fill="#0B0B0C">3</text>
+ </g>
+</svg>
+<div class="figcap"><strong>1</strong> Menu (only your pages) &nbsp;·&nbsp;
+ <strong>2</strong> Language, alerts, sign out &nbsp;·&nbsp; <strong>3</strong> Main work area</div>
+</div>
+
+<h3>The top bar, button by button</h3>
+<table>
+ <tr><th>Button</th><th>What it does</th></tr>
+ <tr><td><span class="kbd">☰</span></td><td>On a phone or tablet, opens the menu. Tap outside it to close.</td></tr>
+ <tr><td>🌐 Globe</td><td>Switches the whole system between <strong>English</strong> and
+     <strong>አማርኛ</strong> — including printed receipts. Your choice is remembered.</td></tr>
+ <tr><td>🌙 Moon</td><td>Dark mode, easier on the eyes in a dim dispensary.</td></tr>
+ <tr><td>🔔 Bell</td><td>Your alerts. A red number means unread. Click one to jump to what it is about.</td></tr>
+ <tr><td>Your name</td><td><strong>My Profile</strong> (change your details or language) and
+     <strong>Logout</strong>. Always log out on a shared computer.</td></tr>
+</table>
+
+<div class="info"><strong>Working on a phone?</strong> Everything works on a small screen. The
+menu hides behind ☰ and tables scroll sideways.</div>
+
+<h2 id="branches">Working across branches</h2>
+<p class="lead">Each branch keeps its own stock. The product list, customers and
+suppliers are shared.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How branches share and separate data">
+ <rect width="880" height="300" fill="#fff"/>
+ <text x="20" y="26" font-family="Manrope" font-weight="800" font-size="14">What is shared, and what each branch keeps to itself</text>
+ <rect x="20" y="42" width="840" height="74" rx="12" fill="#FCEDCB" stroke="#F1AB15" stroke-width="2"/>
+ <text x="40" y="66" font-family="Manrope" font-weight="800" font-size="12.5">SHARED across every branch</text>
+ <g font-family="Inter" font-size="12" fill="#3B3D45">
+  <text x="40" y="88">Product catalogue &amp; prices &nbsp;·&nbsp; Customers &amp; loyalty points &nbsp;·&nbsp; Suppliers &nbsp;·&nbsp; Staff accounts &nbsp;·&nbsp; Settings</text>
+  <text x="40" y="106" font-size="11" fill="#6B6E78">One paracetamol record, one customer record — wherever they shop.</text>
+ </g>
+ <g>
+  <rect x="20" y="134" width="266" height="146" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="40" y="160" font-family="Manrope" font-weight="800" font-size="12.5">Main Branch</text>
+  <rect x="196" y="146" width="72" height="18" rx="5" fill="#0B0B0C"/><text x="232" y="159" font-size="10" fill="#F1AB15" text-anchor="middle" font-family="Inter" font-weight="700">MAIN</text>
+  <g font-family="Inter" font-size="11.5" fill="#3B3D45">
+   <text x="40" y="186">Its own stock quantities</text><text x="40" y="206">Its own batches &amp; costs</text>
+   <text x="40" y="226">Its own sales &amp; purchases</text><text x="40" y="246">Its own reorder levels</text>
+   <text x="40" y="266" fill="#6B6E78" font-size="11">Invoices: INV-000001</text>
+  </g>
+  <rect x="307" y="134" width="266" height="146" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="327" y="160" font-family="Manrope" font-weight="800" font-size="12.5">Bole Branch</text>
+  <g font-family="Inter" font-size="11.5" fill="#3B3D45">
+   <text x="327" y="186">Its own stock quantities</text><text x="327" y="206">Its own batches &amp; costs</text>
+   <text x="327" y="226">Its own sales &amp; purchases</text><text x="327" y="246">Its own reorder levels</text>
+   <text x="327" y="266" fill="#6B6E78" font-size="11">Invoices: BOL-000001</text>
+  </g>
+  <rect x="594" y="134" width="266" height="146" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="614" y="160" font-family="Manrope" font-weight="800" font-size="12.5">Gondar Branch</text>
+  <g font-family="Inter" font-size="11.5" fill="#3B3D45">
+   <text x="614" y="186">Its own stock quantities</text><text x="614" y="206">Its own batches &amp; costs</text>
+   <text x="614" y="226">Its own sales &amp; purchases</text><text x="614" y="246">Its own reorder levels</text>
+   <text x="614" y="266" fill="#6B6E78" font-size="11">Invoices: GON-000001</text>
+  </g>
+ </g>
+</svg>
+<div class="figcap">You can only sell stock your own branch holds — the till will not offer another branch's shelves</div>
+</div>
+
+<div class="card">
+<p style="margin:0 0 10px">Your branch is shown in the top bar next to a shop
+icon. You cannot change it, and that is deliberate — your account is tied to
+where you work.</p>
+<p style="margin:0"><strong>What this means day to day:</strong> the till only
+offers stock your branch actually holds, and the sales you see are your
+branch's. If a product is missing from the till search, your branch may have
+none even though another branch does — ask a Store Manager about a transfer.</p>
+</div>
+
+<h2 id="till">Dispensing at the till</h2>
+<p class="lead">You have the same till as the Cashier. Menu → <strong>Point of Sale</strong>.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 450" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Point of Sale screen">
+ <rect width="880" height="450" fill="#fff"/>
+ <rect x="14" y="14" width="512" height="80" rx="10" fill="#fff" stroke="#DFE1E6"/>
+ <text x="34" y="38" font-size="11.5" fill="#6B6E78" font-family="Inter">Scan barcode or type a name / code</text>
+ <rect x="34" y="48" width="472" height="34" rx="8" fill="#F7F8FA" stroke="#F1AB15" stroke-width="2"/>
+ <text x="50" y="70" font-size="13.5" fill="#3B3D45" font-family="Inter">▌ para</text>
+ <rect x="14" y="106" width="512" height="330" rx="10" fill="#fff" stroke="#DFE1E6"/>
+ <text x="34" y="130" font-size="12.5" font-family="Manrope" font-weight="800">Search results</text>
+ <g font-family="Inter" font-size="12">
+  <rect x="30" y="142" width="480" height="50" rx="8" fill="#FCEDCB"/>
+  <text x="44" y="163" font-weight="600">Paracetamol 500mg</text>
+  <text x="44" y="181" fill="#6B6E78">Medicine · 492 available</text>
+  <text x="398" y="163" font-weight="600">3.00 ETB</text>
+  <rect x="442" y="155" width="56" height="24" rx="6" fill="#F1AB15"/>
+  <text x="470" y="171" text-anchor="middle" font-weight="700" font-size="11.5">Add</text>
+  <rect x="30" y="200" width="480" height="50" rx="8" fill="#FAFBFC"/>
+  <text x="44" y="221" font-weight="600">Amoxicillin 250mg</text>
+  <text x="44" y="239" fill="#6B6E78">Medicine · 108 available</text>
+  <rect x="146" y="228" width="30" height="14" rx="4" fill="#FDECEA"/>
+  <text x="161" y="238.5" fill="#D8332A" font-size="9.5" font-weight="700" text-anchor="middle">Rx</text>
+  <text x="398" y="221" font-weight="600">8.50 ETB</text>
+  <rect x="442" y="213" width="56" height="24" rx="6" fill="#F1AB15"/>
+  <text x="470" y="229" text-anchor="middle" font-weight="700" font-size="11.5">Add</text>
+  <rect x="30" y="258" width="480" height="50" rx="8" fill="#FAFBFC"/>
+  <text x="44" y="279" font-weight="600">Knee Support Brace (Medium)</text>
+  <text x="44" y="297" fill="#6B6E78">Medical Device · 10 available · no expiry</text>
+  <text x="390" y="279" font-weight="600">595.00 ETB</text>
+  <rect x="442" y="271" width="56" height="24" rx="6" fill="#F1AB15"/>
+  <text x="470" y="287" text-anchor="middle" font-weight="700" font-size="11.5">Add</text>
+ </g>
+ <rect x="542" y="14" width="324" height="188" rx="10" fill="#fff" stroke="#DFE1E6"/>
+ <text x="560" y="36" font-size="12.5" font-family="Manrope" font-weight="800">Basket</text>
+ <line x1="556" y1="46" x2="852" y2="46" stroke="#DFE1E6"/>
+ <g font-family="Inter" font-size="11.5">
+  <text x="560" y="66" font-weight="600">Paracetamol 500mg</text>
+  <rect x="560" y="74" width="44" height="22" rx="5" fill="#F7F8FA" stroke="#DFE1E6"/><text x="582" y="89" text-anchor="middle">10</text>
+  <text x="610" y="89" fill="#6B6E78">qty</text>
+  <rect x="650" y="74" width="44" height="22" rx="5" fill="#F7F8FA" stroke="#DFE1E6"/><text x="672" y="89" text-anchor="middle">0</text>
+  <text x="700" y="89" fill="#6B6E78">disc%</text>
+  <text x="852" y="89" text-anchor="end" font-weight="700">34.50</text>
+  <line x1="556" y1="108" x2="852" y2="108" stroke="#F1F2F4"/>
+  <text x="560" y="128" font-weight="600">Knee Support Brace</text>
+  <rect x="560" y="136" width="44" height="22" rx="5" fill="#F7F8FA" stroke="#DFE1E6"/><text x="582" y="151" text-anchor="middle">1</text>
+  <text x="852" y="151" text-anchor="end" font-weight="700">684.25</text>
+ </g>
+ <rect x="542" y="214" width="324" height="222" rx="10" fill="#fff" stroke="#DFE1E6"/>
+ <g font-family="Inter" font-size="12" fill="#3B3D45">
+  <text x="560" y="238">Subtotal</text><text x="852" y="238" text-anchor="end">625.00</text>
+  <text x="560" y="258">Discount</text><text x="852" y="258" text-anchor="end">0.00</text>
+  <text x="560" y="278">VAT</text><text x="852" y="278" text-anchor="end">93.75</text>
+ </g>
+ <line x1="556" y1="290" x2="852" y2="290" stroke="#0B0B0C" stroke-width="2"/>
+ <text x="560" y="312" font-family="Manrope" font-weight="800" font-size="14">Total</text>
+ <text x="852" y="313" text-anchor="end" font-family="Manrope" font-weight="800" font-size="16">718.75</text>
+ <g font-family="Inter" font-size="11" fill="#6B6E78">
+  <text x="560" y="338">Customer</text><text x="560" y="366">Payment</text><text x="560" y="394">Paid</text>
+ </g>
+ <rect x="632" y="326" width="220" height="23" rx="6" fill="#F7F8FA" stroke="#DFE1E6"/>
+ <text x="643" y="342" font-size="11" font-family="Inter">Walk-in customer ▾</text>
+ <rect x="632" y="354" width="220" height="23" rx="6" fill="#F7F8FA" stroke="#DFE1E6"/>
+ <text x="643" y="370" font-size="11" font-family="Inter">Cash ▾</text>
+ <rect x="632" y="382" width="220" height="23" rx="6" fill="#F7F8FA" stroke="#DFE1E6"/>
+ <text x="643" y="398" font-size="11" font-family="Inter">800.00</text>
+ <rect x="556" y="412" width="296" height="16" rx="5" fill="#F1AB15"/>
+ <text x="704" y="424" font-size="10.5" text-anchor="middle" font-family="Manrope" font-weight="800">COMPLETE SALE</text>
+ <g font-family="Manrope" font-weight="800" font-size="11.5">
+  <circle cx="270" cy="65" r="13" fill="#0B0B0C"/><text x="270" y="70" text-anchor="middle" fill="#F1AB15">1</text>
+  <circle cx="270" cy="167" r="13" fill="#0B0B0C"/><text x="270" y="172" text-anchor="middle" fill="#F1AB15">2</text>
+  <circle cx="706" cy="55" r="13" fill="#0B0B0C"/><text x="706" y="60" text-anchor="middle" fill="#F1AB15">3</text>
+  <circle cx="706" cy="366" r="13" fill="#0B0B0C"/><text x="706" y="371" text-anchor="middle" fill="#F1AB15">4</text>
+ </g>
+</svg>
+<div class="figcap"><strong>1</strong> Scan or search &nbsp;·&nbsp; <strong>2</strong> Check type, stock, Rx tag
+ &nbsp;·&nbsp; <strong>3</strong> Adjust qty / discount &nbsp;·&nbsp; <strong>4</strong> Customer, payment, cash taken</div>
+</div>
+<div class="card"><ol class="steps">
+  <li><strong>Scan or search</strong><span>Barcode, name, code, or generic name.</span></li>
+  <li><strong>Check type, stock and any Rx tag</strong><span>Shown under each product name.</span></li>
+  <li><strong>Set quantity and any authorised discount</strong><span>Stock is enforced — you
+      cannot exceed it.</span></li>
+  <li><strong>Choose customer and payment, enter cash taken</strong><span>Change due appears
+      automatically.</span></li>
+  <li><strong>Complete Sale, then print if needed</strong><span>Stock drops immediately.</span></li>
+</ol></div>
+<div class="ok"><strong>Oldest-expiry stock is dispensed first, automatically.</strong> You do not
+have to pick batches by hand — selling normally always draws down the packs that expire soonest.
+If every pack of a product has already expired, the sale is refused outright rather than let
+through with a warning — remove it from the shelf and have a Store Manager write it off.</div>
+
+<h2 id="rx">Prescription-only items</h2>
+<div class="card">
+<p style="margin:0 0 12px">Products marked <strong>Rx</strong> trigger a confirmation before they
+enter the basket. As the Pharmacist, this is your professional check, not a formality.</p>
+<ol class="steps">
+  <li><strong>Verify the prescription</strong><span>Correct patient, in date, prescriber
+      identifiable, dose and quantity legible.</span></li>
+  <li><strong>Check the product against it</strong><span>Right medicine, right strength, right form.</span></li>
+  <li><strong>Check the stock itself</strong><span>Intact packaging, and in date — see the expiry
+      section below.</span></li>
+  <li><strong>Counsel the patient</strong><span>Dose, timing, food, common side effects, what to do
+      if a dose is missed.</span></li>
+  <li><strong>Then confirm on screen</strong></li>
+</ol>
+</div>
+<div class="warn">The system flags Rx items as a discipline aid. It cannot judge clinical
+appropriateness, interactions or dose. That judgement stays with you.</div>
+
+<h2 id="types">What you sell — more than medicines</h2>
+
+<div class="figure">
+<svg viewBox="0 0 880 214" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Product types">
+ <rect width="880" height="214" fill="#fff"/>
+ <g font-family="Inter">
+  <g><rect x="14" y="16" width="196" height="80" rx="12" fill="#FCEDCB" stroke="#F1AB15"/>
+   <text x="112" y="48" font-size="23" text-anchor="middle">💊</text>
+   <text x="112" y="72" font-size="12.5" text-anchor="middle" font-weight="700">Medicines</text>
+   <text x="112" y="88" font-size="10.5" text-anchor="middle" fill="#6B6E78">tablets, syrups</text></g>
+  <g><rect x="226" y="16" width="196" height="80" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+   <text x="324" y="48" font-size="23" text-anchor="middle">🧴</text>
+   <text x="324" y="72" font-size="12.5" text-anchor="middle" font-weight="700">Cosmetics</text>
+   <text x="324" y="88" font-size="10.5" text-anchor="middle" fill="#6B6E78">creams, lotions</text></g>
+  <g><rect x="438" y="16" width="196" height="80" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+   <text x="536" y="48" font-size="23" text-anchor="middle">🩹</text>
+   <text x="536" y="72" font-size="12.5" text-anchor="middle" font-weight="700">Medical Supplies</text>
+   <text x="536" y="88" font-size="10.5" text-anchor="middle" fill="#6B6E78">bandages, gauze</text></g>
+  <g><rect x="650" y="16" width="216" height="80" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+   <text x="758" y="48" font-size="23" text-anchor="middle">🦵</text>
+   <text x="758" y="72" font-size="12.5" text-anchor="middle" font-weight="700">Devices &amp; Supports</text>
+   <text x="758" y="88" font-size="10.5" text-anchor="middle" fill="#6B6E78">braces, BP monitors</text></g>
+  <g><rect x="14" y="110" width="196" height="80" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+   <text x="112" y="142" font-size="23" text-anchor="middle">🍊</text>
+   <text x="112" y="166" font-size="12.5" text-anchor="middle" font-weight="700">Supplements</text>
+   <text x="112" y="182" font-size="10.5" text-anchor="middle" fill="#6B6E78">vitamins</text></g>
+  <g><rect x="226" y="110" width="196" height="80" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+   <text x="324" y="142" font-size="23" text-anchor="middle">🍼</text>
+   <text x="324" y="166" font-size="12.5" text-anchor="middle" font-weight="700">Baby &amp; Mother</text>
+   <text x="324" y="182" font-size="10.5" text-anchor="middle" fill="#6B6E78">nappies, formula</text></g>
+  <g><rect x="438" y="110" width="428" height="80" rx="12" fill="#E9F7EF" stroke="#1F9D55"/>
+   <text x="652" y="142" font-size="13" text-anchor="middle" font-weight="700">All types behave identically</text>
+   <text x="652" y="163" font-size="11.5" text-anchor="middle" fill="#3B3D45">Same till · same stock counts · same batch costing · same reports</text>
+   <text x="652" y="180" font-size="11.5" text-anchor="middle" fill="#3B3D45">Nothing extra to learn per type</text></g>
+ </g>
+</svg>
+</div>
+<div class="info"><strong>Durable items have no expiry date</strong> (a brace, a monitor) and show
+a dash instead. They are correctly excluded from expiry warnings. Anything swallowed or applied to
+skin always carries an expiry date.</div>
+
+<h2 id="catalogue">Where a medicine's details come from</h2>
+<p class="lead">You don't browse a separate catalogue — the standard reference identity (generic
+name, strength, form, legal class) is already copied onto each medicine's own detail page,
+because it was locked in when a Store Manager or platform staff registered that stock.</p>
+<div class="card">
+<h4 style="margin-top:0">On a medicine's detail page</h4>
+<ul style="margin:0 0 0 18px">
+  <li><strong>Identifying a brand.</strong> The generic (INN) name is shown alongside the
+      brand — the same identity everywhere it's sold, not this pharmacy's own wording.</li>
+  <li><strong>Checking the legal class.</strong> Over the counter, prescription only, or
+      controlled — and that classification, not anyone's opinion, is what sets the till
+      warning.</li>
+  <li><strong>Strength and form.</strong> Shown exactly as registered, so there's no
+      ambiguity between, say, two different strengths of the same tablet.</li>
+</ul>
+</div>
+<div class="note">The full standard catalogue itself (ATC codes, cold-chain flags, data
+source) is a platform-level reference list, not something any one pharmacy's staff browse
+directly — if something about a medicine's identity looks wrong, flag it to your Store
+Manager or Administrator.</div>
+
+<h2 id="stock">Checking stock before you dispense</h2>
+<p class="lead">Menu → <strong>Inventory</strong>. This is your stock picture for the whole shop.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 288" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Inventory page">
+ <rect width="880" height="288" fill="#fff"/>
+ <g font-family="Inter">
+  <rect x="14" y="14" width="202" height="76" rx="12" fill="#fff" stroke="#DFE1E6"/><rect x="14" y="14" width="4" height="76" fill="#F1AB15"/>
+  <text x="34" y="40" font-size="10.5" fill="#6B6E78">TOTAL STOCK UNITS</text>
+  <text x="34" y="72" font-family="Manrope" font-weight="800" font-size="22">1,284</text>
+  <rect x="228" y="14" width="202" height="76" rx="12" fill="#fff" stroke="#DFE1E6"/><rect x="228" y="14" width="4" height="76" fill="#D8332A"/>
+  <text x="248" y="40" font-size="10.5" fill="#6B6E78">LOW STOCK</text>
+  <text x="248" y="72" font-family="Manrope" font-weight="800" font-size="22" fill="#D8332A">3</text>
+  <rect x="442" y="14" width="202" height="76" rx="12" fill="#fff" stroke="#DFE1E6"/><rect x="442" y="14" width="4" height="76" fill="#D8332A"/>
+  <text x="462" y="40" font-size="10.5" fill="#6B6E78">OUT OF STOCK</text>
+  <text x="462" y="72" font-family="Manrope" font-weight="800" font-size="22" fill="#D8332A">1</text>
+  <rect x="656" y="14" width="210" height="76" rx="12" fill="#FCEDCB" stroke="#F1AB15" stroke-width="2"/><rect x="656" y="14" width="4" height="76" fill="#D8332A"/>
+  <text x="676" y="40" font-size="10.5" fill="#6B6E78">EXPIRED</text>
+  <text x="676" y="72" font-family="Manrope" font-weight="800" font-size="22" fill="#D8332A">2</text>
+  <text x="784" y="72" font-size="10.5" fill="#3B3D45">← all clickable</text>
+  <rect x="14" y="102" width="852" height="172" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="34" y="126" font-size="12.5" font-family="Manrope" font-weight="800">Current stock</text>
+  <line x1="30" y1="136" x2="850" y2="136" stroke="#DFE1E6"/>
+  <g font-size="10.5" fill="#6B6E78"><text x="34" y="154">PRODUCT</text><text x="318" y="154">TYPE</text>
+   <text x="488" y="154">QTY</text><text x="574" y="154">EXPIRY</text><text x="726" y="154">STATUS</text></g>
+  <g font-size="12">
+   <text x="34" y="180" font-weight="600">Paracetamol 500mg</text><text x="318" y="180" fill="#3B3D45">Medicine</text>
+   <text x="488" y="180">492</text><text x="574" y="180">2028-02-04</text>
+   <rect x="726" y="169" width="40" height="16" rx="4" fill="#E9F7EF"/><text x="746" y="181" font-size="10" fill="#1F9D55" text-anchor="middle" font-weight="700">OK</text>
+   <text x="34" y="208" font-weight="600">Amoxicillin 250mg</text><text x="318" y="208" fill="#3B3D45">Medicine</text>
+   <text x="488" y="208">8</text><text x="574" y="208">2026-09-02</text>
+   <rect x="726" y="197" width="40" height="16" rx="4" fill="#FEF6E7"/><text x="746" y="209" font-size="10" fill="#8A6100" text-anchor="middle" font-weight="700">LOW</text>
+   <text x="34" y="236" font-weight="600">Knee Support Brace</text><text x="318" y="236" fill="#3B3D45">Medical Device</text>
+   <text x="488" y="236">10</text><text x="574" y="236" fill="#6B6E78">— none</text>
+   <rect x="726" y="225" width="40" height="16" rx="4" fill="#E9F7EF"/><text x="746" y="237" font-size="10" fill="#1F9D55" text-anchor="middle" font-weight="700">OK</text>
+   <text x="34" y="264" font-weight="600">Nivea Cream 200ml</text><text x="318" y="264" fill="#3B3D45">Cosmetic</text>
+   <text x="488" y="264">27</text><text x="574" y="264">2028-08-12</text>
+   <rect x="726" y="253" width="40" height="16" rx="4" fill="#E9F7EF"/><text x="746" y="265" font-size="10" fill="#1F9D55" text-anchor="middle" font-weight="700">OK</text>
+  </g>
+ </g>
+</svg>
+<div class="figcap">The device shows “— none” for expiry. That is correct: it does not expire.</div>
+</div>
+<div class="card"><ol class="steps">
+  <li><strong>Search by name or code</strong><span>Fastest way to answer “do we have any?”</span></li>
+  <li><strong>Filter by status</strong><span><em>Low stock</em>, <em>Out of stock</em> or
+      <em>Expired</em>.</span></li>
+  <li><strong>Use the four cards at the top as shortcuts</strong><span>Each one opens the matching
+      list. They are buttons, not just numbers.</span></li>
+  <li><strong>Read the status column</strong><span><span class="tick">OK</span>,
+      <strong>LOW</strong> (at or below reorder level) or <strong>OUT</strong>. An expiry warning
+      appears alongside.</span></li>
+</ol></div>
+<div class="note">You can see quantities, reorder levels and expiry dates, but not cost prices —
+those are restricted to Administrators and Store Managers.</div>
+
+<h2 id="expiry">Expiry checks and what to do</h2>
+<p class="lead">Menu → <strong>Inventory</strong> → the <strong>Expired</strong> card, or
+Inventory → Expired.</p>
+<table>
+ <tr><th>Tab</th><th>Meaning</th><th>Action</th></tr>
+ <tr><td><strong>Expired</strong></td><td>Already past its date</td>
+     <td class="non">Do not dispense. Remove from the shelf now and quarantine it</td></tr>
+ <tr><td><strong>Within 30 days</strong></td><td>Expiring very soon</td>
+     <td>Dispense these first; consider a supplier return</td></tr>
+ <tr><td><strong>Within 60 days</strong></td><td>On the horizon</td>
+     <td>Watch it; avoid reordering more until it moves</td></tr>
+</table>
+<div class="card">
+<h4 style="margin-top:0">If you find expired stock on the shelf</h4>
+<ol class="steps">
+  <li><strong>Remove it immediately</strong><span>Before anything else. Put it in the quarantine
+      area, not back on the shelf.</span></li>
+  <li><strong>Tell the Store Manager</strong><span>They record a <em>Stock Out</em> with the reason
+      “expired write-off” so the system count matches the shelf.</span></li>
+  <li><strong>Check the rest of that product</strong><span>Other packs may be from the same batch —
+      use Inventory → Batches.</span></li>
+  <li><strong>If any may have reached a patient</strong><span>Follow the clinical incident
+      procedure straight away.</span></li>
+</ol>
+</div>
+
+<h2 id="batches">Understanding batches</h2>
+<p class="lead">Menu → <strong>Inventory</strong> → <strong>Batches</strong>.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How batch costing works">
+ <rect width="880" height="400" fill="#fff"/>
+ <text x="20" y="26" font-family="Manrope" font-weight="800" font-size="14">Same product bought twice at different prices</text>
+ <rect x="20" y="42" width="246" height="104" rx="12" fill="#FCEDCB" stroke="#F1AB15" stroke-width="2"/>
+ <text x="38" y="66" font-family="Manrope" font-weight="800" font-size="12.5">Older batch</text>
+ <g font-family="Inter" font-size="12.5" fill="#3B3D45">
+  <text x="38" y="88">40 pieces</text><text x="38" y="108">cost 20 ETB each</text>
+  <text x="38" y="130" font-weight="600" fill="#0B0B0C">was sold at 50 ETB</text>
+ </g>
+ <rect x="286" y="42" width="246" height="104" rx="12" fill="#EAF2FD" stroke="#2568C9" stroke-width="2"/>
+ <text x="304" y="66" font-family="Manrope" font-weight="800" font-size="12.5">Newer batch</text>
+ <g font-family="Inter" font-size="12.5" fill="#3B3D45">
+  <text x="304" y="88">100 pieces</text><text x="304" y="108">cost 30 ETB each</text>
+  <text x="304" y="130" font-weight="600" fill="#0B0B0C">now sold at 60 ETB</text>
+ </g>
+ <rect x="552" y="42" width="308" height="104" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+ <text x="570" y="66" font-family="Manrope" font-weight="800" font-size="12.5">Kept separate, forever</text>
+ <g font-family="Inter" font-size="12" fill="#3B3D45">
+  <text x="570" y="88">Each delivery keeps its own cost.</text>
+  <text x="570" y="107">Nothing overwrites anything.</text>
+  <text x="570" y="126">Soonest expiry is sold first.</text>
+ </g>
+ <line x1="20" y1="168" x2="860" y2="168" stroke="#DFE1E6"/>
+ <text x="20" y="194" font-family="Manrope" font-weight="800" font-size="14">You sell 50 pieces</text>
+ <rect x="20" y="210" width="226" height="70" rx="10" fill="#FCEDCB" stroke="#F1AB15"/>
+ <text x="133" y="236" font-family="Inter" font-size="12.5" text-anchor="middle" font-weight="600">40 from older batch</text>
+ <text x="133" y="260" font-family="Inter" font-size="12" text-anchor="middle" fill="#3B3D45">40 × 20 = 800</text>
+ <text x="262" y="252" font-size="19" fill="#6B6E78">+</text>
+ <rect x="286" y="210" width="226" height="70" rx="10" fill="#EAF2FD" stroke="#2568C9"/>
+ <text x="399" y="236" font-family="Inter" font-size="12.5" text-anchor="middle" font-weight="600">10 from newer batch</text>
+ <text x="399" y="260" font-family="Inter" font-size="12" text-anchor="middle" fill="#3B3D45">10 × 30 = 300</text>
+ <text x="528" y="252" font-size="19" fill="#6B6E78">=</text>
+ <rect x="552" y="210" width="308" height="70" rx="10" fill="#0B0B0C"/>
+ <text x="706" y="236" font-family="Inter" font-size="12.5" text-anchor="middle" fill="#B9BBC2">True cost of those 50</text>
+ <text x="706" y="263" font-family="Manrope" font-weight="800" font-size="18" text-anchor="middle" fill="#F1AB15">1,100 ETB</text>
+ <rect x="20" y="300" width="840" height="82" rx="12" fill="#E9F7EF" stroke="#1F9D55" stroke-width="2"/>
+ <g font-family="Inter" font-size="13" fill="#3B3D45">
+  <text x="42" y="328">Money in (50 × 60, VAT excluded)</text><text x="392" y="328" font-weight="700" fill="#0B0B0C">3,000 ETB</text>
+  <text x="42" y="352">Less true cost of goods</text><text x="392" y="352" font-weight="700" fill="#0B0B0C">− 1,100 ETB</text>
+  <text x="42" y="372" font-size="11.5" fill="#6B6E78">Buying more later at 45 ETB does not change this figure.</text>
+ </g>
+ <text x="620" y="330" font-family="Inter" font-size="12.5" fill="#3B3D45">Gross profit</text>
+ <text x="620" y="362" font-family="Manrope" font-weight="800" font-size="23" fill="#1F9D55">1,900 ETB</text>
+</svg>
+<div class="figcap">Older units are costed at the older price — which is why profit stays correct</div>
+</div>
+<div class="note">You will not see the cost columns shown above — those are restricted — but the
+batch list and the soonest-expiry-first order are visible to you, which is what matters clinically.</div>
+<div class="card">
+<p style="margin:0 0 10px">Each delivery of a product is stored separately, with its own expiry
+date and its own remaining quantity. This is why the system can dispense soonest-expiry first,
+and why you can trace which delivery a pack came from.</p>
+<p style="margin:0"><strong>Useful for:</strong> a recall (which batch, how many left, where it
+came from), an expiry sweep, or checking whether a product has newer stock behind the older packs.</p>
+<p class="mini" style="margin:10px 0 0">Cost columns are not shown to your role.</p>
+</div>
+
+<h2 id="ledger">Tracing stock movements</h2>
+<p class="lead">Menu → <strong>Inventory</strong> → <strong>Manage</strong> →
+<strong>Stock Ledger</strong>.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The stock ledger">
+ <rect width="880" height="250" fill="#fff"/>
+ <text x="20" y="26" font-family="Manrope" font-weight="800" font-size="14">Where did those packs go? The ledger answers it</text>
+ <rect x="20" y="40" width="840" height="196" rx="12" fill="#fff" stroke="#DFE1E6"/>
+ <line x1="36" y1="66" x2="844" y2="66" stroke="#DFE1E6"/>
+ <g font-family="Inter" font-size="10.5" fill="#6B6E78">
+  <text x="40" y="60">DATE</text><text x="150" y="60">CAUSE</text><text x="380" y="60">CHANGE</text>
+  <text x="500" y="60">BALANCE</text><text x="680" y="60">REFERENCE</text>
+ </g>
+ <g font-family="Inter" font-size="12">
+  <text x="40" y="92" fill="#6B6E78">10 Sep 09:14</text><text x="150" y="92">Purchase received</text>
+  <rect x="380" y="80" width="52" height="17" rx="4" fill="#E9F7EF"/><text x="406" y="93" font-size="11" fill="#1F9D55" text-anchor="middle" font-weight="700">+100</text>
+  <text x="500" y="92" fill="#6B6E78">500 → <tspan fill="#0B0B0C" font-weight="700">600</tspan></text>
+  <text x="680" y="92" fill="#6B6E78">PUR-000001</text>
+
+  <text x="40" y="120" fill="#6B6E78">10 Sep 10:02</text><text x="150" y="120">Sale</text>
+  <rect x="380" y="108" width="52" height="17" rx="4" fill="#FDECEA"/><text x="406" y="121" font-size="11" fill="#D8332A" text-anchor="middle" font-weight="700">−30</text>
+  <text x="500" y="120" fill="#6B6E78">600 → <tspan fill="#0B0B0C" font-weight="700">570</tspan></text>
+  <text x="680" y="120" fill="#6B6E78">INV-000001</text>
+
+  <text x="40" y="148" fill="#6B6E78">10 Sep 11:30</text><text x="150" y="148">Stock out (breakage)</text>
+  <rect x="380" y="136" width="52" height="17" rx="4" fill="#FDECEA"/><text x="406" y="149" font-size="11" fill="#D8332A" text-anchor="middle" font-weight="700">−5</text>
+  <text x="500" y="148" fill="#6B6E78">570 → <tspan fill="#0B0B0C" font-weight="700">565</tspan></text>
+
+  <text x="40" y="176" fill="#6B6E78">10 Sep 14:05</text><text x="150" y="176">Transfer out → Bole</text>
+  <rect x="380" y="164" width="52" height="17" rx="4" fill="#FDECEA"/><text x="406" y="177" font-size="11" fill="#D8332A" text-anchor="middle" font-weight="700">−40</text>
+  <text x="500" y="176" fill="#6B6E78">565 → <tspan fill="#0B0B0C" font-weight="700">525</tspan></text>
+  <text x="680" y="176" fill="#6B6E78">→ BR-002</text>
+
+  <text x="40" y="204" fill="#6B6E78">10 Sep 16:20</text><text x="150" y="204">Sale voided</text>
+  <rect x="380" y="192" width="52" height="17" rx="4" fill="#E9F7EF"/><text x="406" y="205" font-size="11" fill="#1F9D55" text-anchor="middle" font-weight="700">+30</text>
+  <text x="500" y="204" fill="#6B6E78">525 → <tspan fill="#0B0B0C" font-weight="700">555</tspan></text>
+  <text x="680" y="204" fill="#6B6E78">INV-000001</text>
+ </g>
+ <text x="40" y="228" font-family="Inter" font-size="11" fill="#6B6E78">Nothing can change stock without appearing here. Entries are never edited or deleted.</text>
+</svg>
+</div>
+<div class="card">
+<p style="margin:0 0 10px">Every change to stock appears here with a running
+balance — purchases, sales, voids, transfers, corrections and stocktakes. It is
+append-only: entries are never edited or deleted.</p>
+<p style="margin:0"><strong>When you will reach for it:</strong> a count looks
+wrong and you need to know what happened; a recall means tracing where a batch
+went; or a colleague asks why stock dropped overnight. Filter by product name or
+by a reference such as an invoice number.</p>
+</div>
+
+<h2 id="aging">Stock aging and value at risk</h2>
+<p class="lead">Menu → <strong>Inventory</strong> → <strong>Manage</strong> →
+<strong>Stock Aging</strong>.</p>
+<div class="card">
+<p style="margin:0 0 10px">Groups everything on hand by how long it has left:
+expired, 0–30 days, 31–90, 91–180, over 180, and items with no expiry at all.</p>
+<p style="margin:0">Use the 0–30 day bucket as your weekly action list: those are
+the packs to dispense first and to flag to the Store Manager for a possible
+supplier return. Value figures are hidden from your role; the counts are not.</p>
+</div>
+
+<h2 id="suppliers">Suppliers</h2>
+<div class="card"><p style="margin:0">Menu → <strong>Suppliers</strong>. You can <strong>view</strong>
+supplier records — contact person, phone, email, and how many products they supply — which is what
+you need to chase a delivery or ask about a shortage. Adding and editing suppliers is a Store
+Manager task.</p></div>
+
+<h2 id="reports">Reports you can use</h2>
+<p class="lead">Menu → <strong>Reports</strong>. You will see seven; the two financial ones are not
+available to your role.</p>
+<table>
+ <tr><th>Report</th><th>What you would use it for</th></tr>
+ <tr><td>Sales</td><td>Every sale in a date range — checking what went out on a given day</td></tr>
+ <tr><td>Sales Summary</td><td>Daily / weekly / monthly / yearly totals</td></tr>
+ <tr><td>Inventory</td><td>Full stock position, printable for a shelf check</td></tr>
+ <tr><td>Low Stock</td><td>What needs reordering — hand this to the Store Manager</td></tr>
+ <tr><td>Expired &amp; Expiring</td><td>Your expiry sweep list, with 30- and 60-day horizons</td></tr>
+ <tr><td>Supplier</td><td>Who supplies what</td></tr>
+ <tr><td>Customer</td><td>Purchase history and loyalty points</td></tr>
+</table>
+<div class="card"><ol class="steps">
+  <li><strong>Pick the report, then set the dates</strong><span>Most default to the current month.</span></li>
+  <li><strong>Press Apply</strong><span>Totals appear in the yellow boxes above the table.</span></li>
+  <li><strong>Press Print for a paper copy</strong><span>Saving as PDF or Excel is limited to Store
+      Managers and Administrators — ask if you need a file to send.</span></li>
+</ol></div>
+
+
+<h2 id="customers">Customers</h2>
+<p class="lead">Menu → <strong>Customers</strong>. Registering someone lets them earn loyalty
+points and gives you their purchase history.</p>
+
+<div class="card">
+<h4 style="margin-top:0">Registering a new customer</h4>
+<ol class="steps">
+  <li><strong>Customers → Add Customer</strong><span>Name and phone number are required; email
+      and address are optional.</span></li>
+  <li><strong>Save Customer</strong><span>They are immediately selectable at the till.</span></li>
+</ol>
+</div>
+
+<div class="warn"><strong>One phone number, one customer.</strong> If the number is already
+registered, the system refuses and <em>tells you which customer has it</em> — open that record
+instead of creating a second one. Two records for the same person split their history and
+loyalty points, which is painful to unpick later.<br><br>
+Spacing does not matter: <code>0911 22 33 44</code> and <code>0911223344</code> are treated as
+the same number.</div>
+
+<div class="card"><ul class="steps"><li><strong>Loyalty points</strong><span>The field is not shown to your role. Points are added automatically when a named customer buys something.</span></li><li><strong>You cannot delete customers</strong><span>Ask a Store Manager or Administrator if a record genuinely must go.</span></li></ul></div>
+
+
+<h2 id="language">Working in Amharic</h2>
+<p class="lead">Press the 🌐 globe in the top bar and choose <strong>አማርኛ</strong>.</p>
+<div class="card">
+<p style="margin:0 0 10px">Switching changes everything: menus, buttons, warning messages,
+printed receipts and exported reports. Product names stay exactly as they were typed in, because
+those are your own data, not part of the system's wording.</p>
+<p class="mini" style="margin:0">Your choice sticks to your account, so a colleague on the same
+computer can work in English while you work in Amharic.</p>
+</div>
+
+
+<h2 id="cannot">What your role cannot do</h2>
+<table>
+ <tr><th>Task</th><th>Who does it</th></tr>
+ <tr><td>Add or edit a product, price or category</td><td>Store Manager / Administrator</td></tr>
+ <tr><td>Record a delivery (purchase)</td><td>Store Manager / Administrator</td></tr>
+ <tr><td>Correct a stock count / write off expired stock</td><td>Store Manager / Administrator</td></tr>
+ <tr><td>See cost prices, purchase records or profit</td><td>Store Manager / Administrator</td></tr>
+ <tr><td>Void a sale</td><td>Administrator only</td></tr>
+ <tr><td>Export reports to PDF / Excel</td><td>Store Manager / Administrator</td></tr>
+</table>
+
+<h2 id="problems">When something goes wrong</h2>
+<table>
+ <tr><th style="width:30%">What you see</th><th style="width:32%">What it means</th><th>What to do</th></tr>
+ <tr><td>“You do not have permission”</td><td>That page belongs to another role</td><td>Normal. See the table above</td></tr><tr><td>“Not enough stock” when you can see the packs</td><td>System count is behind the shelf</td><td>Ask a Store Manager for a Stock Adjustment; do not force the sale</td></tr><tr><td>An expired item won't go through at the till</td><td>Correct behaviour — every pack of it has expired</td><td>Remove it from the shelf; ask a Store Manager to write it off. It cannot be sold, not even by mistake</td></tr><tr><td>A device shows no expiry date</td><td>It does not expire</td><td>Correct behaviour — nothing to do</td></tr><tr><td>Locked out after wrong passwords</td><td>Safety lock, 30 minutes</td><td>Wait, or ask an Administrator</td></tr><tr><td>No Export buttons on a report</td><td>Exporting is restricted</td><td>Ask a Store Manager or Administrator</td></tr><tr><td>Cost columns missing</td><td>Your role is not cleared for cost data</td><td>Expected. Ask a Store Manager if you need a figure</td></tr><tr><td>Phone number rejected for a new customer</td><td>That customer already exists</td><td>Open the record named in the message</td></tr>
+</table>
+
+<div class="warn"><strong>If a patient may have been harmed</strong> — the wrong item dispensed,
+expired stock sold, a dosage mix-up — follow the pharmacy's clinical incident procedure
+<strong>first</strong>. The computer record can be corrected afterwards; patient safety cannot
+wait for paperwork.</div>
+
+<h3>Reporting a problem usefully</h3>
+<div class="card"><p style="margin:0">Tell your Administrator four things:
+<strong>1)</strong> what you were doing, <strong>2)</strong> what you expected,
+<strong>3)</strong> what actually happened (the exact wording of any message),
+<strong>4)</strong> your role and username. That is usually enough to fix it without a
+back-and-forth.</p></div>
+
+
+<div class="footer">
+PharmaCare Management System · internal use only. Reports, invoices and exports are drafts for
+human review — check them before anything goes to a customer, supplier or regulator.
+</div>
+
+</div></body></html>

@@ -1,0 +1,19 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% if object %}{% trans "Edit Category" %}{% else %}{% trans "Add Category" %}{% endif %}{% endblock %}
+{% block page_heading %}{% if object %}{% trans "Edit Category" %}{% else %}{% trans "Add Category" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="panel">
+            <h4 class="brand-font mb-3">{% if object %}{% trans "Edit Category" %}{% else %}{% trans "Add Category" %}{% endif %}</h4>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-brand w-100 mt-2"><i class="fa-solid fa-check me-2"></i>{% trans "Save Category" %}</button>
+            </form>
+            <a href="{% url 'medicine:category_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to categories" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Categories" %}{% endblock %}
+{% block page_heading %}{% trans "Categories" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h4 class="brand-font mb-0">{% trans "Categories" %}</h4>
+        <p class="text-muted mb-0">{% trans "Group medicines for easier browsing and stock reporting." %}</p>
+    </div>
+    {% if can_manage %}
+    <a href="{% url 'medicine:category_create' %}" class="btn btn-brand"><i class="fa-solid fa-plus me-2"></i>{% trans "Add Category" %}</a>
+    {% endif %}
+</div>
+
+<div class="panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-9">
+            <label class="form-label small text-muted">{% trans "Search" %}</label>
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Category name' %}">
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-magnifying-glass me-2"></i>{% trans "Search" %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Description" %}</th>
+                    <th>{% trans "Medicines" %}</th>
+                    {% if can_manage %}<th class="text-end">{% trans "Actions" %}</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for category in categories %}
+                <tr>
+                    <td class="fw-semibold">{{ category.name }}</td>
+                    <td class="text-muted">{{ category.description|default:"—"|truncatechars:80 }}</td>
+                    <td><span class="badge bg-light text-dark border">{{ category.medicine_count }}</span></td>
+                    {% if can_manage %}
+                    <td class="text-end">
+                        <a href="{% url 'medicine:category_update' category.pk %}" class="btn btn-sm btn-light" title="{% trans 'Edit' %}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{% url 'medicine:category_delete' category.pk %}" class="btn btn-sm btn-light text-danger" title="{% trans 'Delete' %}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr><td colspan="4" class="text-center text-muted py-4">{% trans "No categories found." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-end mb-0">
+            {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

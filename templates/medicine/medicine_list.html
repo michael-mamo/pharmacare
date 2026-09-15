@@ -1,0 +1,122 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Medicines" %}{% endblock %}
+{% block page_heading %}{% trans "Medicines" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h4 class="brand-font mb-0">{% trans "Medicines" %}</h4>
+        <p class="text-muted mb-0">{% trans "Browse the catalog, check stock, and print shelf labels." %}</p>
+    </div>
+    {% if can_manage %}
+    <a href="{% url 'medicine:medicine_create' %}" class="btn btn-brand"><i class="fa-solid fa-plus me-2"></i>{% trans "Add Medicine" %}</a>
+    {% endif %}
+</div>
+
+<div class="panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-3">
+            <label class="form-label small text-muted">{% trans "Search" %}</label>
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Name, code, generic name, or barcode' %}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label small text-muted">{% trans "Category" %}</label>
+            <select name="category" class="form-select">
+                <option value="">{% trans "All categories" %}</option>
+                {% for cat in categories %}
+                <option value="{{ cat.pk }}" {% if request.GET.category == cat.pk|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small text-muted">{% trans "Type" %}</label>
+            <select name="type" class="form-select">
+                <option value="">{% trans "All types" %}</option>
+                {% for value, label in product_types %}
+                <option value="{{ value }}" {% if request.GET.type == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label small text-muted">{% trans "Stock" %}</label>
+            <select name="stock" class="form-select">
+                <option value="">{% trans "All stock levels" %}</option>
+                <option value="low" {% if request.GET.stock == "low" %}selected{% endif %}>{% trans "Low stock" %}</option>
+                <option value="out" {% if request.GET.stock == "out" %}selected{% endif %}>{% trans "Out of stock" %}</option>
+                <option value="expired" {% if request.GET.stock == "expired" %}selected{% endif %}>{% trans "Expired" %}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Code" %}</th>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Category" %}</th>
+                    <th>{% trans "Stock" %}</th>
+                    <th>{% trans "Expiry" %}</th>
+                    {% if can_view_cost %}<th>{% trans "Cost" %}</th>{% endif %}
+                    <th>{% trans "Price" %}</th>
+                    <th class="text-end">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for medicine in medicines %}
+                <tr>
+                    <td class="text-muted small">{{ medicine.code }}</td>
+                    <td class="fw-semibold">
+                        {{ medicine.name }}
+                        {% if medicine.requires_prescription %}
+                        <span class="badge bg-danger-subtle text-danger" title="{% trans 'Requires prescription' %}">Rx</span>
+                        {% endif %}
+                        {% if not medicine.is_standardized %}
+                        <span class="badge bg-warning-subtle text-warning-emphasis" title="{% trans 'No standard catalogue link' %}">{% trans "Not Standardised" %}</span>
+                        {% endif %}
+                    </td>
+                    <td><span class="badge bg-light text-dark border">{{ medicine.get_product_type_display }}</span></td>
+                    <td>{{ medicine.category.name }}</td>
+                    <td>
+                        {{ medicine.quantity }} {{ medicine.get_unit_display }}
+                        {% if medicine.is_low_stock %}<span class="badge bg-danger-subtle text-danger ms-1">{% trans "Low" %}</span>{% endif %}
+                    </td>
+                    <td>
+                        {{ medicine.expiry_date|default:"—" }}
+                        {% if medicine.is_expired %}<span class="badge bg-danger-subtle text-danger ms-1">{% trans "Expired" %}</span>
+                        {% elif medicine.expires_within_30_days %}<span class="badge bg-warning-subtle text-warning-emphasis ms-1">{% trans "Expiring soon" %}</span>{% endif %}
+                    </td>
+                    {% if can_view_cost %}<td>{{ medicine.purchase_price }} {{ PHARMACY_CURRENCY }}</td>{% endif %}
+                    <td>{{ medicine.selling_price }} {{ PHARMACY_CURRENCY }}</td>
+                    <td class="text-end">
+                        <a href="{% url 'medicine:medicine_detail' medicine.pk %}" class="btn btn-sm btn-light" title="{% trans 'View' %}"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{% url 'medicine:medicine_label' medicine.pk %}" class="btn btn-sm btn-light" title="{% trans 'Print Label' %}"><i class="fa-solid fa-tag"></i></a>
+                        {% if can_manage %}
+                        <a href="{% url 'medicine:medicine_update' medicine.pk %}" class="btn btn-sm btn-light" title="{% trans 'Edit' %}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{% url 'medicine:medicine_delete' medicine.pk %}" class="btn btn-sm btn-light text-danger" title="{% trans 'Delete' %}"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="9" class="text-center text-muted py-4">{% trans "No medicines found." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-end mb-0">
+            {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

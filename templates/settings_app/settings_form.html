@@ -1,0 +1,72 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Settings" %}{% endblock %}
+{% block page_heading %}{% trans "Settings" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Pharmacy Settings" %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "These values appear on invoices, labels, and throughout the interface." %}
+  </p>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-8">
+    <div class="panel">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-brand w-100 mt-2">
+          <i class="fa-solid fa-check me-2"></i>{% trans "Save Settings" %}
+        </button>
+      </form>
+      {% if object.updated_at %}
+      <p class="text-muted small mt-3 mb-0">
+        {# blocktranslate raises on an unresolvable variable rather than #}
+        {# silently emptying it, so resolve the name outside the tag. #}
+        {% if object.updated_by %}
+          {% firstof object.updated_by.get_full_name object.updated_by.username as updated_by_name %}
+          {% blocktranslate with when=object.updated_at|date:"M j, Y H:i" who=updated_by_name %}Last updated {{ when }} by {{ who }}.{% endblocktranslate %}
+        {% else %}
+          {% blocktranslate with when=object.updated_at|date:"M j, Y H:i" %}Last updated {{ when }}.{% endblocktranslate %}
+        {% endif %}
+      </p>
+      {% endif %}
+    </div>
+  </div>
+
+  <div class="col-lg-4">
+    {% if object.logo %}
+    <div class="panel mb-3 text-center">
+      <h6 class="panel-title mb-3">{% trans "Current Logo" %}</h6>
+      <img src="{{ object.logo.url }}" alt="" class="img-fluid" style="max-height:120px;">
+    </div>
+    {% endif %}
+
+    <div class="panel">
+      <h6 class="panel-title mb-2"><i class="fa-solid fa-database me-2"></i>{% trans "Backup Database" %}</h6>
+      <p class="text-muted small">
+        {% trans "Current engine" %}: <code>{{ db_engine }}</code>
+      </p>
+
+      {% if is_sqlite %}
+      <p class="text-muted small">
+        {% trans "Downloads the SQLite database file — a complete, directly restorable backup. Store it somewhere secure: it contains all pharmacy data." %}
+      </p>
+      <form method="post" action="{% url 'settings_app:backup' %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-outline-brand w-100">
+          <i class="fa-solid fa-download me-2"></i>{% trans "Download Backup" %}
+        </button>
+      </form>
+      {% else %}
+      <div class="alert alert-warning small mb-2">
+        {% trans "This deployment uses PostgreSQL. Browser-based backup is deliberately disabled, because a valid dump must be taken on the database server with pg_dump — a download button here would produce an incomplete backup, which is worse than none." %}
+      </div>
+      <p class="text-muted small mb-1">{% trans "Run on the database server:" %}</p>
+      <pre class="small bg-light p-2 rounded"><code>pg_dump -U &lt;user&gt; -d {{ db_name }} -F c -f pharmacare-backup.dump</code></pre>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

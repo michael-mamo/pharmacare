@@ -1,0 +1,107 @@
+{% load i18n %}
+<aside class="sidebar" id="appSidebar">
+    <div class="brand-lockup">
+        <div class="brand-mark">PC</div>
+        <div>
+            <div class="brand-name">{{ PHARMACY_NAME }}</div>
+            <div class="brand-tagline">{% trans "Management System" %}</div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        {% if user.is_platform_staff %}
+        <div class="nav-section-label">{% trans "Platform" %}</div>
+        <a class="nav-link {% if request.resolver_match.namespace == 'organizations' %}active{% endif %}" href="{% url 'organizations:list' %}">
+            <i class="fa-solid fa-building"></i> {% trans "Pharmacies" %}
+        </a>
+        <a class="nav-link {% if request.resolver_match.namespace == 'catalogue' %}active{% endif %}" href="{% url 'catalogue:product_list' %}">
+            <i class="fa-solid fa-book-medical"></i> {% trans "Standard Catalogue" %}
+        </a>
+        {% endif %}
+
+        {% if user.is_administrator %}
+        <div class="nav-section-label">{% trans "Overview" %}</div>
+        <a class="nav-link {% if request.resolver_match.namespace == 'dashboard' %}active{% endif %}" href="{% url 'dashboard:home' %}">
+            <i class="fa-solid fa-gauge-high"></i> {% trans "Dashboard" %}
+        </a>
+        {% endif %}
+
+        <div class="nav-section-label">{% trans "Catalog" %}</div>
+<a class="nav-link {% if request.resolver_match.namespace == 'medicine' and 'category' not in request.resolver_match.url_name %}active{% endif %}" href="{% url 'medicine:medicine_list' %}">
+            <i class="fa-solid fa-pills"></i> {% trans "Medicines" %}
+        </a>
+        <a class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'medicine:category_list' %}">
+            <i class="fa-solid fa-tags"></i> {% trans "Categories" %}
+        </a>
+        {% if user.can_view_suppliers %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'suppliers' %}active{% endif %}" href="{% url 'suppliers:supplier_list' %}">
+            <i class="fa-solid fa-truck-field"></i> {% trans "Suppliers" %}
+        </a>
+        {% endif %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'customers' %}active{% endif %}" href="{% url 'customers:customer_list' %}">
+            <i class="fa-solid fa-users"></i> {% trans "Customers" %}
+        </a>
+
+        <div class="nav-section-label">{% trans "Operations" %}</div>
+        {% if user.can_view_purchases %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'purchases' %}active{% endif %}" href="{% url 'purchases:purchase_list' %}">
+            <i class="fa-solid fa-cart-shopping"></i> {% trans "Purchases" %}
+        </a>
+        {% endif %}
+        {% if user.can_view_inventory_reports %}
+        {% if request.branch and user.can_view_inventory_reports %}
+        <a class="nav-link {% if request.resolver_match.url_name == 'stock' %}active{% endif %}" href="{% url 'branches:stock' %}">
+            <i class="fa-solid fa-boxes-stacked"></i> {% trans "Branch Stock" %}
+        </a>
+        {% endif %}
+        {% if user.can_manage_stock_movements %}
+        <a class="nav-link {% if request.resolver_match.url_name == 'stocktake_list' or request.resolver_match.url_name == 'stocktake_detail' %}active{% endif %}" href="{% url 'inventory:stocktake_list' %}">
+            <i class="fa-solid fa-clipboard-list"></i> {% trans "Stocktakes" %}
+        </a>
+        <a class="nav-link {% if request.resolver_match.url_name == 'reorder_plan' %}active{% endif %}" href="{% url 'inventory:reorder_plan' %}">
+            <i class="fa-solid fa-cart-plus"></i> {% trans "Reorder Plan" %}
+        </a>
+        {% endif %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'inventory' and request.resolver_match.url_name != 'stocktake_list' and request.resolver_match.url_name != 'reorder_plan' %}active{% endif %}" href="{% url 'inventory:overview' %}">
+            <i class="fa-solid fa-warehouse"></i> {% trans "Inventory" %}
+        </a>
+        {% endif %}
+        {% if user.can_operate_pos %}
+        <a class="nav-link {% if request.resolver_match.url_name == 'pos' %}active{% endif %}" href="{% url 'sales:pos' %}">
+            <i class="fa-solid fa-cash-register"></i> {% trans "Point of Sale" %}
+        </a>
+        {% endif %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'sales' and request.resolver_match.url_name != 'pos' %}active{% endif %}" href="{% url 'sales:sale_list' %}">
+            <i class="fa-solid fa-receipt"></i> {% trans "Sales" %}
+        </a>
+
+        <div class="nav-section-label">{% trans "Insights" %}</div>
+        <a class="nav-link {% if request.resolver_match.namespace == 'reports' %}active{% endif %}" href="{% url 'reports:index' %}">
+            <i class="fa-solid fa-chart-line"></i> {% trans "Reports" %}
+        </a>
+        <a class="nav-link {% if request.resolver_match.namespace == 'notifications' %}active{% endif %}" href="{% url 'notifications:list' %}">
+            <i class="fa-solid fa-bell"></i> {% trans "Notifications" %}
+            {% if UNREAD_NOTIFICATION_COUNT %}<span class="phase-tag">{{ UNREAD_NOTIFICATION_COUNT }}</span>{% endif %}
+        </a>
+        {% if user.can_manage_branches %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'branches' and request.resolver_match.url_name != 'stock' %}active{% endif %}" href="{% url 'branches:branch_list' %}">
+            <i class="fa-solid fa-store"></i> {% trans "Branches" %}
+        </a>
+        {% endif %}
+        {% if user.is_administrator %}
+        <a class="nav-link {% if request.resolver_match.namespace == 'audit' %}active{% endif %}" href="{% url 'audit:list' %}">
+            <i class="fa-solid fa-shield-halved"></i> {% trans "Audit Log" %}
+        </a>
+        {% endif %}
+
+        {% if user.is_administrator %}
+        <div class="nav-section-label">{% trans "Administration" %}</div>
+        <a class="nav-link {% if request.resolver_match.url_name == 'staff_list' %}active{% endif %}" href="{% url 'accounts:staff_list' %}">
+            <i class="fa-solid fa-user-shield"></i> {% trans "Staff & Roles" %}
+        </a>
+        <a class="nav-link {% if request.resolver_match.namespace == 'settings_app' %}active{% endif %}" href="{% url 'settings_app:settings' %}">
+            <i class="fa-solid fa-gear"></i> {% trans "Settings" %}
+        </a>
+        {% endif %}
+    </nav>
+</aside>

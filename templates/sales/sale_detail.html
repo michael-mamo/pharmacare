@@ -1,0 +1,78 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ sale.invoice_number }}{% endblock %}
+{% block page_heading %}{% trans "Sale Details" %}{% endblock %}
+{% block content %}
+<div class="panel mb-3">
+  <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+    <div>
+      <h4 class="brand-font mb-0">{{ sale.invoice_number }}</h4>
+      <p class="text-muted mb-0">
+        {{ sale.customer.name|default:_("Walk-in customer") }} &middot; {{ sale.created_at|date:"F j, Y H:i" }}
+      </p>
+      {% if sale.is_voided %}
+      <div class="alert alert-danger mt-2 mb-0 py-2">
+        <i class="fa-solid fa-ban me-1"></i>
+        {# voided_by is SET_NULL, so it can be empty if that staff account #}
+        {# was later deleted — blocktranslate raises on an unresolvable #}
+        {# variable, so resolve the name outside the tag. #}
+        {% firstof sale.voided_by.get_full_name sale.voided_by.username _("a removed user") as voided_by_name %}
+        {% blocktranslate with who=voided_by_name when=sale.voided_at|date:"M j, Y H:i" %}Voided by {{ who }} on {{ when }}.{% endblocktranslate %}
+        {% if sale.void_reason %}<div class="small mt-1">{{ sale.void_reason }}</div>{% endif %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="d-flex gap-2">
+      <a href="{% url 'sales:sale_invoice' sale.pk %}" class="btn btn-outline-brand"><i class="fa-solid fa-receipt me-2"></i>{% trans "Invoice" %}</a>
+      {% if can_void and not sale.is_voided %}
+      <a href="{% url 'sales:sale_void' sale.pk %}" class="btn btn-outline-brand text-danger"><i class="fa-solid fa-ban me-2"></i>{% trans "Void" %}</a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="panel">
+  <h6 class="panel-title mb-3">{% trans "Line Items" %}</h6>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Medicine" %}</th>
+          <th>{% trans "Quantity" %}</th>
+          <th>{% trans "Unit Price" %}</th>
+          <th>{% trans "Discount" %}</th>
+          <th>{% trans "VAT" %}</th>
+          <th class="text-end">{% trans "Line Total" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in sale.items.all %}
+        <tr>
+          <td>{{ item.medicine_name }}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.unit_price }} {{ PHARMACY_CURRENCY }}</td>
+          <td>{{ item.discount_percent }}%</td>
+          <td>{{ item.tax_percent }}%</td>
+          <td class="text-end fw-semibold">{{ item.line_total }} {{ PHARMACY_CURRENCY }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="row justify-content-end">
+    <div class="col-md-5">
+      <table class="table table-borderless mb-0">
+        <tr><th class="text-muted">{% trans "Subtotal" %}</th><td class="text-end">{{ sale.subtotal }} {{ PHARMACY_CURRENCY }}</td></tr>
+        <tr><th class="text-muted">{% trans "Discount" %}</th><td class="text-end">-{{ sale.total_discount }} {{ PHARMACY_CURRENCY }}</td></tr>
+        <tr><th class="text-muted">{% trans "VAT" %}</th><td class="text-end">{{ sale.total_vat }} {{ PHARMACY_CURRENCY }}</td></tr>
+        <tr class="border-top"><th>{% trans "Grand Total" %}</th><td class="text-end fw-bold">{{ sale.grand_total }} {{ PHARMACY_CURRENCY }}</td></tr>
+        <tr><th class="text-muted">{% trans "Payment Method" %}</th><td class="text-end">{{ sale.get_payment_method_display }}</td></tr>
+        <tr><th class="text-muted">{% trans "Amount Paid" %}</th><td class="text-end">{{ sale.amount_paid }} {{ PHARMACY_CURRENCY }}</td></tr>
+        <tr><th class="text-muted">{% trans "Change Due" %}</th><td class="text-end">{{ sale.change_due }} {{ PHARMACY_CURRENCY }}</td></tr>
+      </table>
+    </div>
+  </div>
+  <a href="{% url 'sales:sale_list' %}" class="btn btn-link"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to sales" %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Stock Batches" %}{% endblock %}
+{% block page_heading %}{% trans "Stock Batches" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Stock Batches" %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "Each purchase is stored as its own batch with its own cost. Sales draw from the batch expiring soonest first (FEFO), so profit reflects what the units actually cost." %}
+  </p>
+</div>
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-7">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Medicine or batch number' %}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small text-muted">{% trans "Show" %}</label>
+      <select name="show" class="form-select no-search">
+        <option value="available" {% if show == "available" %}selected{% endif %}>{% trans "With stock remaining" %}</option>
+        <option value="depleted" {% if show == "depleted" %}selected{% endif %}>{% trans "Depleted" %}</option>
+        <option value="all" {% if show == "all" %}selected{% endif %}>{% trans "All" %}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Medicine" %}</th>
+          <th>{% trans "Batch Number" %}</th>
+          <th>{% trans "Source" %}</th>
+          <th>{% trans "Expiry Date" %}</th>
+          <th class="text-end">{% trans "Received" %}</th>
+          <th class="text-end">{% trans "Remaining" %}</th>
+          {% if can_view_cost %}
+          <th class="text-end">{% trans "Unit Cost" %}</th>
+          <th class="text-end">{% trans "Remaining Value" %}</th>
+          {% endif %}
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in batches %}
+        <tr>
+          <td class="fw-semibold">{{ b.medicine.name }}</td>
+          <td>
+            {{ b.batch_number|default:"—" }}
+            {% if b.purchase_item %}
+            <a href="{% url 'purchases:purchase_detail' b.purchase_item.purchase.pk %}"
+               class="text-muted small d-block">{{ b.purchase_item.purchase.purchase_number }}</a>
+            {% endif %}
+          </td>
+          <td><span class="badge bg-light text-dark border">{{ b.source }}</span></td>
+          <td>
+            {{ b.expiry_date|default:"—" }}
+            {% if b.is_expired %}<span class="badge bg-danger-subtle text-danger ms-1">{% trans "Expired" %}</span>{% endif %}
+          </td>
+          <td class="text-end">{{ b.quantity_received }}</td>
+          <td class="text-end {% if b.is_depleted %}text-muted{% else %}fw-semibold{% endif %}">{{ b.quantity_remaining }}</td>
+          {% if can_view_cost %}
+          <td class="text-end">{{ b.unit_cost }} {{ PHARMACY_CURRENCY }}</td>
+          <td class="text-end">{{ b.remaining_value }} {{ PHARMACY_CURRENCY }}</td>
+          {% endif %}
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center text-muted py-4">{% trans "No batches found." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination justify-content-end mb-0">
+      {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?show={{ show }}&q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+      <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?show={{ show }}&q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+  <a href="{% url 'inventory:overview' %}" class="btn btn-link"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to inventory" %}</a>
+</div>
+{% endblock %}

@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PharmaCare — Administrator Guide</title><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Ethiopic:wght@400;600&display=swap" rel="stylesheet"><style>
+:root{
+  --y:#F1AB15;--yt:#FCEDCB;--yd:#C98C0C;--k:#0B0B0C;
+  --i9:#14151A;--i7:#3B3D45;--i5:#6B6E78;--i3:#A7AAB3;--i15:#DFE1E6;--i1:#F1F2F4;
+  --bg:#F7F8FA;--ok:#1F9D55;--okb:#E9F7EF;--no:#D8332A;--nob:#FDECEA;
+  --wa:#8A6100;--wab:#FEF6E7;--in:#2568C9;--inb:#EAF2FD;
+  --fd:'Manrope','Noto Sans Ethiopic',sans-serif;
+  --fb:'Inter','Noto Sans Ethiopic',sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:var(--fb);color:var(--i9);background:#fff;line-height:1.62;font-size:14.5px}
+.page{padding:0 34px}
+
+/* ---------- cover ---------- */
+.cover{background:var(--k);color:#fff;padding:58px 40px 46px;position:relative;overflow:hidden}
+.cover::after{content:"";position:absolute;width:520px;height:520px;right:-190px;top:-230px;
+  border-radius:50%;background:radial-gradient(circle,rgba(241,171,21,.30),transparent 68%)}
+.cover .mark{width:56px;height:56px;background:var(--y);border-radius:14px;display:flex;
+  align-items:center;justify-content:center;font-family:var(--fd);font-weight:800;color:var(--k);
+  font-size:19px;margin-bottom:22px;position:relative;z-index:1}
+.cover .kicker{font-family:var(--fb);font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  font-size:11.5px;color:var(--y);margin:0 0 8px;position:relative;z-index:1}
+.cover h1{font-family:var(--fd);font-weight:800;font-size:38px;line-height:1.1;margin:0 0 12px;
+  position:relative;z-index:1}
+.cover .sub{color:#C3C5CC;font-size:16px;margin:0;max-width:560px;position:relative;z-index:1}
+.cover .meta{margin-top:26px;display:flex;gap:26px;flex-wrap:wrap;position:relative;z-index:1}
+.cover .meta div{font-size:12.5px;color:#9C9FA7}
+.cover .meta strong{display:block;color:#fff;font-size:14px;font-weight:600}
+
+/* ---------- headings ---------- */
+h2{font-family:var(--fd);font-weight:800;font-size:24px;margin:34px 0 4px;padding-top:16px;
+  border-top:3px solid var(--k)}
+h3{font-family:var(--fd);font-weight:800;font-size:17.5px;margin:26px 0 8px}
+h4{font-family:var(--fd);font-weight:700;font-size:15px;margin:18px 0 6px}
+.lead{color:var(--i5);margin:0 0 16px;font-size:15px}
+
+/* ---------- blocks ---------- */
+.card{background:#fff;border:1px solid var(--i15);border-radius:13px;padding:20px 22px;margin:16px 0}
+.tint{background:var(--bg)}
+.note,.warn,.ok,.info{padding:13px 17px;border-radius:0 9px 9px 0;margin:14px 0;font-size:14px}
+.note{background:var(--yt);border-left:4px solid var(--y)}
+.warn{background:var(--nob);border-left:4px solid var(--no)}
+.ok{background:var(--okb);border-left:4px solid var(--ok)}
+.info{background:var(--inb);border-left:4px solid var(--in)}
+.note strong,.warn strong,.ok strong,.info strong{font-family:var(--fd)}
+
+/* ---------- numbered steps ---------- */
+.steps{counter-reset:s;list-style:none;padding:0;margin:10px 0 0}
+.steps>li{counter-increment:s;position:relative;padding:0 0 16px 48px}
+.steps>li::before{content:counter(s);position:absolute;left:0;top:-1px;width:32px;height:32px;
+  background:var(--y);color:var(--k);border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:var(--fd);font-weight:800;font-size:14px}
+.steps>li strong{display:block;font-size:15px;margin-bottom:1px}
+.steps>li span{color:var(--i5);font-size:14px}
+.steps>li em{color:var(--i7);font-style:normal;background:var(--i1);padding:1px 6px;border-radius:4px;
+  font-size:13px;font-family:var(--fb)}
+
+/* ---------- tables ---------- */
+table{width:100%;border-collapse:collapse;background:#fff;border:1px solid var(--i15);
+  border-radius:10px;overflow:hidden;margin:14px 0;font-size:13.5px}
+th{background:var(--y);color:var(--k);text-align:left;padding:10px 12px;font-size:11.5px;
+  text-transform:uppercase;letter-spacing:.05em;font-weight:700}
+td{padding:9px 12px;border-top:1px solid var(--i15);vertical-align:top}
+tr:nth-child(even) td{background:#FCFCFD}
+.yes{color:var(--ok);font-weight:700}.non{color:var(--no);font-weight:700}
+code{background:var(--i1);padding:1.5px 6px;border-radius:4px;font-size:12.5px}
+
+/* ---------- figures ---------- */
+.figure{border:1px solid var(--i15);border-radius:13px;padding:14px;margin:18px 0;background:#fff}
+.figure svg{display:block;width:100%;height:auto}
+.figcap{color:var(--i5);font-size:12.5px;text-align:center;margin-top:9px}
+
+/* ---------- misc ---------- */
+.toc{background:var(--bg);border:1px solid var(--i15);border-radius:13px;padding:18px 24px;margin:22px 0}
+.toc ol{margin:8px 0 0;padding-left:20px}
+.toc li{margin:4px 0;font-size:14px}
+.pill{display:inline-block;background:var(--k);color:#fff;border-radius:999px;padding:3px 12px;
+  font-size:11.5px;font-weight:600;letter-spacing:.02em}
+.pill.y{background:var(--y);color:var(--k)}
+.kbd{border:1px solid var(--i3);border-bottom-width:2px;border-radius:5px;padding:1px 7px;
+  font-size:12.5px;background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mini{font-size:13px;color:var(--i5)}
+.tick{color:var(--ok);font-weight:700}
+.footer{margin-top:38px;padding-top:16px;border-top:1px solid var(--i15);color:var(--i5);font-size:12px}
+
+/* ---------- print ---------- */
+@page{size:A4;margin:14mm 0 16mm}
+@media print{
+  body{font-size:11.6pt}
+  .page{padding:0 16mm}
+  .cover{padding:44px 16mm 38px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  h2{page-break-after:avoid;break-after:avoid}
+  h3,h4{page-break-after:avoid;break-after:avoid}
+  .card,.figure,table,.note,.warn,.ok,.info,.steps>li{page-break-inside:avoid;break-inside:avoid}
+  th,.cover,.pill,.note,.warn,.ok,.info,.steps>li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .pagebreak{page-break-before:always;break-before:page}
+}
+</style></head><body>
+<div class="cover">
+  <div class="mark">PC</div>
+  <p class="kicker">PharmaCare · User Guide</p>
+  <h1>Administrator</h1>
+  <p class="sub">Setup, staff and roles, the audit log, settings, backups and the analytics only you can see.</p>
+  <div class="meta">
+    <div>Written for<strong>Administrators</strong></div>
+    <div>Covers<strong>Every task in your role</strong></div>
+    <div>Languages<strong>English / አማርኛ</strong></div>
+  </div>
+</div>
+<div class="page">
+<div class="toc"><strong>What's in this guide</strong><ol><li>Signing in and finding your way</li><li>First-time setup checklist</li><li>The Dashboard and what each chart tells you</li><li>Managing branches</li><li>Managing staff and roles</li><li>The standard catalogue</li><li>Voiding a sale</li><li>Deleting a purchase</li><li>The audit log</li><li>The stock ledger</li><li>Settings</li><li>Database backup and restore</li><li>Notifications and keeping alerts current</li><li>Everything the other roles do</li><li>Reports and exports</li><li>Security you are responsible for</li><li>Working in Amharic</li><li>When something goes wrong</li></ol></div>
+
+<h2 id="signin">Signing in and finding your way</h2>
+<p class="lead">The same three steps every shift.</p>
+
+<div class="card"><ol class="steps">
+  <li><strong>Open https://pharmacare-five-ebon.vercel.app/</strong>
+      <span>Bookmark it, or add it to your phone's home screen.</span></li>
+  <li><strong>Type your username and password</strong>
+      <span>Your username is personal — never share it or sign in as someone else. Everything
+      you do is recorded against your name.</span></li>
+  <li><strong>You land on the <strong>Dashboard</strong> — yours alone</strong>
+      <span>The system sends each role to the page they use most.</span></li>
+</ol></div>
+
+<div class="note"><strong>First sign-in, or after a password reset.</strong> You are asked to
+create your own password before you can do anything else. This is deliberate — it means nobody
+else knows it, including your manager. You need at least <strong>10 characters</strong> with a
+capital letter, a small letter, a number and a symbol. Example of the right shape (do not use
+this one): <code>Bole#Pharm24</code></div>
+
+<div class="warn"><strong>Five wrong passwords locks you out for 30 minutes.</strong> This is a
+safety measure against someone guessing their way in. Wait it out, or ask an Administrator to
+clear it. Use <strong>Forgot your password?</strong> on the sign-in page if you truly cannot
+remember it.</div>
+
+
+<div class="figure">
+<svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img"
+     aria-label="Diagram of the three parts of every screen">
+ <rect width="880" height="400" fill="#fff"/>
+ <rect x="14" y="14" width="190" height="372" rx="10" fill="#0B0B0C"/>
+ <rect x="30" y="30" width="24" height="24" rx="6" fill="#F1AB15"/>
+ <rect x="62" y="34" width="98" height="7" rx="3" fill="#fff" opacity=".85"/>
+ <rect x="62" y="46" width="66" height="5" rx="2" fill="#fff" opacity=".4"/>
+ <g fill="#fff" opacity=".5">
+  <rect x="30" y="84" width="140" height="8" rx="4"/><rect x="30" y="106" width="122" height="8" rx="4"/>
+  <rect x="30" y="152" width="136" height="8" rx="4"/><rect x="30" y="174" width="110" height="8" rx="4"/>
+  <rect x="30" y="196" width="128" height="8" rx="4"/>
+ </g>
+ <rect x="22" y="122" width="174" height="21" rx="6" fill="#F1AB15" opacity=".2"/>
+ <rect x="22" y="122" width="3" height="21" fill="#F1AB15"/>
+ <rect x="30" y="128" width="112" height="8" rx="4" fill="#fff"/>
+ <rect x="218" y="14" width="648" height="54" rx="10" fill="#fff" stroke="#DFE1E6"/>
+ <rect x="236" y="28" width="140" height="9" rx="4" fill="#0B0B0C"/>
+ <rect x="236" y="43" width="88" height="6" rx="3" fill="#6B6E78"/>
+ <circle cx="686" cy="41" r="13" fill="#F7F8FA" stroke="#DFE1E6"/><text x="686" y="46" font-size="12" text-anchor="middle">🌐</text>
+ <circle cx="726" cy="41" r="13" fill="#F7F8FA" stroke="#DFE1E6"/><text x="726" y="46" font-size="12" text-anchor="middle">🔔</text>
+ <circle cx="737" cy="31" r="6.5" fill="#D8332A"/><text x="737" y="34.5" font-size="8" fill="#fff" text-anchor="middle" font-weight="bold">3</text>
+ <rect x="762" y="28" width="86" height="26" rx="7" fill="#F7F8FA" stroke="#DFE1E6"/>
+ <text x="805" y="45" font-size="11.5" text-anchor="middle" fill="#3B3D45" font-family="Inter">Your name ▾</text>
+ <rect x="218" y="80" width="648" height="306" rx="10" fill="#F7F8FA" stroke="#DFE1E6" stroke-dasharray="5 4"/>
+ <text x="542" y="238" font-size="15.5" text-anchor="middle" fill="#6B6E78" font-family="Inter">Your work appears here</text>
+ <g font-family="Manrope" font-weight="800" font-size="12">
+  <circle cx="109" cy="290" r="14" fill="#F1AB15"/><text x="109" y="295" text-anchor="middle" fill="#0B0B0C">1</text>
+  <circle cx="470" cy="41" r="14" fill="#F1AB15"/><text x="470" y="46" text-anchor="middle" fill="#0B0B0C">2</text>
+  <circle cx="542" cy="310" r="14" fill="#F1AB15"/><text x="542" y="315" text-anchor="middle" fill="#0B0B0C">3</text>
+ </g>
+</svg>
+<div class="figcap"><strong>1</strong> Menu (only your pages) &nbsp;·&nbsp;
+ <strong>2</strong> Language, alerts, sign out &nbsp;·&nbsp; <strong>3</strong> Main work area</div>
+</div>
+
+<h3>The top bar, button by button</h3>
+<table>
+ <tr><th>Button</th><th>What it does</th></tr>
+ <tr><td><span class="kbd">☰</span></td><td>On a phone or tablet, opens the menu. Tap outside it to close.</td></tr>
+ <tr><td>🌐 Globe</td><td>Switches the whole system between <strong>English</strong> and
+     <strong>አማርኛ</strong> — including printed receipts. Your choice is remembered.</td></tr>
+ <tr><td>🌙 Moon</td><td>Dark mode, easier on the eyes in a dim dispensary.</td></tr>
+ <tr><td>🔔 Bell</td><td>Your alerts. A red number means unread. Click one to jump to what it is about.</td></tr>
+ <tr><td>Your name</td><td><strong>My Profile</strong> (change your details or language) and
+     <strong>Logout</strong>. Always log out on a shared computer.</td></tr>
+</table>
+
+<div class="info"><strong>Working on a phone?</strong> Everything works on a small screen. The
+menu hides behind ☰ and tables scroll sideways.</div>
+
+<h2 id="setup">First-time setup checklist</h2>
+<p class="lead">Do these in order before letting staff on the system.</p>
+<div class="card"><ol class="steps">
+  <li><strong>Change the demo passwords</strong><span>The seeded accounts (<code>admin</code>,
+      <code>pharmacist1</code>, <code>cashier1</code>, <code>storemanager1</code>) all share a
+      known password. Change or delete them before going live. This is the single most important
+      step on this page.</span></li>
+  <li><strong>Fill in Settings</strong><span>Pharmacy name, logo, phone, address, licence and TIN
+      numbers, currency, default tax rate, invoice prefix and footer. These appear on every receipt
+      and report.</span></li>
+  <li><strong>Create real staff accounts</strong><span>One per person — never a shared login, or
+      the audit log becomes worthless.</span></li>
+  <li><strong>Set up categories and suppliers</strong><span>Or have your Store Manager do it.</span></li>
+  <li><strong>Load the catalogue</strong><span>Bring opening stock in through
+      <em>Record Purchase</em> where you can, so costs are accurate from day one.</span></li>
+  <li><strong>Schedule the notification refresh</strong><span>See the Notifications section.</span></li>
+  <li><strong>Take a backup, and test that it restores</strong><span>An untested backup is a
+      guess.</span></li>
+</ol></div>
+
+<h2 id="dashboard">The Dashboard and what each chart tells you</h2>
+<p class="lead">Your landing page, and restricted to you — it shows cost prices, margins and
+per-staff performance.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Administrator dashboard">
+ <rect width="880" height="340" fill="#fff"/>
+ <g font-family="Inter">
+  <rect x="14" y="14" width="204" height="66" rx="11" fill="#fff" stroke="#DFE1E6"/>
+  <text x="32" y="38" font-size="10" fill="#6B6E78">PURCHASE VALUE (ETB)</text>
+  <text x="32" y="66" font-family="Manrope" font-weight="800" font-size="19">48,320</text>
+  <rect x="230" y="14" width="204" height="66" rx="11" fill="#fff" stroke="#DFE1E6"/>
+  <text x="248" y="38" font-size="10" fill="#6B6E78">SALES VALUE (ETB)</text>
+  <text x="248" y="66" font-family="Manrope" font-weight="800" font-size="19">71,940</text>
+  <rect x="446" y="14" width="204" height="66" rx="11" fill="#FCEDCB" stroke="#F1AB15" stroke-width="2"/>
+  <text x="464" y="38" font-size="10" fill="#6B6E78">PROFIT SUMMARY (ETB)</text>
+  <text x="464" y="66" font-family="Manrope" font-weight="800" font-size="19" fill="#1F9D55">23,620</text>
+  <rect x="662" y="14" width="204" height="66" rx="11" fill="#fff" stroke="#DFE1E6"/>
+  <text x="680" y="38" font-size="10" fill="#6B6E78">EXPIRED ITEMS</text>
+  <text x="680" y="66" font-family="Manrope" font-weight="800" font-size="19" fill="#D8332A">2</text>
+
+  <rect x="14" y="94" width="560" height="232" rx="11" fill="#fff" stroke="#DFE1E6"/>
+  <text x="34" y="118" font-size="12.5" font-family="Manrope" font-weight="800">Revenue vs Cost of Goods Sold</text>
+  <text x="34" y="134" font-size="10.5" fill="#6B6E78">The gap between the bars is your gross margin</text>
+  <line x1="60" y1="290" x2="552" y2="290" stroke="#DFE1E6"/>
+  <g>
+   <rect x="86" y="196" width="22" height="94" fill="#F1AB15"/><rect x="112" y="232" width="22" height="58" fill="#0B0B0C"/>
+   <rect x="166" y="184" width="22" height="106" fill="#F1AB15"/><rect x="192" y="226" width="22" height="64" fill="#0B0B0C"/>
+   <rect x="246" y="170" width="22" height="120" fill="#F1AB15"/><rect x="272" y="220" width="22" height="70" fill="#0B0B0C"/>
+   <rect x="326" y="158" width="22" height="132" fill="#F1AB15"/><rect x="352" y="206" width="22" height="84" fill="#0B0B0C"/>
+   <rect x="406" y="150" width="22" height="140" fill="#F1AB15"/><rect x="432" y="198" width="22" height="92" fill="#0B0B0C"/>
+   <rect x="486" y="164" width="22" height="126" fill="#F1AB15"/><rect x="512" y="212" width="22" height="78" fill="#0B0B0C"/>
+  </g>
+  <g font-size="9.5" fill="#6B6E78">
+   <text x="110" y="304" text-anchor="middle">Mar</text><text x="190" y="304" text-anchor="middle">Apr</text>
+   <text x="270" y="304" text-anchor="middle">May</text><text x="350" y="304" text-anchor="middle">Jun</text>
+   <text x="430" y="304" text-anchor="middle">Jul</text><text x="510" y="304" text-anchor="middle">Aug</text>
+  </g>
+  <rect x="410" y="112" width="10" height="10" fill="#F1AB15"/><text x="426" y="121" font-size="10" fill="#3B3D45">Revenue</text>
+  <rect x="480" y="112" width="10" height="10" fill="#0B0B0C"/><text x="496" y="121" font-size="10" fill="#3B3D45">Cost</text>
+
+  <rect x="590" y="94" width="276" height="232" rx="11" fill="#fff" stroke="#DFE1E6"/>
+  <text x="610" y="118" font-size="12.5" font-family="Manrope" font-weight="800">Expiry Risk Profile</text>
+  <text x="610" y="134" font-size="10.5" fill="#6B6E78">Bars = items · red line = value at risk</text>
+  <line x1="622" y1="286" x2="850" y2="286" stroke="#DFE1E6"/>
+  <rect x="636" y="246" width="26" height="40" fill="#F1AB15"/>
+  <rect x="682" y="228" width="26" height="58" fill="#F1AB15"/>
+  <rect x="728" y="256" width="26" height="30" fill="#F1AB15"/>
+  <rect x="774" y="200" width="26" height="86" fill="#F1AB15"/>
+  <polyline points="649,180 695,212 741,248 787,166" fill="none" stroke="#D8332A" stroke-width="2.5"/>
+  <circle cx="649" cy="180" r="3.5" fill="#D8332A"/><circle cx="695" cy="212" r="3.5" fill="#D8332A"/>
+  <circle cx="741" cy="248" r="3.5" fill="#D8332A"/><circle cx="787" cy="166" r="3.5" fill="#D8332A"/>
+  <g font-size="9" fill="#6B6E78">
+   <text x="649" y="300" text-anchor="middle">Expired</text><text x="695" y="300" text-anchor="middle">≤30d</text>
+   <text x="741" y="300" text-anchor="middle">31–60d</text><text x="787" y="300" text-anchor="middle">61–180d</text>
+  </g>
+  <text x="800" y="160" font-size="9.5" fill="#D8332A" font-weight="700">watch this</text>
+ </g>
+</svg>
+<div class="figcap">Watch the red line, not just the bars — a few expensive items can outweigh a shelf of cheap ones</div>
+</div>
+<div class="card">
+<h4 style="margin-top:0">The KPI cards</h4>
+<p style="margin:0 0 8px">All nine are clickable and take you to the detail behind the number.</p>
+<table>
+ <tr><th>Card</th><th>Goes to</th></tr>
+ <tr><td>Total Medicines / Categories</td><td>The catalogue lists</td></tr>
+ <tr><td>Low Stock / Expired</td><td>The matching stock report</td></tr>
+ <tr><td>Today's Sales</td><td>Sales history</td></tr>
+ <tr><td>Monthly Sales</td><td>Sales Summary report</td></tr>
+ <tr><td>Customers / Suppliers</td><td>Those lists</td></tr>
+ <tr><td>Purchase Value / Sales Value / Profit</td><td>The Purchase, Sales and Profit reports</td></tr>
+</table>
+</div>
+<div class="card">
+<h4 style="margin-top:0">Reading the analytics</h4>
+<table>
+ <tr><th>Chart</th><th>What to look for</th></tr>
+ <tr><td><strong>Revenue vs Cost of Goods Sold</strong></td>
+     <td>The gap between the bars is your gross margin. A narrowing gap month on month means costs
+     are rising faster than prices — the most important signal on this page</td></tr>
+ <tr><td><strong>Payment Method Mix</strong></td>
+     <td>Split by revenue, not transaction count, so it shows where the money actually arrives.
+     Useful for cash-handling and reconciliation decisions</td></tr>
+ <tr><td><strong>Expiry Risk Profile</strong></td>
+     <td>Bars are item counts; the red line is <strong>value at risk</strong>. Watch the line —
+     a few expiring insulin packs matter far more than a shelf of cheap tablets</td></tr>
+ <tr><td><strong>Top Customers by Spend</strong></td><td>Who is worth retaining</td></tr>
+ <tr><td><strong>Sales by Staff Member</strong></td>
+     <td>Revenue served. Read it alongside shift patterns before drawing conclusions</td></tr>
+ <tr><td>Monthly Sales / Sales Trend</td><td>Direction of travel; the 14-day trend catches sudden
+     drops early</td></tr>
+ <tr><td>Top Selling Medicines / Stock by Category</td><td>What moves, and where stock is tied up</td></tr>
+</table>
+</div>
+<div class="info"><strong>Profit here excludes VAT and uses true batch cost</strong> — the same
+basis as the Profit report, so the two always agree.</div>
+
+<h2 id="branches">Managing branches</h2>
+<p class="lead">Menu → <strong>Branches</strong>. Only you can create or edit
+them.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How branches share and separate data">
+ <rect width="880" height="300" fill="#fff"/>
+ <text x="20" y="26" font-family="Manrope" font-weight="800" font-size="14">What is shared, and what each branch keeps to itself</text>
+ <rect x="20" y="42" width="840" height="74" rx="12" fill="#FCEDCB" stroke="#F1AB15" stroke-width="2"/>
+ <text x="40" y="66" font-family="Manrope" font-weight="800" font-size="12.5">SHARED across every branch</text>
+ <g font-family="Inter" font-size="12" fill="#3B3D45">
+  <text x="40" y="88">Product catalogue &amp; prices &nbsp;·&nbsp; Customers &amp; loyalty points &nbsp;·&nbsp; Suppliers &nbsp;·&nbsp; Staff accounts &nbsp;·&nbsp; Settings</text>
+  <text x="40" y="106" font-size="11" fill="#6B6E78">One paracetamol record, one customer record — wherever they shop.</text>
+ </g>
+ <g>
+  <rect x="20" y="134" width="266" height="146" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="40" y="160" font-family="Manrope" font-weight="800" font-size="12.5">Main Branch</text>
+  <rect x="196" y="146" width="72" height="18" rx="5" fill="#0B0B0C"/><text x="232" y="159" font-size="10" fill="#F1AB15" text-anchor="middle" font-family="Inter" font-weight="700">MAIN</text>
+  <g font-family="Inter" font-size="11.5" fill="#3B3D45">
+   <text x="40" y="186">Its own stock quantities</text><text x="40" y="206">Its own batches &amp; costs</text>
+   <text x="40" y="226">Its own sales &amp; purchases</text><text x="40" y="246">Its own reorder levels</text>
+   <text x="40" y="266" fill="#6B6E78" font-size="11">Invoices: INV-000001</text>
+  </g>
+  <rect x="307" y="134" width="266" height="146" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="327" y="160" font-family="Manrope" font-weight="800" font-size="12.5">Bole Branch</text>
+  <g font-family="Inter" font-size="11.5" fill="#3B3D45">
+   <text x="327" y="186">Its own stock quantities</text><text x="327" y="206">Its own batches &amp; costs</text>
+   <text x="327" y="226">Its own sales &amp; purchases</text><text x="327" y="246">Its own reorder levels</text>
+   <text x="327" y="266" fill="#6B6E78" font-size="11">Invoices: BOL-000001</text>
+  </g>
+  <rect x="594" y="134" width="266" height="146" rx="12" fill="#fff" stroke="#DFE1E6"/>
+  <text x="614" y="160" font-family="Manrope" font-weight="800" font-size="12.5">Gondar Branch</text>
+  <g font-family="Inter" font-size="11.5" fill="#3B3D45">
+   <text x="614" y="186">Its own stock quantities</text><text x="614" y="206">Its own batches &amp; costs</text>
+   <text x="614" y="226">Its own sales &amp; purchases</text><text x="614" y="246">Its own reorder levels</text>
+   <text x="614" y="266" fill="#6B6E78" font-size="11">Invoices: GON-000001</text>
+  </g>
+ </g>
+</svg>
+<div class="figcap">You can only sell stock your own branch holds — the till will not offer another branch's shelves</div>
+</div>
+<div class="card"><ol class="steps">
+  <li><strong>Add Branch</strong><span>Name, city, phone, licence number. Set an
+      <em>invoice prefix</em> such as <code>BOL-</code> so each branch's invoice
+      numbers are distinguishable at a glance.</span></li>
+  <li><strong>Assign a manager</strong><span>Only Store Managers and
+      Administrators can be chosen.</span></li>
+  <li><strong>Assign staff to it</strong><span>In Staff &amp; Roles. A branch
+      with no staff cannot trade.</span></li>
+  <li><strong>Stock it</strong><span>A new branch starts empty. Either record a
+      purchase against it, or have a Store Manager transfer stock in.</span></li>
+</ol></div>
+<div class="card">
+<h4 style="margin-top:0">Switching between branches</h4>
+<p style="margin:0 0 8px">You are the only role that can. Use the shop icon in
+the top bar. <strong>Everything on screen follows your selection</strong> — the
+dashboard, stock, sales and reports. Check which branch you are in before
+reading a figure or recording anything.</p>
+<p style="margin:0"><strong>Compare all branches</strong> in the same menu shows
+every product across every branch side by side. That is where you spot stock
+sitting idle in one branch while another has none.</p>
+</div>
+<div class="warn"><strong>Deactivating, not deleting.</strong> A branch with
+sales or purchases cannot be deleted — its history has to remain auditable. Mark
+it inactive instead. The main branch cannot be deactivated at all; make another
+branch the main one first.</div>
+
+<h2 id="staff">Managing staff and roles</h2>
+<p class="lead">Menu → <strong>Staff &amp; Roles</strong>. Choosing the role is the single most
+consequential decision here.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Role permission matrix">
+ <rect width="880" height="300" fill="#fff"/>
+ <text x="30" y="32" font-family="Manrope" font-weight="800" font-size="14">Who can do what</text>
+ <text x="30" y="50" font-family="Inter" font-size="11" fill="#6B6E78">Permissions follow the job, not seniority — the Store Manager has no till, the Cashier has no stock screens</text>
+ <text x="400" y="60" font-size="10.5" text-anchor="middle" font-family="Inter" font-weight="700" fill="#0B0B0C">Cashier</text><text x="518" y="60" font-size="10.5" text-anchor="middle" font-family="Inter" font-weight="700" fill="#0B0B0C">Pharmacist</text><text x="636" y="60" font-size="10.5" text-anchor="middle" font-family="Inter" font-weight="700" fill="#0B0B0C">Store Mgr</text><text x="754" y="60" font-size="10.5" text-anchor="middle" font-family="Inter" font-weight="700" fill="#0B0B0C">Admin</text>
+ <line x1="14" y1="68" x2="866" y2="68" stroke="#0B0B0C" stroke-width="1.5"/>
+ <rect x="14" y="74" width="852" height="30" fill="#FAFBFC"/><text x="30" y="94" font-size="12" font-family="Inter" fill="#14151A">Use the till</text><circle cx="400" cy="89" r="9" fill="#E9F7EF"/><text x="400" y="93.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="518" cy="89" r="9" fill="#E9F7EF"/><text x="518" y="93.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="636" cy="89" r="9" fill="#FDECEA"/><text x="636" y="93.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="754" cy="89" r="9" fill="#E9F7EF"/><text x="754" y="93.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><text x="30" y="124" font-size="12" font-family="Inter" fill="#14151A">See stock &amp; expiry</text><circle cx="400" cy="119" r="9" fill="#FDECEA"/><text x="400" y="123.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="518" cy="119" r="9" fill="#E9F7EF"/><text x="518" y="123.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="636" cy="119" r="9" fill="#E9F7EF"/><text x="636" y="123.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="754" cy="119" r="9" fill="#E9F7EF"/><text x="754" y="123.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><rect x="14" y="134" width="852" height="30" fill="#FAFBFC"/><text x="30" y="154" font-size="12" font-family="Inter" fill="#14151A">Edit products &amp; prices</text><circle cx="400" cy="149" r="9" fill="#FDECEA"/><text x="400" y="153.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="518" cy="149" r="9" fill="#FDECEA"/><text x="518" y="153.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="636" cy="149" r="9" fill="#E9F7EF"/><text x="636" y="153.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="754" cy="149" r="9" fill="#E9F7EF"/><text x="754" y="153.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><text x="30" y="184" font-size="12" font-family="Inter" fill="#14151A">See cost &amp; profit</text><circle cx="400" cy="179" r="9" fill="#FDECEA"/><text x="400" y="183.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="518" cy="179" r="9" fill="#FDECEA"/><text x="518" y="183.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="636" cy="179" r="9" fill="#E9F7EF"/><text x="636" y="183.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="754" cy="179" r="9" fill="#E9F7EF"/><text x="754" y="183.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><rect x="14" y="194" width="852" height="30" fill="#FAFBFC"/><text x="30" y="214" font-size="12" font-family="Inter" fill="#14151A">Record purchases</text><circle cx="400" cy="209" r="9" fill="#FDECEA"/><text x="400" y="213.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="518" cy="209" r="9" fill="#FDECEA"/><text x="518" y="213.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="636" cy="209" r="9" fill="#E9F7EF"/><text x="636" y="213.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><circle cx="754" cy="209" r="9" fill="#E9F7EF"/><text x="754" y="213.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><text x="30" y="244" font-size="12" font-family="Inter" fill="#14151A">Void a sale</text><circle cx="400" cy="239" r="9" fill="#FDECEA"/><text x="400" y="243.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="518" cy="239" r="9" fill="#FDECEA"/><text x="518" y="243.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="636" cy="239" r="9" fill="#FDECEA"/><text x="636" y="243.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="754" cy="239" r="9" fill="#E9F7EF"/><text x="754" y="243.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text><rect x="14" y="254" width="852" height="30" fill="#FAFBFC"/><text x="30" y="274" font-size="12" font-family="Inter" fill="#14151A">Settings &amp; audit log</text><circle cx="400" cy="269" r="9" fill="#FDECEA"/><text x="400" y="273.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="518" cy="269" r="9" fill="#FDECEA"/><text x="518" y="273.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="636" cy="269" r="9" fill="#FDECEA"/><text x="636" y="273.5" font-size="11" text-anchor="middle" fill="#D8332A" font-weight="700">✕</text><circle cx="754" cy="269" r="9" fill="#E9F7EF"/><text x="754" y="273.5" font-size="11" text-anchor="middle" fill="#1F9D55" font-weight="700">✓</text>
+</svg>
+</div>
+<div class="card"><ol class="steps">
+  <li><strong>Add Staff</strong><span>Name, username, email, phone, and — most importantly —
+      <strong>Role</strong>.</span></li>
+  <li><strong>Give them a temporary password</strong><span>They will be forced to replace it on
+      first sign-in, so you never know their working password.</span></li>
+  <li><strong>Choose the role carefully</strong><span>It decides everything they can reach. When in
+      doubt, give less — you can always widen it.</span></li>
+  <li><strong>Assign a branch</strong><span>Every role except Administrator
+      must have one, or they will have no stock to work with. Leave it blank
+      <em>only</em> for Administrators — a blank branch is what grants the
+      cross-branch view.</span></li>
+  <li><strong>To remove someone, untick Active Employee</strong><span>Do not delete. Deactivating
+      blocks access while keeping their name on the sales and stock movements they made.</span></li>
+</ol></div>
+<table>
+ <tr><th>Role</th><th>Give it to someone who…</th></tr>
+ <tr><td><strong>Cashier</strong></td><td>Works the counter. Till, receipts, customers. No stock,
+     no costs</td></tr>
+ <tr><td><strong>Pharmacist</strong></td><td>Dispenses. Everything a Cashier has, plus stock,
+     expiry, batches and suppliers — but no costs</td></tr>
+ <tr><td><strong>Store Manager</strong></td><td>Buys and controls stock. Catalogue, purchases,
+     stock corrections, costs, profit, exports. <strong>No till</strong></td></tr>
+ <tr><td><strong>Administrator</strong></td><td>Runs the system. Everything, including settings,
+     audit log, voids and backups. Keep this list short</td></tr>
+</table>
+<div class="warn"><strong>Never create a shared login.</strong> The audit log records who did what;
+a shared account makes that record meaningless and removes any accountability.</div>
+
+<h2 id="catalogue">The standard catalogue</h2>
+<p class="lead">This is now a platform-level function, not something any pharmacy's own Administrator
+account reaches — including yours.</p>
+<div class="card">
+<h4 style="margin-top:0">What changed, and why</h4>
+<p style="margin:0 0 10px">The standard catalogue (generic names, strengths, forms, legal
+classes, ATC codes) is shared reference data across every pharmacy on the platform, not this
+pharmacy's own data. Letting each pharmacy's Administrator browse or edit it directly meant
+one company's sloppy addition could quietly affect every other company's reports. It's now
+managed by platform staff only.</p>
+<p style="margin:0">This doesn't block your staff from adding stock — Store Managers still search and
+link new medicines against the catalogue from <strong>Add Medicine</strong>, exactly as before,
+and it's still strongly recommended: it's what keeps the same medicine reading the same way
+across every pharmacy in reporting. It's no longer <em>required</em>, though — a genuine medicine
+that isn't on the catalogue can still be added, typed in by hand, and is simply flagged
+<strong>Not Standardised</strong> on the medicine list so it stays easy to reconcile later.
+What's gone is the separate "browse the catalogue" screen and the ability to add a new catalogue
+entry yourselves; if staff can't find something and it should really be standard, escalate it to
+platform administration to add.</p>
+</div>
+<div class="note">If you also happen to be the platform administrator for this installation,
+that's a separate account and a separate part of the system (Pharmacies + Standard Catalogue,
+only visible when signed in as platform staff) — not something reachable from this pharmacy's
+own Administrator login.</div>
+
+<h2 id="void">Voiding a sale</h2>
+<p class="lead">Only you can do this. Menu → <strong>Sales</strong> → open the invoice →
+<strong>Void</strong>.</p>
+<div class="card"><ol class="steps">
+  <li><strong>Confirm it is the right invoice</strong><span>Check the number, customer and total
+      against what you were told.</span></li>
+  <li><strong>Type a real reason</strong><span>"wrong item dispensed", "customer returned unopened
+      pack" — this is what an auditor reads later.</span></li>
+  <li><strong>Confirm</strong><span>Every item returns to <strong>the exact batch it came from</strong>,
+      so costing stays honest. The invoice stays on record marked <em>Voided</em> — it is never
+      deleted, because a money record should not vanish.</span></li>
+</ol></div>
+<div class="note">A sale cannot be voided twice, and voiding is recorded against your name with the
+date and reason.</div>
+
+<h2 id="delpurchase">Deleting a purchase</h2>
+<p class="lead">Menu → <strong>Purchases</strong> → open it → <strong>Delete</strong>.</p>
+<div class="card">
+<p style="margin:0 0 10px">This reverses the stock the purchase added. <strong>Units already sold
+are left alone</strong> — clawing those back would corrupt both the stock count and the recorded
+cost of those sales.</p>
+<p style="margin:0"><strong>The usual reason:</strong> a Store Manager saved a purchase with wrong
+figures. Delete it, then have them record it correctly.</p>
+</div>
+
+<h2 id="audit">The audit log</h2>
+<p class="lead">Menu → <strong>Audit Log</strong>. Restricted to you.</p>
+<div class="card">
+<p style="margin:0 0 10px">Every change is recorded with <strong>who, what, when and from which
+network address</strong>. It is <strong>append-only</strong> — nobody, including you, can edit or
+delete an entry. That is what makes it worth anything.</p>
+<table>
+ <tr><th>Filter</th><th>Use it to answer</th></tr>
+ <tr><td>Action = Deleted</td><td>What has been removed recently, and by whom</td></tr>
+ <tr><td>Action = Failed login</td><td>Is someone trying to guess a password? Repeated failures
+     from one address deserve a look</td></tr>
+ <tr><td>Record Type = medicine.Medicine</td><td>Who has been changing prices or products</td></tr>
+ <tr><td>Search a username</td><td>Everything one person did, for a review or an investigation</td></tr>
+</table>
+<p class="mini" style="margin:10px 0 0">Failed logins record only the attempted username — never
+the password.</p>
+</div>
+<div class="info"><strong>Make it a habit.</strong> Five minutes a week on the Deleted and Failed
+login filters catches most problems while they are still small.</div>
+
+<h2 id="ledger">The stock ledger</h2>
+<p class="lead">Menu → <strong>Inventory</strong> → <strong>Manage</strong> →
+<strong>Stock Ledger</strong>.</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The stock ledger">
+ <rect width="880" height="250" fill="#fff"/>
+ <text x="20" y="26" font-family="Manrope" font-weight="800" font-size="14">Where did those packs go? The ledger answers it</text>
+ <rect x="20" y="40" width="840" height="196" rx="12" fill="#fff" stroke="#DFE1E6"/>
+ <line x1="36" y1="66" x2="844" y2="66" stroke="#DFE1E6"/>
+ <g font-family="Inter" font-size="10.5" fill="#6B6E78">
+  <text x="40" y="60">DATE</text><text x="150" y="60">CAUSE</text><text x="380" y="60">CHANGE</text>
+  <text x="500" y="60">BALANCE</text><text x="680" y="60">REFERENCE</text>
+ </g>
+ <g font-family="Inter" font-size="12">
+  <text x="40" y="92" fill="#6B6E78">10 Sep 09:14</text><text x="150" y="92">Purchase received</text>
+  <rect x="380" y="80" width="52" height="17" rx="4" fill="#E9F7EF"/><text x="406" y="93" font-size="11" fill="#1F9D55" text-anchor="middle" font-weight="700">+100</text>
+  <text x="500" y="92" fill="#6B6E78">500 → <tspan fill="#0B0B0C" font-weight="700">600</tspan></text>
+  <text x="680" y="92" fill="#6B6E78">PUR-000001</text>
+
+  <text x="40" y="120" fill="#6B6E78">10 Sep 10:02</text><text x="150" y="120">Sale</text>
+  <rect x="380" y="108" width="52" height="17" rx="4" fill="#FDECEA"/><text x="406" y="121" font-size="11" fill="#D8332A" text-anchor="middle" font-weight="700">−30</text>
+  <text x="500" y="120" fill="#6B6E78">600 → <tspan fill="#0B0B0C" font-weight="700">570</tspan></text>
+  <text x="680" y="120" fill="#6B6E78">INV-000001</text>
+
+  <text x="40" y="148" fill="#6B6E78">10 Sep 11:30</text><text x="150" y="148">Stock out (breakage)</text>
+  <rect x="380" y="136" width="52" height="17" rx="4" fill="#FDECEA"/><text x="406" y="149" font-size="11" fill="#D8332A" text-anchor="middle" font-weight="700">−5</text>
+  <text x="500" y="148" fill="#6B6E78">570 → <tspan fill="#0B0B0C" font-weight="700">565</tspan></text>
+
+  <text x="40" y="176" fill="#6B6E78">10 Sep 14:05</text><text x="150" y="176">Transfer out → Bole</text>
+  <rect x="380" y="164" width="52" height="17" rx="4" fill="#FDECEA"/><text x="406" y="177" font-size="11" fill="#D8332A" text-anchor="middle" font-weight="700">−40</text>
+  <text x="500" y="176" fill="#6B6E78">565 → <tspan fill="#0B0B0C" font-weight="700">525</tspan></text>
+  <text x="680" y="176" fill="#6B6E78">→ BR-002</text>
+
+  <text x="40" y="204" fill="#6B6E78">10 Sep 16:20</text><text x="150" y="204">Sale voided</text>
+  <rect x="380" y="192" width="52" height="17" rx="4" fill="#E9F7EF"/><text x="406" y="205" font-size="11" fill="#1F9D55" text-anchor="middle" font-weight="700">+30</text>
+  <text x="500" y="204" fill="#6B6E78">525 → <tspan fill="#0B0B0C" font-weight="700">555</tspan></text>
+  <text x="680" y="204" fill="#6B6E78">INV-000001</text>
+ </g>
+ <text x="40" y="228" font-family="Inter" font-size="11" fill="#6B6E78">Nothing can change stock without appearing here. Entries are never edited or deleted.</text>
+</svg>
+</div>
+<div class="card">
+<p style="margin:0 0 10px">The audit log records who changed a <em>record</em>.
+The stock ledger records every change to <em>stock</em> — and the two answer
+different questions. Use the ledger when a quantity is disputed.</p>
+<p style="margin:0"><strong>It is complete by construction.</strong> Every path
+that changes stock writes here: purchases, sales, voids, deleted purchases,
+transfers (both sides), manual movements, stocktakes and opening balances. For
+any product, the ledger entries sum exactly to the current stock figure — if
+they ever did not, that would itself be the finding.</p>
+</div>
+
+<h2 id="settings">Settings</h2>
+<p class="lead">Menu → <strong>Settings</strong>. These flow through to the interface, receipts and
+labels.</p>
+<table>
+ <tr><th>Setting</th><th>Where it shows up / what it affects</th></tr>
+ <tr><td>Pharmacy name, logo</td><td>Sidebar, login page, receipts, shelf labels</td></tr>
+ <tr><td>Phone, email, address</td><td>Printed receipts</td></tr>
+ <tr><td>Licence number, TIN</td><td>Printed receipts — required for a compliant invoice</td></tr>
+ <tr><td>Currency</td><td>Every money figure in the system</td></tr>
+ <tr><td>Default Tax Rate</td><td>Pre-fills new products. Existing products keep their own rate</td></tr>
+ <tr><td>Invoice Prefix</td><td>Applied to <em>new</em> invoices only; existing numbers never change</td></tr>
+ <tr><td>Invoice Footer</td><td>Bottom of every customer receipt</td></tr>
+ <tr><td><strong>Large Sale Alert Threshold</strong></td><td>Sales at or above this raise a
+     notification. Set it high enough to be meaningful, or it becomes noise</td></tr>
+ <tr><td><strong>Currency per Loyalty Point</strong></td><td>How much a customer spends to earn one
+     point</td></tr>
+</table>
+
+<h2 id="backup">Database backup and restore</h2>
+<p class="lead">Menu → <strong>Settings</strong> → <strong>Download Backup</strong>.</p>
+<div class="card">
+<h4 style="margin-top:0">On SQLite (typical single-branch setup)</h4>
+<p style="margin:0">The button downloads the database file — a complete, directly restorable
+backup. Store it somewhere secure and off the machine: it contains every customer, sale and price
+in the pharmacy.</p>
+</div>
+<div class="card">
+<h4 style="margin-top:0">On PostgreSQL (larger deployments)</h4>
+<p style="margin:0 0 8px">The button is <strong>deliberately disabled</strong>. A valid backup must
+be taken on the database server, and a browser download would produce an incomplete file — more
+dangerous than no backup, because you would trust it. The page shows the exact command:</p>
+<p style="margin:0"><code>pg_dump -U &lt;user&gt; -d pharmacare -F c -f pharmacare-backup.dump</code></p>
+</div>
+<div class="warn"><strong>A backup you have never restored is not a backup.</strong> Once a quarter,
+restore into a spare copy and check a few recent sales appear. Note how long it took — that is your
+real recovery time.</div>
+<div class="card"><ol class="steps">
+  <li><strong>Daily</strong><span>Automated backup, kept off the machine</span></li>
+  <li><strong>Weekly</strong><span>Verify the newest file opens and is a sensible size</span></li>
+  <li><strong>Quarterly</strong><span>Full restore test into a spare environment</span></li>
+  <li><strong>Before any upgrade</strong><span>Take one, and keep it until you are confident</span></li>
+</ol></div>
+
+<h2 id="notifications">Notifications and keeping alerts current</h2>
+<div class="card">
+<p style="margin:0 0 10px">Stock, expiry and pending-payment alerts recalculate when someone opens
+the Notifications page and when <strong>Refresh</strong> is pressed. To keep them current overnight,
+schedule this with Windows Task Scheduler:</p>
+<p style="margin:0 0 10px"><code>python manage.py refresh_notifications</code></p>
+<ul style="margin:0 0 0 18px" class="mini">
+  <li>Program: <code>C:\path\to\venv\Scripts\python.exe</code></li>
+  <li>Arguments: <code>manage.py refresh_notifications</code></li>
+  <li>Start in: <code>C:\path\to\pharmacare</code></li>
+</ul>
+</div>
+<div class="note">Condition-based alerts clear themselves when the situation is fixed. Event alerts
+(new purchase, large sale) stay, because the event did happen.</div>
+
+<h2 id="others">Everything the other roles do</h2>
+<p class="lead">You can do all of it. The role guides cover each in detail — the essentials:</p>
+
+<div class="figure">
+<svg viewBox="0 0 880 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="How batch costing works">
+ <rect width="880" height="400" fill="#fff"/>
+ <text x="20" y="26" font-family="Manrope" font-weight="800" font-size="14">Same product bought twice at different prices</text>
+ <rect x="20" y="42" width="246" height="104" rx="12" fill="#FCEDCB" stroke="#F1AB15" stroke-width="2"/>
+ <text x="38" y="66" font-family="Manrope" font-weight="800" font-size="12.5">Older batch</text>
+ <g font-family="Inter" font-size="12.5" fill="#3B3D45">
+  <text x="38" y="88">40 pieces</text><text x="38" y="108">cost 20 ETB each</text>
+  <text x="38" y="130" font-weight="600" fill="#0B0B0C">was sold at 50 ETB</text>
+ </g>
+ <rect x="286" y="42" width="246" height="104" rx="12" fill="#EAF2FD" stroke="#2568C9" stroke-width="2"/>
+ <text x="304" y="66" font-family="Manrope" font-weight="800" font-size="12.5">Newer batch</text>
+ <g font-family="Inter" font-size="12.5" fill="#3B3D45">
+  <text x="304" y="88">100 pieces</text><text x="304" y="108">cost 30 ETB each</text>
+  <text x="304" y="130" font-weight="600" fill="#0B0B0C">now sold at 60 ETB</text>
+ </g>
+ <rect x="552" y="42" width="308" height="104" rx="12" fill="#FAFBFC" stroke="#DFE1E6"/>
+ <text x="570" y="66" font-family="Manrope" font-weight="800" font-size="12.5">Kept separate, forever</text>
+ <g font-family="Inter" font-size="12" fill="#3B3D45">
+  <text x="570" y="88">Each delivery keeps its own cost.</text>
+  <text x="570" y="107">Nothing overwrites anything.</text>
+  <text x="570" y="126">Soonest expiry is sold first.</text>
+ </g>
+ <line x1="20" y1="168" x2="860" y2="168" stroke="#DFE1E6"/>
+ <text x="20" y="194" font-family="Manrope" font-weight="800" font-size="14">You sell 50 pieces</text>
+ <rect x="20" y="210" width="226" height="70" rx="10" fill="#FCEDCB" stroke="#F1AB15"/>
+ <text x="133" y="236" font-family="Inter" font-size="12.5" text-anchor="middle" font-weight="600">40 from older batch</text>
+ <text x="133" y="260" font-family="Inter" font-size="12" text-anchor="middle" fill="#3B3D45">40 × 20 = 800</text>
+ <text x="262" y="252" font-size="19" fill="#6B6E78">+</text>
+ <rect x="286" y="210" width="226" height="70" rx="10" fill="#EAF2FD" stroke="#2568C9"/>
+ <text x="399" y="236" font-family="Inter" font-size="12.5" text-anchor="middle" font-weight="600">10 from newer batch</text>
+ <text x="399" y="260" font-family="Inter" font-size="12" text-anchor="middle" fill="#3B3D45">10 × 30 = 300</text>
+ <text x="528" y="252" font-size="19" fill="#6B6E78">=</text>
+ <rect x="552" y="210" width="308" height="70" rx="10" fill="#0B0B0C"/>
+ <text x="706" y="236" font-family="Inter" font-size="12.5" text-anchor="middle" fill="#B9BBC2">True cost of those 50</text>
+ <text x="706" y="263" font-family="Manrope" font-weight="800" font-size="18" text-anchor="middle" fill="#F1AB15">1,100 ETB</text>
+ <rect x="20" y="300" width="840" height="82" rx="12" fill="#E9F7EF" stroke="#1F9D55" stroke-width="2"/>
+ <g font-family="Inter" font-size="13" fill="#3B3D45">
+  <text x="42" y="328">Money in (50 × 60, VAT excluded)</text><text x="392" y="328" font-weight="700" fill="#0B0B0C">3,000 ETB</text>
+  <text x="42" y="352">Less true cost of goods</text><text x="392" y="352" font-weight="700" fill="#0B0B0C">− 1,100 ETB</text>
+  <text x="42" y="372" font-size="11.5" fill="#6B6E78">Buying more later at 45 ETB does not change this figure.</text>
+ </g>
+ <text x="620" y="330" font-family="Inter" font-size="12.5" fill="#3B3D45">Gross profit</text>
+ <text x="620" y="362" font-family="Manrope" font-weight="800" font-size="23" fill="#1F9D55">1,900 ETB</text>
+</svg>
+<div class="figcap">Older units are costed at the older price — which is why profit stays correct</div>
+</div>
+<div class="note"><strong>Above:</strong> why the profit figures can be trusted. Each delivery keeps
+its own cost, soonest-expiry stock is dispensed first, and buying at a new price never rewrites the
+profit on sales already made.</div>
+<table>
+ <tr><th>Task</th><th>Where</th><th>Watch out for</th></tr>
+ <tr><td>Sell at the till</td><td>Point of Sale</td><td>Rx items prompt for confirmation</td></tr>
+ <tr><td>Record a delivery</td><td>Purchases → Record Purchase</td><td>Cannot be edited after saving</td></tr>
+ <tr><td>Add a product</td><td>Medicines → Add Medicine</td><td>Medicines must link to the
+     Standard Catalogue first — non-medicine types don't need one</td></tr>
+ <tr><td>Correct a stock count</td><td>Inventory → Record Stock Movement</td>
+     <td>Stock Adjustment takes the <strong>counted total</strong>, not the difference</td></tr>
+ <tr><td>Write off expired stock</td><td>Stock Out</td><td>Put the reason in</td></tr>
+ <tr><td>Check batches and costs</td><td>Inventory → Batches</td><td>Shows the FEFO dispensing order</td></tr>
+</table>
+
+<h2 id="reports">Reports and exports</h2>
+<div class="card">
+<p style="margin:0 0 10px">All nine reports, all three formats. Access is per report — a Cashier
+sees three, a Pharmacist seven, you and the Store Manager see nine.</p>
+<ul style="margin:0 0 0 18px">
+  <li><strong>PDF</strong> — send or file; renders Amharic correctly</li>
+  <li><strong>Excel</strong> — numbers arrive as numbers, so totals and sorting work</li>
+  <li><strong>CSV</strong> — for another system. Opens with Amharic intact in Excel</li>
+</ul>
+</div>
+<div class="warn">Every export carries a small footer noting it's AI-assisted output and should be
+verified before it leaves the pharmacy — check the figures against the screen before sending
+anything to a customer, supplier or regulator.</div>
+
+<h2 id="security">Security you are responsible for</h2>
+<table>
+ <tr><th>Control</th><th>State</th><th>Your job</th></tr>
+ <tr><td>Account lockout</td><td>On — 5 failures locks account and address for 30 minutes</td>
+     <td>Clear a genuine lockout; investigate repeats</td></tr>
+ <tr><td>Forced password change</td><td>On for new and reset accounts</td><td>Never bypass it</td></tr>
+ <tr><td>Password strength</td><td>10+ characters, mixed types</td><td>Do not relax it</td></tr>
+ <tr><td>Role-based access</td><td>Enforced server-side, not just hidden menus</td>
+     <td>Keep the Administrator list short</td></tr>
+ <tr><td>Audit log</td><td>Append-only</td><td>Review weekly</td></tr>
+ <tr><td>Secret key</td><td>Set in <code>.env</code></td>
+     <td class="non">Rotate from the shipped default before going live</td></tr>
+ <tr><td>HTTPS / secure cookies</td><td>Switch on automatically when <code>DEBUG=False</code></td>
+     <td>Make sure production runs with <code>DJANGO_ENV=production</code></td></tr>
+</table>
+<div class="warn"><strong>Before going live, confirm three things:</strong> demo passwords changed,
+<code>DJANGO_SECRET_KEY</code> rotated, and a tested backup exists.</div>
+
+<h2 id="language">Working in Amharic</h2>
+<p class="lead">Press the 🌐 globe in the top bar and choose <strong>አማርኛ</strong>.</p>
+<div class="card">
+<p style="margin:0 0 10px">Switching changes everything: menus, buttons, warning messages,
+printed receipts and exported reports. Product names stay exactly as they were typed in, because
+those are your own data, not part of the system's wording.</p>
+<p class="mini" style="margin:0">Your choice sticks to your account, so a colleague on the same
+computer can work in English while you work in Amharic.</p>
+</div>
+
+<h2 id="problems">When something goes wrong</h2>
+<table>
+ <tr><th style="width:30%">What you see</th><th style="width:32%">What it means</th><th>What to do</th></tr>
+ <tr><td>A user is locked out</td><td>5 failed sign-ins</td><td>Wait for the 30 minutes, or clear the lockout. If it repeats, check the audit log for failed logins</td></tr><tr><td>Someone cannot reach a page they need</td><td>Their role does not include it</td><td>Change their role in Staff &amp; Roles — do not work around it with a shared account</td></tr><tr><td>Stock and batch totals disagree</td><td>Stock changed outside the normal flow</td><td>Check Inventory → Batches for that product, then correct with a Stock Adjustment</td></tr><tr><td>A purchase was recorded wrongly</td><td>Purchases are immutable</td><td>Delete it (stock reverses), then have it re-entered</td></tr><tr><td>Profit report and Dashboard disagree</td><td>They should not — both use batch cost, net of VAT</td><td>Check the date ranges match; report a bug if they still differ</td></tr><tr><td>Amharic looks wrong in a CSV opened in Excel</td><td>Excel guessed the encoding</td><td>Use Data → From Text and choose UTF-8, or use the Excel/PDF export instead</td></tr><tr><td>Alerts are out of date</td><td>The refresh task is not running</td><td>Press Refresh, then check the scheduled task</td></tr><tr><td>Backup button disabled</td><td>You are on PostgreSQL, by design</td><td>Use the pg_dump command shown on the page</td></tr><tr><td>Site shows a plain error page</td><td><code>DEBUG=False</code>, so details are hidden</td><td>Check the server log. Never turn DEBUG on in production to diagnose</td></tr>
+</table>
+
+<div class="warn"><strong>If a patient may have been harmed</strong> — the wrong item dispensed,
+expired stock sold, a dosage mix-up — follow the pharmacy's clinical incident procedure
+<strong>first</strong>. The computer record can be corrected afterwards; patient safety cannot
+wait for paperwork.</div>
+
+<h3>Reporting a problem usefully</h3>
+<div class="card"><p style="margin:0">Tell your Administrator four things:
+<strong>1)</strong> what you were doing, <strong>2)</strong> what you expected,
+<strong>3)</strong> what actually happened (the exact wording of any message),
+<strong>4)</strong> your role and username. That is usually enough to fix it without a
+back-and-forth.</p></div>
+
+
+<div class="footer">
+PharmaCare Management System · internal use only. Reports, invoices and exports are drafts for
+human review — check them before anything goes to a customer, supplier or regulator.
+</div>
+
+</div></body></html>

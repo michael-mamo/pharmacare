@@ -1,0 +1,67 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ medicine.name }}{% endblock %}
+{% block page_heading %}{% trans "Medicine Details" %}{% endblock %}
+{% block content %}
+<div class="row g-3">
+    <div class="col-lg-4">
+        <div class="panel text-center">
+            {% if medicine.image %}
+            <img src="{{ medicine.image.url }}" class="rounded mb-3 w-100" style="max-height:220px;object-fit:cover;" alt="">
+            {% else %}
+            <div class="rounded bg-light d-flex align-items-center justify-content-center mb-3" style="height:180px;">
+                <i class="fa-solid fa-pills fa-3x text-muted"></i>
+            </div>
+            {% endif %}
+            <h4 class="brand-font mb-0">{{ medicine.name }}</h4>
+            <p class="text-muted mb-2">{{ medicine.generic_name|default:"—" }}</p>
+            {% if medicine.is_active %}
+            <span class="badge bg-success-subtle text-success">{% trans "Active" %}</span>
+            {% else %}
+            <span class="badge bg-secondary-subtle text-secondary">{% trans "Inactive" %}</span>
+            {% endif %}
+            {% if medicine.is_expired %}<span class="badge bg-danger-subtle text-danger">{% trans "Expired" %}</span>
+            {% elif medicine.is_low_stock %}<span class="badge bg-warning-subtle text-warning-emphasis">{% trans "Low Stock" %}</span>{% endif %}
+            {% if not medicine.is_standardized %}<span class="badge bg-warning-subtle text-warning-emphasis" title="{% trans 'No standard catalogue link' %}">{% trans "Not Standardised" %}</span>{% endif %}
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <a href="{% url 'medicine:medicine_label' medicine.pk %}" class="btn btn-outline-brand"><i class="fa-solid fa-tag me-2"></i>{% trans "Print Label" %}</a>
+                {% if can_manage %}
+                <a href="{% url 'medicine:medicine_update' medicine.pk %}" class="btn btn-brand"><i class="fa-solid fa-pen me-2"></i>{% trans "Edit" %}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-8">
+        <div class="panel">
+            <h6 class="panel-title mb-3">{% trans "Catalog Information" %}</h6>
+            <table class="table table-borderless">
+                <tr><th class="text-muted" style="width:220px;">{% trans "Code" %}</th><td>{{ medicine.code }}</td></tr>
+                <tr><th class="text-muted">{% trans "Barcode" %}</th><td>{{ medicine.barcode|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Brand" %}</th><td>{{ medicine.brand|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Category" %}</th><td>{{ medicine.category.name }}</td></tr>
+                <tr><th class="text-muted">{% trans "Supplier" %}</th><td>{{ medicine.supplier.name|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Batch Number" %}</th><td>{{ medicine.batch_number|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Manufacturing Date" %}</th><td>{{ medicine.manufacturing_date|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Expiry Date" %}</th><td>{{ medicine.expiry_date }}</td></tr>
+                <tr><th class="text-muted">{% trans "Quantity in Stock" %}</th><td>{{ medicine.quantity }} {{ medicine.get_unit_display }}</td></tr>
+                <tr><th class="text-muted">{% trans "Reorder Level" %}</th><td>{{ medicine.reorder_level }}</td></tr>
+                {% if can_view_cost %}
+                <tr><th class="text-muted">{% trans "Purchase Price" %}</th><td>{{ medicine.purchase_price }} {{ PHARMACY_CURRENCY }}</td></tr>
+                {% endif %}
+                <tr><th class="text-muted">{% trans "Selling Price" %}</th><td>{{ medicine.selling_price }} {{ PHARMACY_CURRENCY }}</td></tr>
+                <tr><th class="text-muted">{% trans "Tax" %}</th><td>{{ medicine.tax_percent }}%</td></tr>
+                <tr><th class="text-muted">{% trans "Discount" %}</th><td>{{ medicine.discount_percent }}%</td></tr>
+                <tr><th class="text-muted">{% trans "Final Price" %}</th><td class="fw-bold">{{ medicine.final_price }} {{ PHARMACY_CURRENCY }}</td></tr>
+            </table>
+            {% if medicine.description %}
+            <hr>
+            <h6 class="panel-title mb-2">{% trans "Description" %}</h6>
+            <p class="text-muted mb-0">{{ medicine.description }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+<a href="{% url 'medicine:medicine_list' %}" class="btn btn-link mt-3"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to medicines" %}</a>
+{% endblock %}

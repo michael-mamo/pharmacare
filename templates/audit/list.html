@@ -1,0 +1,82 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Audit Log" %}{% endblock %}
+{% block page_heading %}{% trans "Audit Log" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Audit Log" %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "Append-only record of who changed what, when, and from which IP address. Entries cannot be edited or deleted." %}
+  </p>
+</div>
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Username or record' %}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small text-muted">{% trans "Action" %}</label>
+      <select name="action" class="form-select no-search">
+        <option value="">{% trans "All" %}</option>
+        {% for value, label in actions %}
+        <option value="{{ value }}" {% if request.GET.action == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small text-muted">{% trans "Record Type" %}</label>
+      <select name="model" class="form-select">
+        <option value="">{% trans "All" %}</option>
+        {% for m in model_names %}
+        <option value="{{ m }}" {% if request.GET.model == m %}selected{% endif %}>{{ m }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "User" %}</th>
+          <th>{% trans "Action" %}</th>
+          <th>{% trans "Record Type" %}</th>
+          <th>{% trans "Record" %}</th>
+          <th>{% trans "IP Address" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in entries %}
+        <tr>
+          <td class="text-muted small">{{ e.created_at|date:"M j, Y H:i:s" }}</td>
+          <td>{{ e.username|default:"—" }}</td>
+          <td><span class="badge {{ e.badge_class }}">{{ e.get_action_display }}</span></td>
+          <td class="text-muted small">{{ e.model_name|default:"—" }}</td>
+          <td>{{ e.object_repr|default:"—"|truncatechars:60 }}</td>
+          <td class="text-muted small">{{ e.ip_address|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center text-muted py-4">{% trans "No audit entries found." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination justify-content-end mb-0">
+      {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+      <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

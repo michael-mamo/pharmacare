@@ -1,0 +1,102 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Sales" %}{% endblock %}
+{% block page_heading %}{% trans "Sales" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-0">{% trans "Sales History" %}</h4>
+    <p class="text-muted mb-0">{% trans "Every completed and voided sale." %}</p>
+  </div>
+  {% if can_operate_pos %}
+  <a href="{% url 'sales:pos' %}" class="btn btn-brand"><i class="fa-solid fa-cash-register me-2"></i>{% trans "Open POS" %}</a>
+  {% endif %}
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-6 col-md-3">
+    <div class="kpi-card">
+      <div class="kpi-label">{% trans "Today's Sales" %}</div>
+      <div class="kpi-value">{{ todays_count }}</div>
+    </div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="kpi-card">
+      <div class="kpi-label">{% trans "Today's Revenue" %} ({{ PHARMACY_CURRENCY }})</div>
+      <div class="kpi-value">{{ todays_total }}</div>
+    </div>
+  </div>
+</div>
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-6">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Invoice number or customer' %}">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label small text-muted">{% trans "Status" %}</label>
+      <select name="status" class="form-select">
+        <option value="">{% trans "All" %}</option>
+        <option value="COMPLETED" {% if request.GET.status == "COMPLETED" %}selected{% endif %}>{% trans "Completed" %}</option>
+        <option value="VOIDED" {% if request.GET.status == "VOIDED" %}selected{% endif %}>{% trans "Voided" %}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Invoice" %}</th>
+          <th>{% trans "Customer" %}</th>
+          <th>{% trans "Items" %}</th>
+          <th>{% trans "Payment" %}</th>
+          <th>{% trans "Total" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th>{% trans "Served By" %}</th>
+          <th>{% trans "Date" %}</th>
+          <th class="text-end">{% trans "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for sale in sales %}
+        <tr>
+          <td class="fw-semibold">{{ sale.invoice_number }}</td>
+          <td>{{ sale.customer.name|default:_("Walk-in") }}</td>
+          <td>{{ sale.total_units }}</td>
+          <td>{{ sale.get_payment_method_display }}</td>
+          <td>{{ sale.grand_total }} {{ PHARMACY_CURRENCY }}</td>
+          <td>
+            {% if sale.is_voided %}<span class="badge bg-danger-subtle text-danger">{% trans "Voided" %}</span>
+            {% else %}<span class="badge bg-success-subtle text-success">{% trans "Completed" %}</span>{% endif %}
+          </td>
+          <td>{{ sale.served_by.get_full_name|default:sale.served_by.username|default:"—" }}</td>
+          <td>{{ sale.created_at|date:"M j, Y H:i" }}</td>
+          <td class="text-end">
+            <a href="{% url 'sales:sale_detail' sale.pk %}" class="btn btn-sm btn-light" title="{% trans 'View' %}"><i class="fa-solid fa-eye"></i></a>
+            <a href="{% url 'sales:sale_invoice' sale.pk %}" class="btn btn-sm btn-light" title="{% trans 'Invoice' %}"><i class="fa-solid fa-receipt"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9" class="text-center text-muted py-4">{% trans "No sales recorded yet." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination justify-content-end mb-0">
+      {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+      <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+{% endblock %}

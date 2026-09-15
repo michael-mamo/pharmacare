@@ -1,0 +1,37 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Register Product" %}{% endblock %}
+{% block page_heading %}{% trans "Register Product" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-lg-9">
+  <div class="panel mb-3">
+    <h6 class="panel-title mb-2">{% trans "From the standard catalogue" %}</h6>
+    <h4 class="brand-font mb-1">{{ product.display_name }}</h4>
+    <p class="text-muted mb-0">
+      {{ product.get_dosage_form_display }} · {{ product.get_route_display }}
+      {% if product.atc_code %} · ATC {{ product.atc_code }}{% endif %}
+      {% if product.category %} · {{ product.category.name }}{% endif %}
+    </p>
+    <div class="mt-2">
+      {% if product.requires_prescription %}<span class="badge bg-danger-subtle text-danger">{% trans "Prescription required" %}</span>{% endif %}
+      {% if product.is_essential %}<span class="badge bg-success-subtle text-success">{% trans "Essential" %}</span>{% endif %}
+      {% if product.requires_cold_chain %}<span class="badge bg-info-subtle text-info"><i class="fa-solid fa-snowflake me-1"></i>{% trans "Cold chain" %}</span>{% endif %}
+    </div>
+    <p class="text-muted small mb-0 mt-2">
+      {% trans "The name, strength, form and legal class come from the catalogue and cannot be changed here — that is what keeps naming consistent across pharmacies. You set only the commercial details below." %}
+    </p>
+  </div>
+
+  <div class="panel">
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-brand w-100 mt-2">
+        <i class="fa-solid fa-check me-2"></i>{% trans "Register Product" %}
+      </button>
+    </form>
+    <a href="{% url 'catalogue:product_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to catalogue" %}</a>
+  </div>
+</div></div>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Stock Ledger" %}{% endblock %}
+{% block page_heading %}{% trans "Stock Ledger" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Stock Ledger" %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "Every change to stock and what caused it — purchases, sales, voids, transfers, manual movements and stocktakes — with the running balance. Append-only." %}
+  </p>
+</div>
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-6">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control"
+             placeholder="{% trans 'Product name or reference (e.g. INV-000042)' %}">
+    </div>
+    <div class="col-md-4">
+      <label class="form-label small text-muted">{% trans "Cause" %}</label>
+      <select name="source" class="form-select">
+        <option value="">{% trans "All causes" %}</option>
+        {% for value, label in sources %}
+        <option value="{{ value }}" {% if selected_source == value %}selected{% endif %}>{{ label }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table table-sm align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Date" %}</th>
+          <th>{% trans "Product" %}</th>
+          <th>{% trans "Branch" %}</th>
+          <th>{% trans "Cause" %}</th>
+          <th class="text-end">{% trans "Change" %}</th>
+          <th class="text-end">{% trans "Balance" %}</th>
+          {% if can_view_cost %}<th class="text-end">{% trans "Value" %}</th>{% endif %}
+          <th>{% trans "Reference" %}</th>
+          <th>{% trans "By" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in entries %}
+        <tr>
+          <td class="text-muted small">{{ e.created_at|date:"M j, H:i" }}</td>
+          <td class="fw-semibold">{{ e.medicine.name|truncatechars:28 }}</td>
+          <td class="text-muted small">{{ e.branch.code }}</td>
+          <td><span class="badge bg-light text-dark border">{{ e.get_source_display }}</span></td>
+          <td class="text-end"><span class="badge {{ e.badge_class }}">{% if e.is_inbound %}+{% endif %}{{ e.quantity_change }}</span></td>
+          <td class="text-end text-muted">{{ e.balance_before }} → <strong class="text-body">{{ e.balance_after }}</strong></td>
+          {% if can_view_cost %}
+          <td class="text-end">{% if e.value_change %}{{ e.value_change }}{% else %}—{% endif %}</td>
+          {% endif %}
+          <td class="text-muted small">{{ e.reference|default:"—" }}</td>
+          <td class="text-muted small">{{ e.performed_by.username|default:"—" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="9" class="text-center text-muted py-4">{% trans "No ledger entries match these filters." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav><ul class="pagination justify-content-end mb-0">
+    {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}&source={{ selected_source }}">{% trans "Previous" %}</a></li>{% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}&source={{ selected_source }}">{% trans "Next" %}</a></li>{% endif %}
+  </ul></nav>
+  {% endif %}
+</div>
+{% endblock %}

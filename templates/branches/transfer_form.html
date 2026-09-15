@@ -1,0 +1,26 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Transfer Stock" %}{% endblock %}
+{% block page_heading %}{% trans "Transfer Stock" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-lg-7">
+  <div class="panel">
+    <h4 class="brand-font mb-1">{% trans "Transfer Stock" %}</h4>
+    <p class="text-muted">
+      {% if source_branch %}
+      {% blocktranslate with branch=source_branch.name %}Moving stock out of {{ branch }}.{% endblocktranslate %}
+      {% endif %}
+      {% trans "Units arrive at the destination at the cost they left at, keeping both branches' profit figures accurate." %}
+    </p>
+    {% if form.non_field_errors %}<div class="alert alert-danger">{{ form.non_field_errors }}</div>{% endif %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-brand w-100 mt-2">
+        <i class="fa-solid fa-right-left me-2"></i>{% trans "Transfer Stock" %}
+      </button>
+    </form>
+    <a href="{% url 'branches:stock' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to branch stock" %}</a>
+  </div>
+</div></div>
+{% endblock %}

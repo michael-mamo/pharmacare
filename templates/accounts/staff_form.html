@@ -1,0 +1,20 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% if object %}{% trans "Edit Staff" %}{% else %}{% trans "Add Staff" %}{% endif %}{% endblock %}
+{% block page_heading %}{% if object %}{% trans "Edit Staff" %}{% else %}{% trans "Add Staff" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="panel">
+            <h4 class="brand-font mb-1">{% if object %}{% blocktranslate with name=object.get_full_name|default:object.username %}Edit {{ name }}{% endblocktranslate %}{% else %}{% trans "Add New Staff Member" %}{% endif %}</h4>
+            <p class="text-muted mb-4">{% if object %}{% trans "Update role, contact details, or employment status." %}{% else %}{% trans "Create a login for a Pharmacist, Cashier, Store Manager, or Administrator." %}{% endif %}</p>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-brand w-100 mt-2"><i class="fa-solid fa-check me-2"></i>{% trans "Save Staff Account" %}</button>
+            </form>
+            <a href="{% url 'accounts:staff_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to staff list" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

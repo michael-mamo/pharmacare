@@ -1,0 +1,58 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Stock Aging" %}{% endblock %}
+{% block page_heading %}{% trans "Stock Aging" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Stock Aging" %}{% if branch %} — {{ branch.name }}{% endif %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "Stock on hand grouped by how long it has left, valued at what each batch actually cost." %}
+  </p>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-4"><div class="kpi-card"><div class="kpi-label">{% trans "Total Units" %}</div><div class="kpi-value">{{ total_units }}</div></div></div>
+  {% if can_view_cost %}
+  <div class="col-6 col-lg-4"><div class="kpi-card"><div class="kpi-label">{% trans "Total Stock Value" %} ({{ PHARMACY_CURRENCY }})</div><div class="kpi-value">{{ total_value }}</div></div></div>
+  <div class="col-6 col-lg-4"><div class="kpi-card kpi-alert"><div class="kpi-label">{% trans "At Risk (expired or ≤30 days)" %}</div><div class="kpi-value">{{ at_risk_value }}</div></div></div>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <h6 class="panel-title mb-3">{% trans "By remaining shelf life" %}</h6>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Remaining Life" %}</th>
+          <th class="text-end">{% trans "Units" %}</th>
+          {% if can_view_cost %}<th class="text-end">{% trans "Value" %} ({{ PHARMACY_CURRENCY }})</th>{% endif %}
+          <th style="width:38%">{% trans "Share of stock" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in buckets %}
+        <tr>
+          <td class="fw-semibold">{{ b.label }}</td>
+          <td class="text-end">{{ b.units }}</td>
+          {% if can_view_cost %}<td class="text-end">{{ b.value }}</td>{% endif %}
+          <td>
+            <div class="progress" style="height:16px;">
+              {% widthratio b.units total_units 100 as pct %}
+              <div class="progress-bar {% if forloop.first %}bg-danger{% elif forloop.counter == 2 %}bg-warning{% else %}bg-secondary{% endif %}"
+                   style="width: {{ pct }}%; background-color: {% if forloop.first %}#D8332A{% elif forloop.counter == 2 %}#F1AB15{% endif %};">
+                {% if pct > 6 %}{{ pct }}%{% endif %}
+              </div>
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="note mt-3 mb-0">
+    {% trans "Watch the value column, not just the units. A small number of expensive items expiring matters more than a large number of cheap ones." %}
+  </div>
+</div>
+<a href="{% url 'inventory:overview' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to inventory" %}</a>
+{% endblock %}

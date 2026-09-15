@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Sign In" %}{% endblock %}
+{% block body %}
+<div class="auth-shell">
+    <div class="lang-switch-auth">
+        <div class="dropdown">
+            <button class="btn-icon d-flex align-items-center gap-2 px-3 bg-white" style="width:auto;" data-bs-toggle="dropdown">
+                <i class="fa-solid fa-globe"></i>
+                {% get_current_language as CUR_LANG %}
+                <span class="small fw-semibold">{% if CUR_LANG == 'am' %}አማርኛ{% else %}English{% endif %}</span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end p-2">
+                {% get_available_languages as AVAILABLE_LANGUAGES %}
+                {% for code, name in AVAILABLE_LANGUAGES %}
+                <form action="{% url 'set_language' %}" method="post" class="mb-0">
+                    {% csrf_token %}
+                    <input type="hidden" name="language" value="{{ code }}">
+                    <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center gap-3 {% if code == CUR_LANG %}fw-bold{% endif %}">
+                        {{ name }}
+                        {% if code == CUR_LANG %}<i class="fa-solid fa-check text-warning"></i>{% endif %}
+                    </button>
+                </form>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="auth-visual">
+        <div class="pill-pattern"></div>
+        <svg class="pill-outline" width="260" height="260" style="top:-60px; right:-60px;"><circle cx="130" cy="130" r="129"/></svg>
+        <svg class="pill-outline" width="160" height="160" style="bottom:40px; left:-40px;"><circle cx="80" cy="80" r="79"/></svg>
+        <div class="brand-mark mb-4" style="position:relative; z-index:1;">PC</div>
+        <h1 class="brand-font display-6 mb-3" style="position:relative; z-index:1; color:#fff;">{{ PHARMACY_NAME }}</h1>
+        <p class="text-white-50 fs-5" style="position:relative; z-index:1;">{% trans "One platform for inventory, sales, and compliance — built for pharmacists, cashiers, and store managers." %}</p>
+        <ul class="list-unstyled text-white-50 mt-4" style="position:relative; z-index:1;">
+            <li class="mb-2"><i class="fa-solid fa-circle-check text-warning me-2"></i>{% trans "Role-based access for every team member" %}</li>
+            <li class="mb-2"><i class="fa-solid fa-circle-check text-warning me-2"></i>{% trans "Real-time stock & expiry monitoring" %}</li>
+            <li class="mb-2"><i class="fa-solid fa-circle-check text-warning me-2"></i>{% trans "Point-of-sale built for speed" %}</li>
+        </ul>
+    </div>
+    <div class="auth-form-side">
+        <div class="auth-card">
+            <div class="d-lg-none text-center mb-4">
+                <div class="brand-mark mx-auto" style="background:var(--brand-black); color:var(--brand-yellow);">PC</div>
+            </div>
+            <h3 class="brand-font mb-1">{% trans "Sign in" %}</h3>
+            <p class="text-muted mb-4">{% trans "Enter your staff credentials to continue." %}</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-brand w-100 mt-2">{% trans "Sign In" %}</button>
+            </form>
+            <div class="text-center mt-3">
+                <a href="{% url 'accounts:password_reset' %}" class="small">{% trans "Forgot your password?" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ product.display_name }}{% endblock %}
+{% block page_heading %}{% trans "Catalogue Product" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-1">{{ product.display_name }}</h4>
+    <p class="text-muted mb-0">
+      {{ product.get_dosage_form_display }} · {{ product.get_route_display }}
+      {% if product.atc_code %} · ATC {{ product.atc_code }}{% endif %}
+    </p>
+  </div>
+  <div class="d-flex gap-2">
+    {% if registered %}
+    <a href="{% url 'medicine:medicine_detail' registered.pk %}" class="btn btn-brand">
+      <i class="fa-solid fa-box me-2"></i>{% trans "Open your stock item" %}
+    </a>
+    {% elif can_manage %}
+    <a href="{% url 'catalogue:register' product.pk %}" class="btn btn-brand">
+      <i class="fa-solid fa-plus me-2"></i>{% trans "Register This Product" %}
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-7">
+    <div class="panel h-100">
+      <h6 class="panel-title mb-3">{% trans "Standard identity" %}</h6>
+      <table class="table table-sm mb-0">
+        <tr><th class="text-muted" style="width:45%">{% trans "Generic Name (INN)" %}</th><td>{{ product.generic_name }}</td></tr>
+        <tr><th class="text-muted">{% trans "Brand Name" %}</th><td>{{ product.brand_name|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "Strength" %}</th><td>{{ product.strength|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "Dosage Form" %}</th><td>{{ product.get_dosage_form_display }}</td></tr>
+        <tr><th class="text-muted">{% trans "Route" %}</th><td>{{ product.get_route_display }}</td></tr>
+        <tr><th class="text-muted">{% trans "ATC Code" %}</th><td>{{ product.atc_code|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "Therapeutic Category" %}</th><td>{{ product.category.name|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "Legal Class" %}</th><td>{{ product.get_schedule_display }}</td></tr>
+        <tr><th class="text-muted">{% trans "Pack Size" %}</th><td>{{ product.pack_size|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "Manufacturer" %}</th><td>{{ product.manufacturer|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "Country of Origin" %}</th><td>{{ product.country_of_origin|default:"—" }}</td></tr>
+        <tr><th class="text-muted">{% trans "EFDA Registration Number" %}</th>
+            <td>{% if product.efda_registration_number %}{{ product.efda_registration_number }}
+                {% else %}<span class="text-muted">{% trans "not recorded" %}</span>{% endif %}</td></tr>
+        <tr><th class="text-muted">{% trans "Barcode (GTIN)" %}</th><td>{{ product.barcode|default:"—" }}</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="col-lg-5">
+    <div class="panel mb-3">
+      <h6 class="panel-title mb-3">{% trans "Flags" %}</h6>
+      <ul class="list-unstyled mb-0">
+        <li class="mb-2">{% if product.requires_prescription %}<i class="fa-solid fa-circle-check text-danger me-2"></i>{% trans "Prescription required — the till will warn before selling" %}{% else %}<i class="fa-solid fa-circle-minus text-muted me-2"></i>{% trans "Over the counter" %}{% endif %}</li>
+        <li class="mb-2">{% if product.is_essential %}<i class="fa-solid fa-circle-check text-success me-2"></i>{% trans "Essential medicine — shortages matter more" %}{% else %}<i class="fa-solid fa-circle-minus text-muted me-2"></i>{% trans "Not on the essential list" %}{% endif %}</li>
+        <li class="mb-2">{% if product.requires_cold_chain %}<i class="fa-solid fa-snowflake text-info me-2"></i>{% trans "Requires cold chain storage" %}{% else %}<i class="fa-solid fa-circle-minus text-muted me-2"></i>{% trans "Ambient storage" %}{% endif %}</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h6 class="panel-title mb-2">{% trans "Data source" %}</h6>
+      <p class="mb-1">
+        {% if product.is_verified_source %}
+        <span class="badge bg-success-subtle text-success"><i class="fa-solid fa-circle-check me-1"></i>{{ product.get_data_source_display }}</span>
+        {% else %}
+        <span class="badge bg-light text-dark border">{{ product.get_data_source_display }}</span>
+        {% endif %}
+      </p>
+      <p class="text-muted small mb-0">
+        {% if not product.is_verified_source %}
+        {% trans "This entry has not been verified against an authority list. Treat its details as provisional for regulatory purposes." %}
+        {% else %}
+        {% trans "Taken from an authority list." %}
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>
+
+{% if registered %}
+<div class="panel mt-3">
+  <h6 class="panel-title mb-3">{% trans "Your stock item" %}</h6>
+  <div class="table-responsive">
+    <table class="table table-sm align-middle mb-0">
+      <thead><tr><th>{% trans "Code" %}</th><th>{% trans "Your Name" %}</th><th>{% trans "Your Category" %}</th><th class="text-end">{% trans "Total Stock" %}</th><th class="text-end">{% trans "Selling Price" %}</th></tr></thead>
+      <tbody><tr>
+        <td class="text-muted small">{{ registered.code }}</td>
+        <td class="fw-semibold"><a href="{% url 'medicine:medicine_detail' registered.pk %}">{{ registered.name }}</a></td>
+        <td>{{ registered.category.name }}</td>
+        <td class="text-end">{{ registered.quantity }}</td>
+        <td class="text-end">{{ registered.selling_price }} {{ PHARMACY_CURRENCY }}</td>
+      </tr></tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+<a href="{% url 'catalogue:product_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to catalogue" %}</a>
+{% endblock %}

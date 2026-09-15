@@ -1,0 +1,78 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ branch.name }}{% endblock %}
+{% block page_heading %}{{ branch.name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-0">{{ branch.name }}
+      {% if branch.is_main %}<span class="badge bg-dark align-middle">{% trans "Main" %}</span>{% endif %}
+      {% if not branch.is_active %}<span class="badge bg-danger-subtle text-danger align-middle">{% trans "Inactive" %}</span>{% endif %}
+    </h4>
+    <p class="text-muted mb-0">{{ branch.code }}{% if branch.city %} · {{ branch.city }}{% endif %}{% if branch.phone %} · {{ branch.phone }}{% endif %}</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="{% url 'branches:stock' %}?branch={{ branch.pk }}" class="btn btn-outline-brand"><i class="fa-solid fa-boxes-stacked me-2"></i>{% trans "Stock" %}</a>
+    <a href="{% url 'branches:branch_update' branch.pk %}" class="btn btn-brand"><i class="fa-solid fa-pen me-2"></i>{% trans "Edit" %}</a>
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Stock Units" %}</div><div class="kpi-value">{{ branch.total_stock_units }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card kpi-alert"><div class="kpi-label">{% trans "Low Stock" %}</div><div class="kpi-value">{{ branch.low_stock_count }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Sales Recorded" %}</div><div class="kpi-value">{{ sale_count }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Purchases" %}</div><div class="kpi-value">{{ purchase_count }}</div></div></div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="panel h-100">
+      <h6 class="panel-title mb-3">{% trans "Staff at this branch" %}</h6>
+      <div class="table-responsive"><table class="table table-sm align-middle mb-0">
+        <thead><tr><th>{% trans "Name" %}</th><th>{% trans "Role" %}</th><th>{% trans "Username" %}</th></tr></thead>
+        <tbody>
+          {% for u in staff %}
+          <tr><td>{{ u.get_full_name|default:"—" }}</td><td><span class="badge bg-light text-dark border">{{ u.get_role_display }}</span></td><td class="text-muted small">{{ u.username }}</td></tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center text-muted py-3">{% trans "No staff assigned yet." %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="panel h-100">
+      <h6 class="panel-title mb-3">{% trans "Needs reordering here" %}</h6>
+      <div class="table-responsive"><table class="table table-sm align-middle mb-0">
+        <thead><tr><th>{% trans "Product" %}</th><th class="text-end">{% trans "Qty" %}</th><th class="text-end">{% trans "Reorder at" %}</th></tr></thead>
+        <tbody>
+          {% for s in low_stock %}
+          <tr><td>{{ s.medicine.name }}</td><td class="text-end">{{ s.quantity }}</td><td class="text-end text-muted">{{ s.reorder_level }}</td></tr>
+          {% empty %}
+          <tr><td colspan="3" class="text-center text-muted py-3">{% trans "Nothing below its reorder level." %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table></div>
+      {% if out_of_stock %}<p class="text-muted small mb-0 mt-2">{% blocktranslate count c=out_of_stock %}{{ c }} product is out of stock here.{% plural %}{{ c }} products are out of stock here.{% endblocktranslate %}</p>{% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="panel mt-3">
+  <h6 class="panel-title mb-3">{% trans "Recent sales at this branch" %}</h6>
+  <div class="table-responsive"><table class="table table-sm align-middle mb-0">
+    <thead><tr><th>{% trans "Invoice" %}</th><th>{% trans "Customer" %}</th><th class="text-end">{% trans "Total" %}</th><th>{% trans "Date" %}</th></tr></thead>
+    <tbody>
+      {% for s in recent_sales %}
+      <tr><td><a href="{% url 'sales:sale_detail' s.pk %}">{{ s.invoice_number }}</a></td>
+          <td>{{ s.customer.name|default:_("Walk-in") }}</td>
+          <td class="text-end">{{ s.grand_total }} {{ PHARMACY_CURRENCY }}</td>
+          <td class="text-muted small">{{ s.created_at|date:"M j, Y H:i" }}</td></tr>
+      {% empty %}
+      <tr><td colspan="4" class="text-center text-muted py-3">{% trans "No sales recorded here yet." %}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+<a href="{% url 'branches:branch_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to branches" %}</a>
+{% endblock %}

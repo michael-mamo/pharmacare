@@ -1,0 +1,64 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Stock Across Branches" %}{% endblock %}
+{% block page_heading %}{% trans "Stock Across Branches" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Stock Across Branches" %}</h4>
+  <p class="text-muted mb-0">{% trans "Where everything is. Use this to spot a product sitting in one branch while another has none — a transfer is usually cheaper than a new order." %}</p>
+</div>
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-10">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Product name' %}">
+    </div>
+    <div class="col-md-2"><button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button></div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Product" %}</th>
+          {% for b in branches %}<th class="text-end">{{ b.name }}{% if b.is_main %} ★{% endif %}</th>{% endfor %}
+          <th class="text-end">{% trans "Total" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in table %}
+        <tr>
+          <td class="fw-semibold">{{ row.medicine.name }}
+            <div class="text-muted small">{{ row.medicine.get_product_type_display }}</div>
+          </td>
+          {% for c in row.cells %}
+          <td class="text-end">
+            {% if c.is_out %}<span class="badge bg-danger-subtle text-danger">0</span>
+            {% elif c.is_low %}<span class="badge bg-warning-subtle text-warning-emphasis">{{ c.quantity }}</span>
+            {% else %}{{ c.quantity }}{% endif %}
+          </td>
+          {% endfor %}
+          <td class="text-end fw-semibold">{{ row.total }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="{{ branches|length|add:2 }}" class="text-center text-muted py-4">{% trans "No products found." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <p class="text-muted small mb-0 mt-2">
+    <span class="badge bg-danger-subtle text-danger">0</span> {% trans "out of stock" %} &nbsp;
+    <span class="badge bg-warning-subtle text-warning-emphasis">n</span> {% trans "at or below that branch's reorder level" %}
+  </p>
+  {% if is_paginated %}
+  <nav class="mt-2"><ul class="pagination justify-content-end mb-0">
+    {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}">{% trans "Previous" %}</a></li>{% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}">{% trans "Next" %}</a></li>{% endif %}
+  </ul></nav>
+  {% endif %}
+</div>
+{% endblock %}

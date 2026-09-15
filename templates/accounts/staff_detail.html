@@ -1,0 +1,38 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Staff Details" %}{% endblock %}
+{% block page_heading %}{% trans "Staff Details" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="panel text-center">
+            {% if staff_member.profile_image %}
+            <img src="{{ staff_member.profile_image.url }}" class="rounded-circle mb-3" width="96" height="96" style="object-fit:cover;" alt="">
+            {% else %}
+            <div class="rounded-circle bg-dark text-warning d-flex align-items-center justify-content-center mx-auto mb-3" style="width:96px;height:96px;font-size:2rem;">
+                {{ staff_member.username|first|upper }}
+            </div>
+            {% endif %}
+            <h4 class="brand-font mb-0">{{ staff_member.get_full_name|default:staff_member.username }}</h4>
+            <span class="badge-role d-inline-block mb-3 mt-1">{{ staff_member.get_role_display }}</span>
+
+            <table class="table table-borderless text-start w-75 mx-auto">
+                <tr><th class="text-muted">{% trans "Username" %}</th><td>{{ staff_member.username }}</td></tr>
+                <tr><th class="text-muted">{% trans "Email" %}</th><td>{{ staff_member.email|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Phone" %}</th><td>{{ staff_member.phone_number|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Status" %}</th><td>
+                    {% if staff_member.is_active_employee %}<span class="badge bg-success-subtle text-success">{% trans "Active" %}</span>
+                    {% else %}<span class="badge bg-secondary-subtle text-secondary">{% trans "Inactive" %}</span>{% endif %}
+                </td></tr>
+                <tr><th class="text-muted">{% trans "Last Login IP" %}</th><td>{{ staff_member.last_login_ip|default:"—" }}</td></tr>
+                <tr><th class="text-muted">{% trans "Joined" %}</th><td>{{ staff_member.date_joined_pharmacy }}</td></tr>
+            </table>
+
+            <div class="d-flex justify-content-center gap-2 mt-3">
+                <a href="{% url 'accounts:staff_update' staff_member.pk %}" class="btn btn-outline-brand"><i class="fa-solid fa-pen me-2"></i>{% trans "Edit" %}</a>
+                <a href="{% url 'accounts:staff_list' %}" class="btn btn-light">{% trans "Back to List" %}</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

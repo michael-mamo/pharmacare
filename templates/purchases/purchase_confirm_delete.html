@@ -1,0 +1,22 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Delete Purchase" %}{% endblock %}
+{% block page_heading %}{% trans "Delete Purchase" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="panel text-center">
+            <i class="fa-solid fa-triangle-exclamation fa-3x text-danger mb-3"></i>
+            <h4 class="brand-font">{% trans "Delete this purchase?" %}</h4>
+            <p class="text-muted">
+                {% blocktranslate with number=object.purchase_number %}Deleting "{{ number }}" will also reverse the stock it added — every medicine on this invoice will have its quantity reduced back.{% endblocktranslate %}
+            </p>
+            <form method="post" class="d-flex justify-content-center gap-2">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash me-2"></i>{% trans "Yes, Delete & Reverse Stock" %}</button>
+                <a href="{% url 'purchases:purchase_list' %}" class="btn btn-light">{% trans "Cancel" %}</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

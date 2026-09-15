@@ -1,0 +1,28 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Void Sale" %}{% endblock %}
+{% block page_heading %}{% trans "Void Sale" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-lg-6">
+    <div class="panel text-center">
+      <i class="fa-solid fa-ban fa-3x text-danger mb-3"></i>
+      <h4 class="brand-font">{% trans "Void this sale?" %}</h4>
+      <p class="text-muted">
+        {% blocktranslate with number=sale.invoice_number total=sale.grand_total %}Voiding "{{ number }}" ({{ total }}) will return every item on it to stock. The invoice stays on record, marked as voided.{% endblocktranslate %}
+      </p>
+      <form method="post">
+        {% csrf_token %}
+        <div class="mb-3 text-start">
+          <label class="form-label small text-muted">{% trans "Reason" %}</label>
+          <input type="text" name="reason" class="form-control" placeholder="{% trans 'e.g. wrong item dispensed' %}">
+        </div>
+        <div class="d-flex justify-content-center gap-2">
+          <button type="submit" class="btn btn-danger"><i class="fa-solid fa-ban me-2"></i>{% trans "Yes, Void & Return Stock" %}</button>
+          <a href="{% url 'sales:sale_detail' sale.pk %}" class="btn btn-light">{% trans "Cancel" %}</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

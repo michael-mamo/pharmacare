@@ -1,0 +1,3282 @@
+# Amharic translations for PharmaCare Management System.
+msgid ""
+msgstr ""
+"Project-Id-Version: PharmaCare 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-10 12:12+0000\n"
+"PO-Revision-Date: 2026-08-12 08:40+0000\n"
+"Last-Translator: PharmaCare Localization\n"
+"Language-Team: Amharic\n"
+"Language: am\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Branch"
+msgstr "ቅርንጫፍ"
+
+msgid ""
+"The branch this person works at. Administrators may leave this blank to work "
+"across every branch."
+msgstr "ይህ ሰው የሚሰራበት ቅርንጫፍ። አስተዳዳሪዎች በሁሉም ቅርንጫፎች ለመስራት ይህን ባዶ መተው ይችላሉ።"
+
+msgid "Password must contain at least one uppercase letter."
+msgstr "የይለፍ ቃል ቢያንስ አንድ ትልቅ ፊደል ሊይዝ ይገባል።"
+
+msgid "Password must contain at least one lowercase letter."
+msgstr "የይለፍ ቃል ቢያንስ አንድ ትንሽ ፊደል ሊይዝ ይገባል።"
+
+msgid "Password must contain at least one digit."
+msgstr "የይለፍ ቃል ቢያንስ አንድ ቁጥር ሊይዝ ይገባል።"
+
+msgid "Password must contain at least one special character (e.g. !@#$%)."
+msgstr "የይለፍ ቃል ቢያንስ አንድ ልዩ ምልክት ሊይዝ ይገባል (ለምሳሌ፦ !@#$%)።"
+
+msgid ""
+"Your password must include an uppercase letter, a lowercase letter, a digit, "
+"and a special character."
+msgstr "የይለፍ ቃልዎ ትልቅ ፊደል፣ ትንሽ ፊደል፣ ቁጥር እና ልዩ ምልክት ማካተት አለበት።"
+
+msgid "Created"
+msgstr "ተፈጥሯል"
+
+msgid "Updated"
+msgstr "ተዘምኗል"
+
+msgid "Deleted"
+msgstr "ተሰርዟል"
+
+msgid "Logged in"
+msgstr "ገብቷል"
+
+msgid "Logged out"
+msgstr "ወጥቷል"
+
+msgid "Failed login"
+msgstr "ያልተሳካ መግቢያ"
+
+msgid "User"
+msgstr "ተጠቃሚ"
+
+msgid "Username"
+msgstr "የተጠቃሚ ስም"
+
+msgid "Action"
+msgstr "እርምጃ"
+
+msgid "Record Type"
+msgstr "የመዝገብ አይነት"
+
+msgid "Record ID"
+msgstr "የመዝገብ መለያ"
+
+msgid "Record"
+msgstr "መዝገብ"
+
+msgid "Details"
+msgstr "ዝርዝሮች"
+
+msgid "IP Address"
+msgstr "የአይፒ አድራሻ"
+
+msgid "Date"
+msgstr "ቀን"
+
+msgid "Audit Log Entry"
+msgstr "የኦዲት መዝገብ ግቤት"
+
+msgid "Audit Log"
+msgstr "የኦዲት መዝገብ"
+
+msgid "system"
+msgstr "ሥርዓት"
+
+msgid ""
+"No active branch is available for your account. Ask an Administrator to "
+"assign you to a branch."
+msgstr "ለመለያዎ ንቁ ቅርንጫፍ አይገኝም። አስተዳዳሪ ወደ ቅርንጫፍ እንዲመድብዎ ይጠይቁ።"
+
+msgid ""
+"The main branch cannot be deactivated. Make another branch the main one "
+"first."
+msgstr "ዋናው ቅርንጫፍ ንቁ ካልሆነ ማድረግ አይቻልም። በቅድሚያ ሌላ ቅርንጫፍ ዋና ያድርጉ።"
+
+msgid "Product"
+msgstr "ምርት"
+
+msgid "Destination Branch"
+msgstr "መድረሻ ቅርንጫፍ"
+
+msgid "Quantity"
+msgstr "ብዛት"
+
+msgid "Reason / Notes"
+msgstr "ምክንያት / ማስታወሻዎች"
+
+msgid "e.g. restocking Bole from main store"
+msgstr "ለምሳሌ፦ ቦሌን ከዋናው መደብር መሙላት"
+
+#, python-format
+msgid "Only %(have)s in stock at %(branch)s."
+msgstr "በ%(branch)s ውስጥ %(have)s ብቻ አለ።"
+
+msgid "Enter a valid phone number."
+msgstr "ትክክለኛ የስልክ ቁጥር ያስገቡ።"
+
+msgid "Branch Name"
+msgstr "የቅርንጫፍ ስም"
+
+msgid "Branch Code"
+msgstr "የቅርንጫፍ ኮድ"
+
+msgid "Auto-generated, e.g. BR-001. Appears on invoices and reports."
+msgstr "በራስ-ሰር ይፈጠራል፣ ለምሳሌ BR-001። በደረሰኞች እና በሪፖርቶች ላይ ይታያል።"
+
+msgid "Phone"
+msgstr "ስልክ"
+
+msgid "Email"
+msgstr "ኢሜይል"
+
+msgid "City / Town"
+msgstr "ከተማ / ወረዳ"
+
+msgid "Address"
+msgstr "አድራሻ"
+
+msgid "Licence Number"
+msgstr "የፈቃድ ቁጥር"
+
+msgid "This branch's own operating licence, printed on its invoices."
+msgstr "የዚህ ቅርንጫፍ የራሱ የስራ ፈቃድ፣ በደረሰኞቹ ላይ ይታተማል።"
+
+msgid "Branch Manager"
+msgstr "የቅርንጫፍ አስተዳዳሪ"
+
+msgid "Invoice Prefix"
+msgstr "የደረሰኝ ቅድመ-ቅጥያ"
+
+msgid ""
+"Optional. Overrides the pharmacy-wide prefix so each branch's invoice "
+"numbers are distinguishable, e.g. BOL-."
+msgstr ""
+"አማራጭ። የፋርማሲውን አጠቃላይ ቅድመ-ቅጥያ ይተካል፤ በዚህም የየቅርንጫፉ የደረሰኝ ቁጥሮች ይለያሉ፣ ለምሳሌ BOL-።"
+
+msgid "Main Branch"
+msgstr "ዋና ቅርንጫፍ"
+
+msgid "The default branch. Exactly one branch is the main one."
+msgstr "ነባሪው ቅርንጫፍ። አንድ ቅርንጫፍ ብቻ ዋና ይሆናል።"
+
+msgid "Active"
+msgstr "ንቁ"
+
+msgid ""
+"Inactive branches keep their history but cannot record new sales, purchases "
+"or stock movements."
+msgstr ""
+"ንቁ ያልሆኑ ቅርንጫፎች ታሪካቸውን ይይዛሉ ግን አዲስ ሽያጭ፣ ግዢ ወይም የክምችት እንቅስቃሴ መመዝገብ አይችሉም።"
+
+msgid "Opened On"
+msgstr "የተከፈተበት ቀን"
+
+msgid "Branches"
+msgstr "ቅርንጫፎች"
+
+msgid ""
+"This branch has sales or purchases recorded and cannot be deleted. Mark it "
+"inactive instead."
+msgstr ""
+"ይህ ቅርንጫፍ የተመዘገቡ ሽያጮች ወይም ግዢዎች አሉት ስለዚህ መሰረዝ አይቻልም። በምትኩ ንቁ እንዳልሆነ ምልክት ያድርጉ።"
+
+msgid "Quantity in Stock"
+msgstr "በክምችት ውስጥ ያለ ብዛት"
+
+msgid "Reorder Level"
+msgstr "የዳግም ማዘዣ መጠን"
+
+msgid "Per branch, so a busy branch can reorder earlier than a quiet one."
+msgstr "በየቅርንጫፉ፤ በዚህም ሥራ የበዛበት ቅርንጫፍ ከጸጥ ካለው ቀድሞ ዳግም ማዘዝ ይችላል።"
+
+msgid "Shelf / Location"
+msgstr "መደርደሪያ / ቦታ"
+
+msgid "Where this sits in this particular branch, e.g. 'Aisle 3, Shelf B'."
+msgstr "በዚህ ቅርንጫፍ ውስጥ የሚገኝበት ቦታ፣ ለምሳሌ «መተላለፊያ 3፣ መደርደሪያ ለ»።"
+
+msgid "Branch Stock Level"
+msgstr "የቅርንጫፍ የክምችት ደረጃ"
+
+msgid "Branch Stock Levels"
+msgstr "የቅርንጫፍ የክምችት ደረጃዎች"
+
+msgid ""
+"Branch created. Assign staff to it next, and stock it with a purchase or a "
+"transfer."
+msgstr "ቅርንጫፍ ተፈጥሯል። በመቀጠል ሰራተኞችን ይመድቡ፣ እና በግዢ ወይም በዝውውር ክምችት ያሟሉ።"
+
+msgid "Branch updated."
+msgstr "ቅርንጫፍ ተዘምኗል።"
+
+msgid "Your account is fixed to a single branch."
+msgstr "መለያዎ በአንድ ቅርንጫፍ ብቻ የተወሰነ ነው።"
+
+msgid "That branch is not available."
+msgstr "ያ ቅርንጫፍ አይገኝም።"
+
+#, python-format
+msgid "Now working in %(branch)s."
+msgstr "አሁን በ%(branch)s ውስጥ ይሠራሉ።"
+
+#, python-format
+msgid "Transferred %(qty)s × %(name)s to %(dest)s."
+msgstr "%(qty)s × %(name)s ወደ %(dest)s ተዛውሯል።"
+
+msgid "Your Category"
+msgstr "የእርስዎ ምድብ"
+
+msgid ""
+"How you shelve it. The catalogue's own therapeutic category is kept "
+"separately."
+msgstr "እርስዎ የሚደረድሩበት መንገድ። የካታሎጉ የራሱ የሕክምና ምድብ በተለየ ይቀመጣል።"
+
+msgid "Supplier"
+msgstr "አቅራቢ"
+
+msgid "Purchase Price"
+msgstr "የግዢ ዋጋ"
+
+msgid "Selling Price"
+msgstr "የሽያጭ ዋጋ"
+
+msgid "Opening Quantity"
+msgstr "የመክፈቻ ብዛት"
+
+msgid ""
+"Goes to the main branch. Prefer recording a purchase instead, so the cost is "
+"tracked properly."
+msgstr "ወደ ዋናው ቅርንጫፍ ይሄዳል። በምትኩ ግዢ መመዝገብ ይመረጣል፣ በዚህም ወጪው በአግባቡ ይከታተላል።"
+
+msgid "Expiry Date"
+msgstr "የመቆያ ጊዜ ማብቂያ"
+
+msgid "Batch Number"
+msgstr "የጭነት ቁጥር"
+
+msgid "VAT (%)"
+msgstr "ተ.እ.ታ (%)"
+
+msgid ""
+"This is below the purchase price, so every sale would lose money. Change it, "
+"or confirm it is deliberate by entering it again."
+msgstr ""
+"ይህ ከግዢ ዋጋው በታች ነው፣ ስለዚህ እያንዳንዱ ሽያጭ ኪሳራ ያመጣል። ይቀይሩት፣ ወይም ሆን ተብሎ መሆኑን ደግመው "
+"በማስገባት ያረጋግጡ።"
+
+msgid ""
+"Only fill this in from the EFDA register. Leave blank if you do not have the "
+"number — a wrong registration number is worse than none."
+msgstr ""
+"ይህን የሚሞሉት ከEFDA መዝገብ ብቻ ነው። ቁጥሩ ከሌለዎት ባዶ ይተዉት — የተሳሳተ የምዝገባ ቁጥር ከምንም የከፋ ነው።"
+
+msgid "Enter a valid ATC code, e.g. N02BE01 or a partial code like N02BE."
+msgstr "ትክክለኛ የATC ኮድ ያስገቡ፣ ለምሳሌ N02BE01 ወይም እንደ N02BE ያለ ከፊል ኮድ።"
+
+msgid "Tablet"
+msgstr "ታብሌት"
+
+msgid "Capsule"
+msgstr "ካፕሱል"
+
+msgid "Syrup"
+msgstr "ሽሮፕ"
+
+msgid "Suspension"
+msgstr "ሳስፐንሽን"
+
+msgid "Solution"
+msgstr "መፍትሔ"
+
+msgid "Injection"
+msgstr "መርፌ"
+
+msgid "Infusion"
+msgstr "ኢንፊውዥን"
+
+msgid "Cream"
+msgstr "ክሬም"
+
+msgid "Ointment"
+msgstr "ቅባት"
+
+msgid "Gel"
+msgstr "ጄል"
+
+msgid "Drops"
+msgstr "ጠብታ"
+
+msgid "Inhaler"
+msgstr "ኢንሄለር"
+
+msgid "Suppository"
+msgstr "ሱፖዚቶሪ"
+
+msgid "Pessary"
+msgstr "ፔሳሪ"
+
+msgid "Patch"
+msgstr "ፕላስተር"
+
+msgid "Powder"
+msgstr "ዱቄት"
+
+msgid "Sachet"
+msgstr "ከረጢት"
+
+msgid "Device"
+msgstr "መሳሪያ"
+
+msgid "Dressing"
+msgstr "ማሰሪያ"
+
+msgid "Other"
+msgstr "ሌላ"
+
+msgid "Oral"
+msgstr "በአፍ"
+
+msgid "Topical"
+msgstr "በቆዳ ላይ"
+
+msgid "Intravenous"
+msgstr "በደም ሥር"
+
+msgid "Intramuscular"
+msgstr "በጡንቻ"
+
+msgid "Subcutaneous"
+msgstr "ከቆዳ በታች"
+
+msgid "Eye"
+msgstr "ለዓይን"
+
+msgid "Ear"
+msgstr "ለጆሮ"
+
+msgid "Nasal"
+msgstr "ለአፍንጫ"
+
+msgid "Inhaled"
+msgstr "በመተንፈስ"
+
+msgid "Rectal"
+msgstr "በፊንጢጣ"
+
+msgid "Vaginal"
+msgstr "በሴት ብልት"
+
+msgid "Not applicable"
+msgstr "አይመለከትም"
+
+msgid "EFDA register"
+msgstr "የEFDA መዝገብ"
+
+msgid "WHO Essential Medicines List"
+msgstr "የWHO አስፈላጊ መድሃኒቶች ዝርዝር"
+
+msgid "Bundled starter set (verify before regulatory use)"
+msgstr "አብሮ የቀረበ የመጀመሪያ ስብስብ (ለቁጥጥር አገልግሎት ከመዋሉ በፊት ያረጋግጡ)"
+
+msgid "Added locally"
+msgstr "በአካባቢው የተጨመረ"
+
+msgid "Over the counter"
+msgstr "ያለ ማዘዣ የሚሸጥ"
+
+msgid "Prescription only"
+msgstr "በማዘዣ ብቻ"
+
+msgid "Controlled substance"
+msgstr "ቁጥጥር የሚደረግበት"
+
+msgid "Name"
+msgstr "ስም"
+
+msgid "Code"
+msgstr "ኮድ"
+
+msgid "Description"
+msgstr "መግለጫ"
+
+msgid "Sort Order"
+msgstr "የማስተካከያ ቅደም ተከተል"
+
+msgid "Catalogue Category"
+msgstr "የካታሎግ ምድብ"
+
+msgid "Catalogue Categories"
+msgstr "የካታሎግ ምድቦች"
+
+msgid "Generic Name (INN)"
+msgstr "አጠቃላይ ስም (INN)"
+
+msgid ""
+"International non-proprietary name, e.g. Paracetamol. This is the name "
+"reporting groups by, so it must not carry a brand."
+msgstr ""
+"ዓለም አቀፍ አጠቃላይ ስም፣ ለምሳሌ ፓራሲታሞል። ሪፖርት የሚደረግበት ስም ይህ ነው፣ ስለዚህ የምርት ስያሜ መያዝ "
+"የለበትም።"
+
+msgid "Brand Name"
+msgstr "የምርት ስያሜ"
+
+msgid "Leave blank for a generic entry."
+msgstr "ለአጠቃላይ ግቤት ባዶ ይተዉት።"
+
+msgid "Strength"
+msgstr "የመጠን ጥንካሬ"
+
+msgid "Include units, e.g. 500mg, 125mg/5ml, 0.9%."
+msgstr "አሃዶችን ያካትቱ፣ ለምሳሌ 500mg፣ 125mg/5ml፣ 0.9%።"
+
+msgid "Dosage Form"
+msgstr "የመድሃኒት ቅርጽ"
+
+msgid "Route"
+msgstr "የመስጫ መንገድ"
+
+msgid "ATC Code"
+msgstr "የATC ኮድ"
+
+msgid "WHO Anatomical Therapeutic Chemical code, e.g. N02BE01."
+msgstr "የWHO የሰውነት-ሕክምና-ኬሚካል ኮድ፣ ለምሳሌ N02BE01።"
+
+msgid "Therapeutic Category"
+msgstr "የሕክምና ምድብ"
+
+msgid "Legal Class"
+msgstr "የሕግ ምድብ"
+
+msgid ""
+"Drives the prescription warning at the till when a pharmacy registers this "
+"product."
+msgstr "ፋርማሲ ይህን ምርት ሲመዘግብ በሽያጭ ቦታው ላይ የሚታየውን የማዘዣ ማስጠንቀቂያ ይወስናል።"
+
+msgid "Product Type"
+msgstr "የምርት አይነት"
+
+msgid ""
+"Matches the pharmacy product types: MEDICINE, COSMETIC, SUPPLY, DEVICE, "
+"SUPPLEMENT, BABY, OTHER."
+msgstr ""
+"ከፋርማሲው የምርት አይነቶች ጋር ይዛመዳል፦ MEDICINE፣ COSMETIC፣ SUPPLY፣ DEVICE፣ SUPPLEMENT፣ "
+"BABY፣ OTHER።"
+
+msgid "Default Unit"
+msgstr "ነባሪ አሃድ"
+
+msgid "Pre-fills the unit when a pharmacy registers this product."
+msgstr "ፋርማሲ ይህን ምርት ሲመዘግብ አሃዱን በቅድሚያ ይሞላል።"
+
+msgid "Pack Size"
+msgstr "የጥቅል መጠን"
+
+msgid "As sold, e.g. 'Box of 100', 'Bottle of 100ml'."
+msgstr "እንደሚሸጥበት፣ ለምሳሌ «የ100 ሳጥን»፣ «የ100ml ጠርሙስ»።"
+
+msgid "Manufacturer"
+msgstr "አምራች"
+
+msgid "Country of Origin"
+msgstr "የመጣበት አገር"
+
+msgid "EFDA Registration Number"
+msgstr "የEFDA ምዝገባ ቁጥር"
+
+msgid "Left blank unless taken from the EFDA register — never guessed."
+msgstr "ከEFDA መዝገብ ካልተወሰደ ባዶ ይቀራል — በጭራሽ አይገመትም።"
+
+msgid "Barcode (GTIN)"
+msgstr "ባርኮድ (GTIN)"
+
+msgid "Manufacturer barcode, if the pack carries one."
+msgstr "የአምራች ባርኮድ፣ ጥቅሉ ካለው።"
+
+msgid "Essential Medicine"
+msgstr "አስፈላጊ መድሃኒት"
+
+msgid "On the essential medicines list, so shortages matter more."
+msgstr "በአስፈላጊ መድሃኒቶች ዝርዝር ውስጥ ነው፣ ስለዚህ እጥረቱ የበለጠ ያሳስባል።"
+
+msgid "Requires Cold Chain"
+msgstr "ቀዝቃዛ ማከማቻ ያስፈልጋል"
+
+msgid "Must be kept refrigerated — shown as a warning on stock pages."
+msgstr "በማቀዝቀዣ መቀመጥ አለበት — በክምችት ገጾች ላይ እንደ ማስጠንቀቂያ ይታያል።"
+
+msgid "Data Source"
+msgstr "የመረጃ ምንጭ"
+
+msgid "Notes"
+msgstr "ማስታወሻዎች"
+
+msgid "Catalogue Product"
+msgstr "የካታሎግ ምርት"
+
+msgid "Catalogue Products"
+msgstr "የካታሎግ ምርቶች"
+
+#, python-format
+msgid ""
+"\"%(name)s\" is already registered as %(code)s. Edit that product instead of "
+"registering it twice."
+msgstr "«%(name)s» ቀድሞ %(code)s ሆኖ ተመዝግቧል። ሁለት ጊዜ ከመመዝገብ ይልቅ ያንን ምርት ያስተካክሉ።"
+
+#, python-format
+msgid "An expiry date is required for \"%(name)s\"."
+msgstr "ለ«%(name)s» የማብቂያ ቀን ያስፈልጋል።"
+
+#, python-format
+msgid "%(name)s registered as %(code)s, linked to the standard catalogue."
+msgstr "%(name)s እንደ %(code)s ተመዝግቧል፣ ከመደበኛ ካታሎግ ጋር ተገናኝቷል።"
+
+msgid ""
+"Added to the catalogue as a local entry. If this product is on the EFDA "
+"register, add its registration number so it can be verified."
+msgstr ""
+"በአካባቢው ግቤት ሆኖ ወደ ካታሎግ ተጨምሯል። ይህ ምርት በEFDA መዝገብ ውስጥ ካለ፣ እንዲረጋገጥ የምዝገባ ቁጥሩን "
+"ይጨምሩ።"
+
+#, python-format
+msgid ""
+"A customer with this phone number already exists: \"%(name)s\". Open that "
+"record instead of creating a duplicate."
+msgstr "በዚህ ስልክ ቁጥር የተመዘገበ ደንበኛ አለ፦ «%(name)s»። ድግግሞሽ ከመፍጠር ይልቅ ያንን መዝገብ ይክፈቱ።"
+
+msgid "Customer Name"
+msgstr "የደንበኛ ስም"
+
+msgid ""
+"Must be unique — the phone number is how a returning customer is identified, "
+"so duplicates would split their history and loyalty points across two "
+"records."
+msgstr ""
+"ልዩ መሆን አለበት — ተመላሽ ደንበኛ የሚለየው በስልክ ቁጥሩ ነው፤ ስለዚህ ድግግሞሽ ታሪካቸውንና የታማኝነት ነጥቦቻቸውን "
+"በሁለት መዝገቦች ይከፍላል።"
+
+msgid "Loyalty Points"
+msgstr "የታማኝነት ነጥቦች"
+
+msgid "Customer"
+msgstr "ደንበኛ"
+
+msgid "Customers"
+msgstr "ደንበኞች"
+
+msgid "Quantity received must be greater than zero."
+msgstr "የተቀበለው ብዛት ከዜሮ በላይ መሆን አለበት።"
+
+msgid "Quantity must be greater than zero."
+msgstr "ብዛት ከዜሮ በላይ መሆን አለበት።"
+
+#, python-format
+msgid ""
+"Not enough stock for \"%(name)s\" at %(branch)s: %(want)s requested, "
+"%(have)s available."
+msgstr "ለ«%(name)s» በ%(branch)s ውስጥ በቂ ክምችት የለም፦ %(want)s ተጠይቋል፣ %(have)s አለ።"
+
+msgid "returned"
+msgstr "ተመላሽ"
+
+msgid "Recreated when voiding a sale."
+msgstr "ሽያጭ ሲወድቅ እንደገና የተፈጠረ።"
+
+msgid "Returned to stock when the sale was voided"
+msgstr "ሽያጩ ውድቅ ሲደረግ ወደ ክምችት ተመልሷል"
+
+msgid "Opening balance for stock recorded before batch tracking."
+msgstr "የጭነት ክትትል ከመጀመሩ በፊት ለተመዘገበ ክምችት የመክፈቻ ሚዛን።"
+
+msgid ""
+"Batches are held at a branch: the same product can sit in two branches at "
+"different costs, and each must be costed separately."
+msgstr ""
+"ጭነቶች በቅርንጫፍ ይያዛሉ፦ አንድ ምርት በሁለት ቅርንጫፎች በተለያዩ ወጪዎች ሊኖር ይችላል፣ እና እያንዳንዱ በተለየ "
+"መልኩ መተመን አለበት።"
+
+msgid "Medicine"
+msgstr "መድሃኒት"
+
+msgid "Purchase Line"
+msgstr "የግዢ መስመር"
+
+msgid "The purchase that brought this batch in, if any."
+msgstr "ይህን ጭነት ያመጣው ግዢ፣ ካለ።"
+
+msgid "Unit Cost"
+msgstr "የአንድ ወጪ"
+
+msgid "What this batch actually cost per unit. Never overwritten."
+msgstr "ይህ ጭነት በአንድ ክፍል በትክክል ያስከፈለው። በጭራሽ አይተካም።"
+
+msgid "Selling Price at Intake"
+msgstr "በመግቢያ ጊዜ የነበረ የሽያጭ ዋጋ"
+
+msgid ""
+"The price set when this batch arrived, kept for reference. The price "
+"actually charged is snapshotted on each sale line."
+msgstr ""
+"ይህ ጭነት ሲደርስ የተቀመጠው ዋጋ፣ ለማጣቀሻ የተያዘ። በትክክል የተከፈለው ዋጋ በየሽያጭ መስመሩ ላይ ተመዝግቧል።"
+
+msgid "Quantity Received"
+msgstr "የተቀበለው ብዛት"
+
+msgid "Quantity Remaining"
+msgstr "የቀረው ብዛት"
+
+msgid "Received"
+msgstr "የተቀበለበት"
+
+msgid "Source"
+msgstr "ምንጭ"
+
+msgid "PURCHASE, OPENING (pre-existing stock), ADJUSTMENT or RETURN."
+msgstr ""
+"PURCHASE (ግዢ)፣ OPENING (ቀደም ያለ ክምችት)፣ ADJUSTMENT (ማስተካከያ) ወይም RETURN (ተመላሽ)።"
+
+msgid "Note"
+msgstr "ማስታወሻ"
+
+msgid "Stock Batch"
+msgstr "የክምችት ጭነት"
+
+msgid "Stock Batches"
+msgstr "የክምችት ጭነቶች"
+
+msgid "Sale Line"
+msgstr "የሽያጭ መስመር"
+
+msgid "Batch"
+msgstr "ጭነት"
+
+msgid "Copied from the batch so the record survives batch deletion."
+msgstr "ጭነቱ ቢሰረዝም መዝገቡ እንዲቆይ ከጭነቱ የተቀዳ።"
+
+msgid "Sale Line Cost Allocation"
+msgstr "የሽያጭ መስመር ወጪ ክፍፍል"
+
+msgid "Sale Line Cost Allocations"
+msgstr "የሽያጭ መስመር ወጪ ክፍፍሎች"
+
+msgid "Movement Type"
+msgstr "የእንቅስቃሴ አይነት"
+
+msgid "For Stock Adjustment, enter the new counted total — not the difference."
+msgstr "ለክምችት ማስተካከያ፣ ይህ አዲስ የተቆጠረ መጠን ነው፣ ልዩነት አይደለም።"
+
+msgid "Destination"
+msgstr "መድረሻ"
+
+msgid "Required for Stock Transfer."
+msgstr "ለክምችት ዝውውር ያስፈልጋል።"
+
+msgid "A destination is required for a stock transfer."
+msgstr "ለክምችት ዝውውር መድረሻ ያስፈልጋል።"
+
+msgid "Category"
+msgstr "ምድብ"
+
+msgid "Count one section at a time, or leave blank for everything."
+msgstr "በአንድ ጊዜ አንድ ክፍል ይቁጠሩ፣ ወይም ለሁሉም ባዶ ይተዉት።"
+
+msgid "e.g. month-end count, aisle 1–4"
+msgstr "ለምሳሌ፦ የወር መጨረሻ ቆጠራ፣ መተላለፊያ 1–4"
+
+msgid "Everything at this branch"
+msgstr "በዚህ ቅርንጫፍ ያለው ሁሉም"
+
+msgid "Stock In"
+msgstr "ክምችት ግባ"
+
+msgid "Stock Out"
+msgstr "ክምችት ውጣ"
+
+msgid "Stock Adjustment"
+msgstr "የክምችት ማስተካከያ"
+
+msgid "Stock Transfer"
+msgstr "የክምችት ዝውውር"
+
+msgid "The branch whose stock this movement affects."
+msgstr "ይህ እንቅስቃሴ ክምችቱን የሚነካው ቅርንጫፍ።"
+
+msgid "For Stock Adjustment, this is the new counted quantity, not a delta."
+msgstr "ለክምችት ማስተካከያ፣ ይህ አዲስ የተቆጠረ መጠን ነው፣ ልዩነት አይደለም።"
+
+msgid "Quantity Before"
+msgstr "ቀደም ያለ ብዛት"
+
+msgid "Quantity After"
+msgstr "የኋላ ብዛት"
+
+msgid ""
+"For a Stock Transfer: the branch receiving the goods. Stock is removed here "
+"and added there in one operation, at the same cost."
+msgstr ""
+"ለክምችት ዝውውር፦ ዕቃዎቹን የሚቀበለው ቅርንጫፍ። ክምችቱ በአንድ ተግባር ከዚህ ተቀንሶ እዚያ ይጨመራል፣ በተመሳሳይ ወጪ።"
+
+msgid "Required for Stock Transfer — the receiving branch or location."
+msgstr "ለክምችት ዝውውር ያስፈልጋል — የሚቀበለው ቅርንጫፍ ወይም ቦታ።"
+
+msgid "Performed By"
+msgstr "የፈጸመው"
+
+msgid "Stock Movement"
+msgstr "የክምችት እንቅስቃሴ"
+
+msgid "Stock Movements"
+msgstr "የክምችት እንቅስቃሴዎች"
+
+msgid "An active branch is required to move stock."
+msgstr "ክምችት ለማዘዋወር ንቁ ቅርንጫፍ ያስፈልጋል።"
+
+msgid "Quantity must be at least 1."
+msgstr "ብዛት ቢያንስ 1 መሆን አለበት።"
+
+#, python-format
+msgid ""
+"Cannot remove %(qty)s units — only %(available)s in stock at %(branch)s."
+msgstr "%(qty)s አሃዶችን ማስወገድ አይቻልም — በ%(branch)s ውስጥ %(available)s ብቻ አለ።"
+
+msgid "Stock count adjustment"
+msgstr "የክምችት ቁጥር ማስተካከያ"
+
+msgid "Choose a destination branch, or type an external destination."
+msgstr "የመድረሻ ቅርንጫፍ ይምረጡ፣ ወይም የውጭ መድረሻ ይፃፉ።"
+
+#, python-format
+msgid ""
+"Cannot transfer %(qty)s units — only %(available)s in stock at %(branch)s."
+msgstr "%(qty)s አሃዶችን ማዛወር አይቻልም — በ%(branch)s ውስጥ %(available)s ብቻ አለ።"
+
+msgid "Unknown movement type."
+msgstr "ያልታወቀ የእንቅስቃሴ አይነት።"
+
+msgid "Purchase received"
+msgstr "ግዢ ተቀብሏል"
+
+msgid "Sale"
+msgstr "ሽያጭ"
+
+msgid "Sale voided"
+msgstr "ሽያጭ ውድቅ ተደርጓል"
+
+msgid "Purchase deleted"
+msgstr "ግዢ ተሰርዟል"
+
+msgid "Stock in"
+msgstr "ክምችት ገብቷል"
+
+msgid "Stock out"
+msgstr "ክምችት ወጥቷል"
+
+msgid "Adjustment"
+msgstr "ማስተካከያ"
+
+msgid "Stocktake"
+msgstr "የክምችት ቆጠራ"
+
+msgid "Transfer out"
+msgstr "ዝውውር ወጪ"
+
+msgid "Transfer in"
+msgstr "ዝውውር ገቢ"
+
+msgid "Opening balance"
+msgstr "የመክፈቻ ሚዛን"
+
+msgid "Customer return"
+msgstr "የደንበኛ ተመላሽ"
+
+msgid "Cause"
+msgstr "መንስኤ"
+
+msgid "Change"
+msgstr "ለውጥ"
+
+msgid "Positive for stock coming in, negative for stock going out."
+msgstr "ለሚገባ ክምችት አዎንታዊ፣ ለሚወጣ ክምችት አሉታዊ።"
+
+msgid "Balance Before"
+msgstr "ቀድሞ የነበረ ሚዛን"
+
+msgid "Balance After"
+msgstr "በኋላ የቀረ ሚዛን"
+
+msgid "Cost per unit of the stock that moved, where known."
+msgstr "የተንቀሳቀሰው ክምችት የአንድ አሃድ ወጪ፣ በሚታወቅበት ጊዜ።"
+
+msgid "Reference"
+msgstr "ማጣቀሻ"
+
+msgid "The document behind this change, e.g. INV-000042 or PUR-000007."
+msgstr "ከዚህ ለውጥ በስተጀርባ ያለው ሰነድ፣ ለምሳሌ INV-000042 ወይም PUR-000007።"
+
+msgid "By"
+msgstr "በ"
+
+msgid "Stock Ledger Entry"
+msgstr "የክምችት መዝገብ ግቤት"
+
+msgid "Stock Ledger"
+msgstr "የክምችት መዝገብ"
+
+msgid "In progress"
+msgstr "በሂደት ላይ"
+
+msgid "Posted"
+msgstr "ተመዝግቧል"
+
+msgid "Cancelled"
+msgstr "ተቋርጧል"
+
+msgid ""
+"Limit the count to one category, for counting a section at a time. Leave "
+"blank to count everything at this branch."
+msgstr ""
+"ቆጠራውን በአንድ ምድብ ይገድቡ፣ በአንድ ጊዜ አንድ ክፍል ለመቆጠር። በዚህ ቅርንጫፍ ያለውን ሁሉንም ለመቆጠር ባዶ "
+"ይተዉት።"
+
+msgid "Status"
+msgstr "ሁኔታ"
+
+msgid "Started By"
+msgstr "የጀመረው"
+
+msgid "Posted By"
+msgstr "የመዘገበው"
+
+msgid "Started"
+msgstr "የተጀመረበት"
+
+msgid "Stocktakes"
+msgstr "የክምችት ቆጠራዎች"
+
+msgid "Expected"
+msgstr "የሚጠበቅ"
+
+msgid "System figure frozen when the stocktake was opened."
+msgstr "የክምችት ቆጠራው ሲከፈት የተያዘው የሥርዓቱ አኃዝ።"
+
+msgid "Counted"
+msgstr "የተቆጠረ"
+
+msgid "Leave blank until this product has actually been counted."
+msgstr "ይህ ምርት በትክክል እስኪቆጠር ድረስ ባዶ ይተዉት።"
+
+msgid "Stocktake Line"
+msgstr "የክምችት ቆጠራ መስመር"
+
+msgid "Stocktake Lines"
+msgstr "የክምችት ቆጠራ መስመሮች"
+
+msgid "A branch is required to start a stocktake."
+msgstr "የክምችት ቆጠራ ለመጀመር ቅርንጫፍ ያስፈልጋል።"
+
+#, python-format
+msgid ""
+"%(ref)s is already in progress for %(branch)s. Finish or cancel it first."
+msgstr "%(ref)s ለ%(branch)s ቀድሞ በሂደት ላይ ነው። በቅድሚያ ይጨርሱት ወይም ይሰርዙት።"
+
+msgid "This stocktake has already been closed."
+msgstr "ይህ የክምችት ቆጠራ ቀድሞ ተዘግቷል።"
+
+msgid "Nothing has been counted yet, so there is nothing to post."
+msgstr "እስካሁን ምንም አልተቆጠረም፣ ስለዚህ የሚመዘገብ ምንም የለም።"
+
+#, python-format
+msgid "Stocktake %(ref)s: counted %(counted)s, expected %(expected)s. %(note)s"
+msgstr "የክምችት ቆጠራ %(ref)s፦ %(counted)s ተቆጥሯል፣ %(expected)s ይጠበቅ ነበር። %(note)s"
+
+msgid "Only a stocktake in progress can be cancelled."
+msgstr "በሂደት ላይ ያለ የክምችት ቆጠራ ብቻ መሰረዝ ይችላል።"
+
+msgid "Expired"
+msgstr "ጊዜው ያለፈበት"
+
+msgid "0–30 days"
+msgstr "0–30 ቀናት"
+
+msgid "31–90 days"
+msgstr "31–90 ቀናት"
+
+msgid "91–180 days"
+msgstr "91–180 ቀናት"
+
+msgid "Over 180 days"
+msgstr "ከ180 ቀናት በላይ"
+
+msgid "No expiry"
+msgstr "የመቆያ ጊዜ የለውም"
+
+msgid "Both a source and a destination branch are required."
+msgstr "የመነሻ እና የመድረሻ ቅርንጫፍ ሁለቱም ያስፈልጋሉ።"
+
+msgid "The source and destination branch must be different."
+msgstr "የመነሻ እና የመድረሻ ቅርንጫፍ የተለያዩ መሆን አለባቸው።"
+
+#, python-format
+msgid "%(branch)s is inactive and cannot receive stock."
+msgstr "%(branch)s ንቁ ስላልሆነ ክምችት መቀበል አይችልም።"
+
+msgid "Transfer quantity must be at least 1."
+msgstr "የዝውውር ብዛት ቢያንስ 1 መሆን አለበት።"
+
+#, python-format
+msgid "Transferred from %(branch)s"
+msgstr "ከ%(branch)s የተዛወረ"
+
+msgid "Could not start the stocktake."
+msgstr "የክምችት ቆጠራውን መጀመር አልተቻለም።"
+
+#, python-format
+msgid "%(ref)s opened with %(n)s products to count."
+msgstr "%(ref)s ከ%(n)s ምርቶች ጋር ለቆጠራ ተከፍቷል።"
+
+msgid "This stocktake is closed."
+msgstr "ይህ የክምችት ቆጠራ ተዘግቷል።"
+
+#, python-format
+msgid "%(n)s counts saved."
+msgstr "%(n)s ቆጠራዎች ተቀምጠዋል።"
+
+#, python-format
+msgid ""
+"%(ref)s posted: %(adj)s adjustment(s), net %(net)s units, value %(val)s. "
+"%(un)s product(s) were not counted and were left untouched."
+msgstr ""
+"%(ref)s ተመዝግቧል፦ %(adj)s ማስተካከያ(ዎች)፣ የተጣራ %(net)s አሃዶች፣ ዋጋ %(val)s። %(un)s "
+"ምርት(ቶች) አልተቆጠሩም እና እንዳሉ ቀርተዋል።"
+
+msgid "Stocktake cancelled. No stock was changed."
+msgstr "የክምችት ቆጠራ ተሰርዟል። ምንም ክምችት አልተቀየረም።"
+
+msgid "No supplier set"
+msgstr "አቅራቢ አልተመደበም"
+
+msgid "Category Name"
+msgstr "የምድብ ስም"
+
+msgid "Categories"
+msgstr "ምድቦች"
+
+msgid "Cosmetic / Personal Care"
+msgstr "ውበት / የግል እንክብካቤ"
+
+msgid "Medical Supply"
+msgstr "የህክምና አቅርቦት"
+
+msgid "Medical Device / Support"
+msgstr "የህክምና መሳሪያ / ድጋፍ"
+
+msgid "Supplement / Vitamin"
+msgstr "ተጨማሪ / ቫይታሚን"
+
+msgid "Baby & Mother Care"
+msgstr "የህጻን እና የእናት እንክብካቤ"
+
+msgid "Medicine Code"
+msgstr "የመድሃኒት ኮድ"
+
+msgid "Auto-generated on save (e.g. MED-000001)."
+msgstr "በማስቀመጫ ላይ በራስ-ሰር ይፈጠራል (ለምሳሌ፦ MED-000001)።"
+
+msgid "Barcode"
+msgstr "ባርኮድ"
+
+msgid ""
+"The standard catalogue record this stock item is registered against. Linking "
+"keeps naming consistent and makes group reporting possible. Leave blank only "
+"for something genuinely not in the catalogue."
+msgstr ""
+"ይህ የክምችት እቃ የተመዘገበበት መደበኛ የካታሎግ መዝገብ። ማገናኘት ስያሜውን ወጥ ያደርጋል እና የቡድን ሪፖርት ማድረግ "
+"ያስችላል። በእውነት በካታሎጉ ውስጥ ለሌለ ነገር ብቻ ባዶ ይተዉት።"
+
+msgid ""
+"Medicines, cosmetics, dressings, devices and supplements all live in this "
+"one catalogue."
+msgstr "መድሃኒቶች፣ የውበት ምርቶች፣ ማሰሪያዎች፣ መሳሪያዎች እና ተጨማሪዎች ሁሉም በዚህ አንድ ካታሎግ ውስጥ ይገኛሉ።"
+
+msgid "Product Name"
+msgstr "የምርት ስም"
+
+msgid "Generic Name"
+msgstr "አጠቃላይ ስም"
+
+msgid "Brand"
+msgstr "ብራንድ"
+
+msgid "Manufacturing Date"
+msgstr "የተመረተበት ቀን"
+
+msgid ""
+"Leave blank for items that do not expire, such as a knee support or a blood-"
+"pressure monitor."
+msgstr "እንደ የጉልበት ድጋፍ ወይም የደም ግፊት መለኪያ ላሉ ጊዜያቸው ለማያልፍ እቃዎች ባዶ ይተዉት።"
+
+msgid "Cost price — visible to Administrators and Store Managers only."
+msgstr "የወጪ ዋጋ — ለአስተዳዳሪዎች እና ለመደብር አስተዳዳሪዎች ብቻ የሚታይ።"
+
+msgid "Tax (%)"
+msgstr "ግብር (%)"
+
+msgid "Discount (%)"
+msgstr "ቅናሽ (%)"
+
+msgid ""
+"Triggers a Low Stock warning when quantity falls to or below this level."
+msgstr "ብዛት ወደዚህ ደረጃ ወይም ከዚህ በታች ሲወርድ የዝቅተኛ ክምችት ማስጠንቀቂያ ያስነሳል።"
+
+msgid "Unit"
+msgstr "አሃድ"
+
+msgid "Photo"
+msgstr "ፎቶ"
+
+msgid "Requires Prescription"
+msgstr "ማዘዣ ያስፈልጋል"
+
+msgid "Shows a clear warning at the till before this item is sold."
+msgstr "ይህ እቃ ከመሸጡ በፊት በሽያጭ ቦታው ላይ ግልጽ ማስጠንቀቂያ ያሳያል።"
+
+msgid "Products"
+msgstr "ምርቶች"
+
+msgid ""
+"An expiry date is required for this product type. Leave it blank only for "
+"items that genuinely do not expire, and set the product type to Medical "
+"Device or Other."
+msgstr ""
+"ለዚህ የምርት አይነት የመቆያ ጊዜ ማብቂያ ቀን ያስፈልጋል። በእውነት ጊዜያቸው ለማያልፍ እቃዎች ብቻ ባዶ ይተዉት፣ እና "
+"የምርት አይነቱን የህክምና መሳሪያ ወይም ሌላ ያድርጉ።"
+
+msgid "Low Stock"
+msgstr "ዝቅተኛ ክምችት"
+
+msgid "Expired Medicine"
+msgstr "ጊዜው ያለፈ መድሃኒት"
+
+msgid "Expiring Soon"
+msgstr "በቅርቡ የሚያልፍ"
+
+msgid "New Purchase"
+msgstr "አዲስ ግዢ"
+
+msgid "Large Sale"
+msgstr "ትልቅ ሽያጭ"
+
+msgid "Pending Payment"
+msgstr "በመጠባበቅ ላይ ያለ ክፍያ"
+
+msgid "System"
+msgstr "ሥርዓት"
+
+msgid "Information"
+msgstr "መረጃ"
+
+msgid "Warning"
+msgstr "ማስጠንቀቂያ"
+
+msgid "Critical"
+msgstr "አስቸኳይ"
+
+msgid "The branch this alert concerns. Blank means it applies pharmacy-wide."
+msgstr "ይህ ማሳወቂያ የሚመለከተው ቅርንጫፍ። ባዶ ማለት በመላው ፋርማሲ ይሠራል።"
+
+msgid "Type"
+msgstr "አይነት"
+
+msgid "Severity"
+msgstr "የክብደት ደረጃ"
+
+msgid "Title"
+msgstr "አርዕስት"
+
+msgid "Message"
+msgstr "መልእክት"
+
+msgid "Link"
+msgstr "ማገናኛ"
+
+msgid "Relative URL the notification points to, if any."
+msgstr "ማሳወቂያው የሚያመለክተው አንጻራዊ ዩአርኤል፣ ካለ።"
+
+msgid "Target Roles"
+msgstr "የታለሙ ሚናዎች"
+
+msgid "Comma-separated role codes. Blank means all staff."
+msgstr "በኮማ የተለዩ የሚና ኮዶች። ባዶ ማለት ሁሉም ሰራተኞች።"
+
+msgid "Deduplication Key"
+msgstr "የድግግሞሽ መከላከያ ቁልፍ"
+
+msgid ""
+"Identifies what this alert is about, so refreshing does not create "
+"duplicates."
+msgstr "ይህ ማሳወቂያ ስለምን እንደሆነ ይለያል፤ በዚህም ማደስ ድግግሞሽ አይፈጥርም።"
+
+msgid ""
+"Cleared automatically when the underlying condition no longer holds (e.g. "
+"stock was replenished)."
+msgstr "መሠረታዊው ሁኔታ ሲቀር በራስ-ሰር ይጠራል (ለምሳሌ ክምችት ሲሞላ)።"
+
+msgid "Resolved"
+msgstr "ተፈትቷል"
+
+msgid "Notification"
+msgstr "ማሳወቂያ"
+
+msgid "Notifications"
+msgstr "ማሳወቂያዎች"
+
+msgid "Notification Read Marker"
+msgstr "የማሳወቂያ ንባብ ምልክት"
+
+msgid "Notification Read Markers"
+msgstr "የማሳወቂያ ንባብ ምልክቶች"
+
+#, python-format
+msgid "Out of stock at %(branch)s: %(name)s"
+msgstr "በ%(branch)s ከክምችት ውጪ፦ %(name)s"
+
+#, python-format
+msgid "Low stock at %(branch)s: %(name)s"
+msgstr "በ%(branch)s ዝቅተኛ ክምችት፦ %(name)s"
+
+#, python-format
+msgid "%(qty)s in stock at %(branch)s, reorder level is %(level)s."
+msgstr "በ%(branch)s ውስጥ %(qty)s አለ፣ የዳግም ማዘዣ መጠን %(level)s ነው።"
+
+#, python-format
+msgid "Expired: %(name)s"
+msgstr "ጊዜው አልፏል፦ %(name)s"
+
+#, python-format
+msgid "Expired on %(date)s. %(qty)s units still in stock."
+msgstr "በ%(date)s ጊዜው አልፏል። %(qty)s ክፍሎች አሁንም በክምችት ውስጥ አሉ።"
+
+#, python-format
+msgid "Expiring soon: %(name)s"
+msgstr "በቅርቡ ያልፋል፦ %(name)s"
+
+#, python-format
+msgid "Expires on %(date)s (in %(days)s days)."
+msgstr "በ%(date)s ያልፋል (በ%(days)s ቀናት ውስጥ)።"
+
+#, python-format
+msgid "Pending payment: %(inv)s"
+msgstr "በመጠባበቅ ላይ ያለ ክፍያ፦ %(inv)s"
+
+#, python-format
+msgid "Outstanding balance of %(amount)s on %(customer)s."
+msgstr "በ%(customer)s ላይ ያለ ያልተከፈለ %(amount)s ቀሪ ሂሳብ።"
+
+msgid "a walk-in sale"
+msgstr "በቀጥታ የተደረገ ሽያጭ"
+
+#, python-format
+msgid "New purchase recorded: %(num)s"
+msgstr "አዲስ ግዢ ተመዝግቧል፦ %(num)s"
+
+#, python-format
+msgid ""
+"%(supplier)s — %(total)s across %(items)s item(s). Stock has been increased."
+msgstr "%(supplier)s — %(total)s በ%(items)s እቃ(ዎች) ላይ። ክምችት ጨምሯል።"
+
+#, python-format
+msgid "Large sale: %(inv)s"
+msgstr "ትልቅ ሽያጭ፦ %(inv)s"
+
+#, python-format
+msgid "%(total)s in a single transaction, served by %(user)s."
+msgstr "%(total)s በአንድ ግብይት፣ አገልግሎት የሰጠው %(user)s።"
+
+msgid "unknown"
+msgstr "ያልታወቀ"
+
+msgid "Receiving Branch"
+msgstr "ተቀባይ ቅርንጫፍ"
+
+msgid "The branch these goods were delivered to. Stock is added there."
+msgstr "እነዚህ ዕቃዎች የተላኩበት ቅርንጫፍ። ክምችቱ የሚጨመረው እዚያ ነው።"
+
+msgid "Purchase Number"
+msgstr "የግዢ ቁጥር"
+
+msgid "Auto-generated on save (e.g. PUR-000001)."
+msgstr "በማስቀመጫ ላይ በራስ-ሰር ይፈጠራል (ለምሳሌ፦ PUR-000001)።"
+
+msgid "Purchase Date"
+msgstr "የግዢ ቀን"
+
+msgid "Recorded By"
+msgstr "የመዘገበው"
+
+msgid "Purchase Invoice"
+msgstr "የግዢ ደረሰኝ"
+
+msgid "Purchase Invoices"
+msgstr "የግዢ ደረሰኞች"
+
+msgid "Unit cost price for this line."
+msgstr "ለዚህ መስመር የአንድ ክፍል ወጪ ዋጋ።"
+
+msgid "New Selling Price"
+msgstr "አዲስ የሽያጭ ዋጋ"
+
+msgid ""
+"Optional. If this intake changes what you charge, set the new price here — "
+"it updates the medicine's current price. Sales already made keep the price "
+"they were sold at."
+msgstr ""
+"አማራጭ። ይህ መግቢያ የሚያስከፍሉትን ዋጋ የሚቀይር ከሆነ አዲሱን ዋጋ እዚህ ያስቀምጡ — የመድሃኒቱን ወቅታዊ ዋጋ "
+"ያዘምናል። ቀደም ሲል የተደረጉ ሽያጮች የተሸጡበትን ዋጋ ይይዛሉ።"
+
+msgid "Purchase Item"
+msgstr "የግዢ ንጥል"
+
+msgid "Purchase Items"
+msgstr "የግዢ ንጥሎች"
+
+msgid "Generated"
+msgstr "የተዘጋጀበት"
+
+msgid "Period"
+msgstr "ጊዜ"
+
+msgid "Summary"
+msgstr "ማጠቃለያ"
+
+msgid "No data for the selected filters."
+msgstr "ለተመረጡት አጣሪዎች ምንም መረጃ የለም።"
+
+msgid "Sales Report"
+msgstr "የሽያጭ ሪፖርት"
+
+msgid "Every completed sale in the period, with totals."
+msgstr "በጊዜው ውስጥ የተጠናቀቁ ሁሉም ሽያጮች፣ ከድምሮች ጋር።"
+
+msgid "Invoice"
+msgstr "ደረሰኝ"
+
+msgid "Items"
+msgstr "ንጥሎች"
+
+msgid "Payment"
+msgstr "ክፍያ"
+
+msgid "Subtotal"
+msgstr "ንዑስ ድምር"
+
+msgid "Discount"
+msgstr "ቅናሽ"
+
+msgid "VAT"
+msgstr "ተ.እ.ታ"
+
+msgid "Total"
+msgstr "ድምር"
+
+msgid "Served By"
+msgstr "አገልግሎት የሰጠው"
+
+msgid "Walk-in"
+msgstr "በቀጥታ"
+
+msgid "Transactions"
+msgstr "ግብይቶች"
+
+msgid "Units Sold"
+msgstr "የተሸጡ ክፍሎች"
+
+msgid "Total Discount"
+msgstr "ጠቅላላ ቅናሽ"
+
+msgid "Total VAT"
+msgstr "ጠቅላላ ተ.እ.ታ"
+
+msgid "Total Revenue"
+msgstr "ጠቅላላ ገቢ"
+
+msgid "Sales Summary (Daily / Weekly / Monthly / Yearly)"
+msgstr "የሽያጭ ማጠቃለያ (ዕለታዊ / ሳምንታዊ / ወርሃዊ / ዓመታዊ)"
+
+msgid "Revenue grouped by period, for trend and comparison."
+msgstr "ገቢ በጊዜ የተከፋፈለ፣ ለአዝማሚያ እና ለንጽጽር።"
+
+msgid "Revenue"
+msgstr "ገቢ"
+
+msgid "Periods"
+msgstr "ጊዜያት"
+
+msgid "Purchase Report"
+msgstr "የግዢ ሪፖርት"
+
+msgid "Supplier purchases in the period, with invoice totals."
+msgstr "በጊዜው ውስጥ ከአቅራቢዎች የተደረጉ ግዢዎች፣ ከደረሰኝ ድምሮች ጋር።"
+
+msgid "Purchase #"
+msgstr "የግዢ ቁጥር"
+
+msgid "Invoices"
+msgstr "ደረሰኞች"
+
+msgid "Total Purchase Value"
+msgstr "ጠቅላላ የግዢ ዋጋ"
+
+msgid "Profit Report"
+msgstr "የትርፍ ሪፖርት"
+
+msgid "Revenue against actual batch cost of goods sold, per medicine."
+msgstr "ገቢ ከተሸጡ ዕቃዎች ትክክለኛ የጭነት ወጪ ጋር፣ በየመድሃኒቱ።"
+
+msgid "Revenue (excl. VAT)"
+msgstr "ገቢ (ተ.እ.ታ ሳይጨምር)"
+
+msgid "Cost of Goods"
+msgstr "የዕቃዎች ወጪ"
+
+msgid "Gross Profit"
+msgstr "ጠቅላላ ትርፍ"
+
+msgid "Margin %"
+msgstr "የትርፍ ህዳግ %"
+
+msgid "Total Cost of Goods"
+msgstr "ጠቅላላ የዕቃዎች ወጪ"
+
+msgid "Gross Margin %"
+msgstr "ጠቅላላ የትርፍ ህዳግ %"
+
+msgid "Inventory Report"
+msgstr "የክምችት ሪፖርት"
+
+msgid "Full stock position across the catalog."
+msgstr "በካታሎጉ ውስጥ ያለው ሙሉ የክምችት ሁኔታ።"
+
+msgid "Stock Value"
+msgstr "የክምችት ዋጋ"
+
+msgid "Total Units in Stock"
+msgstr "በክምችት ውስጥ ያሉ ጠቅላላ ክፍሎች"
+
+msgid "Total Stock Value"
+msgstr "ጠቅላላ የክምችት ዋጋ"
+
+msgid "Low Stock Report"
+msgstr "ዝቅተኛ ክምችት ሪፖርት"
+
+msgid "Medicines at or below their reorder level."
+msgstr "በዳግም ማዘዣ መጠናቸው ወይም ከዚያ በታች ያሉ መድሃኒቶች።"
+
+msgid "Needing Reorder"
+msgstr "ዳግም ማዘዝ የሚያስፈልጋቸው"
+
+msgid "Out of Stock"
+msgstr "ከክምችት ውጪ"
+
+msgid "Expired & Expiring Medicine Report"
+msgstr "ጊዜያቸው ያለፈ እና የሚያልፍ መድሃኒት ሪፖርት"
+
+msgid "Already expired, plus stock expiring within 30 and 60 days."
+msgstr "ጊዜያቸው ያለፈ፣ እንዲሁም በ30 እና በ60 ቀናት ውስጥ የሚያልፍ ክምችት።"
+
+msgid "Value at Risk"
+msgstr "ለአደጋ የተጋለጠ ዋጋ"
+
+msgid "Expires within 30 days"
+msgstr "በ30 ቀናት ውስጥ ያልፋል"
+
+msgid "Expires within 60 days"
+msgstr "በ60 ቀናት ውስጥ ያልፋል"
+
+msgid "Expiring within 30 days"
+msgstr "በ30 ቀናት ውስጥ የሚያልፍ"
+
+msgid "Expiring within 60 days"
+msgstr "በ60 ቀናት ውስጥ የሚያልፍ"
+
+msgid "Supplier Report"
+msgstr "የአቅራቢ ሪፖርት"
+
+msgid "Suppliers with medicines supplied and purchase totals."
+msgstr "አቅራቢዎች ከቀረቡ መድሃኒቶች እና የግዢ ድምሮች ጋር።"
+
+msgid "Contact Person"
+msgstr "የመገናኛ ሰው"
+
+msgid "Medicines Supplied"
+msgstr "የቀረቡ መድሃኒቶች"
+
+msgid "Purchase Value"
+msgstr "የግዢ መጠን"
+
+msgid "Suppliers"
+msgstr "አቅራቢዎች"
+
+msgid "Customer Report"
+msgstr "የደንበኛ ሪፖርት"
+
+msgid "Customers with purchase history and loyalty points."
+msgstr "ደንበኞች ከግዢ ታሪክ እና ከታማኝነት ነጥቦች ጋር።"
+
+msgid "Purchases"
+msgstr "ግዢዎች"
+
+msgid "Total Spend"
+msgstr "ጠቅላላ ወጪ"
+
+msgid "Total Loyalty Points"
+msgstr "ጠቅላላ የታማኝነት ነጥቦች"
+
+msgid "Unknown report."
+msgstr "ያልታወቀ ሪፖርት።"
+
+msgid "You do not have permission to view this report."
+msgstr "ይህን ሪፖርት ለማየት ፈቃድ የለዎትም።"
+
+msgid "All branches"
+msgstr "ሁሉም ቅርንጫፎች"
+
+#, python-format
+msgid ""
+"%(pharmacy)s — generated by PharmaCare. AI-assisted output; verify before "
+"external distribution."
+msgstr ""
+"%(pharmacy)s — በPharmaCare የተዘጋጀ። በአርቲፊሻል ኢንተለጀንስ የተደገፈ ውጤት፤ ለውጭ ስርጭት ከመስጠት "
+"በፊት ያረጋግጡ።"
+
+msgid "You do not have permission to export reports."
+msgstr "ሪፖርቶችን ለመላክ ፈቃድ የለዎትም።"
+
+msgid "Unsupported export format."
+msgstr "የማይደገፍ የመላኪያ ቅርጸት።"
+
+msgid "Cash"
+msgstr "ጥሬ ገንዘብ"
+
+msgid "Card"
+msgstr "ካርድ"
+
+msgid "Mobile Money"
+msgstr "የሞባይል ገንዘብ"
+
+msgid "Completed"
+msgstr "ተጠናቅቋል"
+
+msgid "Voided"
+msgstr "ውድቅ ተደርጓል"
+
+msgid ""
+"Which branch made this sale. Nullable only so rows recorded before multi-"
+"branch support remain valid."
+msgstr ""
+"ይህን ሽያጭ ያደረገው ቅርንጫፍ። ባዶ መሆን የሚችለው የበርካታ ቅርንጫፍ ድጋፍ ከመጀመሩ በፊት የተመዘገቡ መዝገቦች "
+"ትክክለኛ ሆነው እንዲቆዩ ብቻ ነው።"
+
+msgid "Invoice Number"
+msgstr "የደረሰኝ ቁጥር"
+
+msgid "Auto-generated on save using the configured invoice prefix."
+msgstr "በማስቀመጫ ላይ በተዘጋጀው የደረሰኝ ቅድመ-ቅጥያ በራስ-ሰር ይፈጠራል።"
+
+msgid "Optional — walk-in sales can be recorded without a customer."
+msgstr "አማራጭ — በቀጥታ የሚመጡ ሽያጮች ያለ ደንበኛ መመዝገብ ይችላሉ።"
+
+msgid "Payment Method"
+msgstr "የመክፈያ ዘዴ"
+
+msgid "Amount Paid"
+msgstr "የተከፈለ መጠን"
+
+msgid "Voided By"
+msgstr "የሰረዘው"
+
+msgid "Voided At"
+msgstr "የተሰረዘበት ጊዜ"
+
+msgid "Void Reason"
+msgstr "የመሰረዝ ምክንያት"
+
+msgid "Sales"
+msgstr "ሽያጮች"
+
+msgid "Unit Price"
+msgstr "የአንድ ዋጋ"
+
+msgid ""
+"Actual weighted cost of the units dispensed, taken from the batches consumed "
+"(FEFO). Fixed at the time of sale, so a later purchase at a different price "
+"cannot change past profit."
+msgstr ""
+"ከተጠቀሙት ጭነቶች (FEFO) የተወሰደ የተሰጡ ክፍሎች ትክክለኛ አማካይ ወጪ። በሽያጭ ጊዜ የተወሰነ፤ በዚህም በኋላ "
+"በተለየ ዋጋ የተደረገ ግዢ ያለፈውን ትርፍ አይቀይርም።"
+
+msgid "Sale Item"
+msgstr "የሽያጭ እቃ"
+
+msgid "Sale Items"
+msgstr "የሽያጭ እቃዎች"
+
+msgid "Cannot complete a sale with an empty cart."
+msgstr "ባዶ ጋሪ ያለው ሽያጭ ማጠናቀቅ አይቻልም።"
+
+msgid "Quantity must be a whole number of at least 1."
+msgstr "ብዛት ቢያንስ 1 የሆነ ሙሉ ቁጥር መሆን አለበት።"
+
+msgid "One of the selected products no longer exists."
+msgstr "ከተመረጡት ምርቶች አንዱ ከዚህ በኋላ አይገኝም።"
+
+#, python-format
+msgid ""
+"Not enough stock for \"%(name)s\"%(where)s: %(want)s requested, %(have)s "
+"available."
+msgstr "ለ«%(name)s»%(where)s በቂ ክምችት የለም፦ %(want)s ተጠይቋል፣ %(have)s አለ።"
+
+msgid "This sale has already been voided."
+msgstr "ይህ ሽያጭ ቀድሞ ተሰርዟል።"
+
+msgid "Invalid cart line."
+msgstr "ልክ ያልሆነ የጋሪ መስመር።"
+
+msgid "Quantity must be at least 1 for every item."
+msgstr "ለእያንዳንዱ እቃ ብዛት ቢያንስ 1 መሆን አለበት።"
+
+msgid "Discount must be between 0 and 100 percent."
+msgstr "ቅናሽ ከ0 እስከ 100 በመቶ መካከል መሆን አለበት።"
+
+msgid "Too many items in one sale."
+msgstr "በአንድ ሽያጭ ውስጥ በጣም ብዙ እቃዎች።"
+
+msgid "Invalid amount paid."
+msgstr "ልክ ያልሆነ የተከፈለ መጠን።"
+
+msgid "Amount paid cannot be negative."
+msgstr "የተከፈለ መጠን አሉታዊ መሆን አይችልም።"
+
+msgid "Pharmacy Name"
+msgstr "የፋርማሲ ስም"
+
+msgid "Logo"
+msgstr "አርማ"
+
+msgid "Shown on invoices and shelf labels."
+msgstr "በደረሰኞች እና በመደርደሪያ መለያዎች ላይ ይታያል።"
+
+msgid "Pharmacy operating licence, printed on invoices."
+msgstr "የፋርማሲ የስራ ፈቃድ፣ በደረሰኞች ላይ ይታተማል።"
+
+msgid "TIN Number"
+msgstr "የግብር ከፋይ መለያ ቁጥር"
+
+msgid "Taxpayer identification number, printed on invoices."
+msgstr "የግብር ከፋይ መለያ ቁጥር፣ በደረሰኞች ላይ ይታተማል።"
+
+msgid "Currency"
+msgstr "ገንዘብ"
+
+msgid "Default Tax Rate (%)"
+msgstr "ነባሪ የግብር መጣኔ (%)"
+
+msgid "Pre-filled on new medicines. Existing records keep their own rate."
+msgstr "በአዲስ መድሃኒቶች ላይ በቅድሚያ ይሞላል። ነባር መዝገቦች የራሳቸውን መጣኔ ይይዛሉ።"
+
+msgid "Large Sale Alert Threshold"
+msgstr "የትልቅ ሽያጭ ማሳወቂያ ገደብ"
+
+msgid "Sales at or above this value raise a notification."
+msgstr "ከዚህ ዋጋ በላይ ወይም እኩል የሆኑ ሽያጮች ማሳወቂያ ያስነሳሉ።"
+
+msgid "Currency per Loyalty Point"
+msgstr "በአንድ የታማኝነት ነጥብ የሚያስፈልግ ገንዘብ"
+
+msgid "Amount a customer must spend to earn one loyalty point."
+msgstr "ደንበኛ አንድ የታማኝነት ነጥብ ለማግኘት ማውጣት ያለበት መጠን።"
+
+msgid "Applied to new invoices only; existing numbers never change."
+msgstr "በአዲስ ደረሰኞች ላይ ብቻ ይተገበራል፤ ነባር ቁጥሮች በጭራሽ አይቀየሩም።"
+
+msgid "Invoice Footer"
+msgstr "የደረሰኝ ግርጌ"
+
+msgid "Printed at the bottom of every customer invoice."
+msgstr "በየደንበኛው ደረሰኝ ግርጌ ላይ ይታተማል።"
+
+msgid "Last Updated"
+msgstr "መጨረሻ የተዘመነበት"
+
+msgid "Updated By"
+msgstr "ያዘመነው"
+
+msgid "Pharmacy Settings"
+msgstr "የፋርማሲ ቅንብሮች"
+
+msgid "Supplier Name"
+msgstr "የአቅራቢ ስም"
+
+msgid "Set a New Password"
+msgstr "አዲስ የይለፍ ቃል ያዘጋጁ"
+
+msgid "Security check"
+msgstr "የደህንነት ማረጋገጫ"
+
+msgid ""
+"For your account's safety, you must set a new password before continuing."
+msgstr "የመለያዎን ደህንነት ለመጠበቅ፣ ከመቀጠልዎ በፊት አዲስ የይለፍ ቃል ማዘጋጀት አለብዎት።"
+
+msgid ""
+"This password was issued by an administrator or is your first login. Choose "
+"a new one only you know."
+msgstr "ይህ የይለፍ ቃል በአስተዳዳሪ የተሰጠ ወይም የመጀመሪያ መግቢያዎ ነው። እርስዎ ብቻ የሚያውቁትን አዲስ ይምረጡ።"
+
+msgid "Update Password & Continue"
+msgstr "የይለፍ ቃል አዘምን እና ይቀጥሉ"
+
+msgid "Account Temporarily Locked"
+msgstr "መለያ ለጊዜው ተቆልፏል"
+
+msgid "Too many attempts"
+msgstr "ብዙ ሙከራዎች"
+
+msgid "Account temporarily locked"
+msgstr "መለያ ለጊዜው ተቆልፏል"
+
+msgid ""
+"This account or IP address has had too many failed sign-in attempts. For "
+"your security, sign-in has been temporarily disabled. Please try again in 30 "
+"minutes or contact your Administrator."
+msgstr ""
+"ይህ መለያ ወይም አይፒ አድራሻ ብዙ ያልተሳኩ የመግቢያ ሙከራዎች አጋጥሞታል። ለደህንነትዎ ሲባል መግቢያ ለጊዜው "
+"ተሰናክሏል። እባክዎ ከ30 ደቂቃ በኋላ እንደገና ይሞክሩ ወይም አስተዳዳሪዎን ያነጋግሩ።"
+
+msgid "Back to sign in"
+msgstr "ወደ መግቢያ ተመለስ"
+
+msgid "Sign In"
+msgstr "ግባ"
+
+msgid ""
+"One platform for inventory, sales, and compliance — built for pharmacists, "
+"cashiers, and store managers."
+msgstr ""
+"ለእቃ ክምችት፣ ለሽያጭ እና ለተገዢነት አንድ መድረክ — ለፋርማሲስቶች፣ ለገንዘብ ተቀባዮች እና ለመደብር አስተዳዳሪዎች "
+"የተዘጋጀ።"
+
+msgid "Role-based access for every team member"
+msgstr "ለእያንዳንዱ የቡድን አባል በሚና ላይ የተመሰረተ ተደራሽነት"
+
+msgid "Real-time stock & expiry monitoring"
+msgstr "ቅጽበታዊ የክምችት እና የመቆያ ጊዜ ክትትል"
+
+msgid "Point-of-sale built for speed"
+msgstr "ለፍጥነት የተዘጋጀ የሽያጭ ነጥብ"
+
+msgid "Sign in"
+msgstr "ግባ"
+
+msgid "Enter your staff credentials to continue."
+msgstr "ለመቀጠል የሰራተኛ መረጃዎን ያስገቡ።"
+
+msgid "Forgot your password?"
+msgstr "የይለፍ ቃልዎን ረሱት?"
+
+msgid "Reset Password"
+msgstr "የይለፍ ቃል ዳግም አስጀምር"
+
+msgid "We'll email you a secure link to set a new one."
+msgstr "አዲስ ለማዘጋጀት ደህንነቱ የተጠበቀ ማገናኛ በኢሜይል እንልክልዎታለን።"
+
+msgid "Enter the email address on your staff account."
+msgstr "በሰራተኛ መለያዎ ላይ ያለውን የኢሜይል አድራሻ ያስገቡ።"
+
+msgid "Send Reset Link"
+msgstr "የዳግም ማስጀመሪያ ማገናኛ ላክ"
+
+msgid "Password Updated"
+msgstr "የይለፍ ቃል ዘምኗል"
+
+msgid "All set!"
+msgstr "ሁሉም ተጠናቅቋል!"
+
+msgid "Password updated"
+msgstr "የይለፍ ቃል ዘምኗል"
+
+msgid "Your password has been changed successfully. You can now sign in."
+msgstr "የይለፍ ቃልዎ በተሳካ ሁኔታ ተቀይሯል። አሁን መግባት ይችላሉ።"
+
+msgid "Set New Password"
+msgstr "አዲስ የይለፍ ቃል አዘጋጅ"
+
+msgid "Set a new password"
+msgstr "አዲስ የይለፍ ቃል ያዘጋጁ"
+
+msgid "New Password"
+msgstr "አዲስ የይለፍ ቃል"
+
+msgid "Choose a strong password you haven't used before."
+msgstr "ከዚህ በፊት ያልተጠቀሙበትን ጠንካራ የይለፍ ቃል ይምረጡ።"
+
+msgid "Update Password"
+msgstr "የይለፍ ቃል አዘምን"
+
+msgid "Link expired"
+msgstr "ማገናኛው ጊዜው አልፎበታል"
+
+msgid "This password reset link is invalid or has already been used."
+msgstr "ይህ የይለፍ ቃል ዳግም ማስጀመሪያ ማገናኛ ልክ ያልሆነ ወይም ቀድሞ ጥቅም ላይ የዋለ ነው።"
+
+msgid "Request a new link"
+msgstr "አዲስ ማገናኛ ይጠይቁ"
+
+msgid "Check your email"
+msgstr "ኢሜይልዎን ይመልከቱ"
+
+msgid "Check your inbox"
+msgstr "የገቢ መልእክት ሳጥንዎን ይመልከቱ"
+
+msgid "Email sent"
+msgstr "ኢሜይል ተልኳል"
+
+msgid ""
+"If an account exists with that email, a password reset link has been sent. "
+"Please check your inbox and spam folder."
+msgstr ""
+"በዚያ ኢሜይል የተመዘገበ መለያ ካለ፣ የይለፍ ቃል ዳግም ማስጀመሪያ ማገናኛ ተልኳል። እባክዎ የገቢ መልእክት ሳጥንዎን "
+"እና ስፓም ማህደሩን ይመልከቱ።"
+
+msgid "My Profile"
+msgstr "የኔ መገለጫ"
+
+msgid ""
+"Update your personal details. Contact an Administrator to change your role."
+msgstr "የግል መረጃዎን ያዘምኑ። ሚናዎን ለመቀየር አስተዳዳሪን ያነጋግሩ።"
+
+msgid "Save Changes"
+msgstr "ለውጦችን አስቀምጥ"
+
+msgid "Delete Staff"
+msgstr "ሰራተኛ ሰርዝ"
+
+msgid "Delete this staff account?"
+msgstr "ይህን የሰራተኛ መለያ መሰረዝ ይፈልጋሉ?"
+
+#, python-format
+msgid ""
+"You are about to permanently remove <strong>%(name)s</strong> (%(role)s). "
+"This action cannot be undone. Consider deactivating the account instead if "
+"you may need it again."
+msgstr ""
+"<strong>%(name)s</strong>ን (%(role)s) በቋሚነት ሊያስወግዱ ነው። ይህ እርምጃ መቀልበስ አይቻልም። "
+"ዳግም ሊፈልጉት ከሆነ በምትኩ መለያውን ማቦዘን ያስቡበት።"
+
+msgid "Yes, Delete"
+msgstr "አዎ፣ ሰርዝ"
+
+msgid "Cancel"
+msgstr "ይቅር"
+
+msgid "Staff Details"
+msgstr "የሰራተኛ ዝርዝሮች"
+
+msgid "Inactive"
+msgstr "ንቁ ያልሆነ"
+
+msgid "Last Login IP"
+msgstr "የመጨረሻ መግቢያ አይፒ"
+
+msgid "Joined"
+msgstr "የተቀላቀለበት"
+
+msgid "Edit"
+msgstr "አርትዕ"
+
+msgid "Back to List"
+msgstr "ወደ ዝርዝሩ ተመለስ"
+
+msgid "Edit Staff"
+msgstr "ሰራተኛ አርትዕ"
+
+msgid "Add Staff"
+msgstr "ሰራተኛ ጨምር"
+
+#, python-format
+msgid "Edit %(name)s"
+msgstr "%(name)s ያርትዑ"
+
+msgid "Add New Staff Member"
+msgstr "አዲስ ሰራተኛ ጨምር"
+
+msgid "Update role, contact details, or employment status."
+msgstr "ሚና፣ የመገናኛ ዝርዝሮች ወይም የስራ ሁኔታን ያዘምኑ።"
+
+msgid ""
+"Create a login for a Pharmacist, Cashier, Store Manager, or Administrator."
+msgstr "ለፋርማሲስት፣ ለገንዘብ ተቀባይ፣ ለመደብር አስተዳዳሪ ወይም ለአስተዳዳሪ የመግቢያ መለያ ይፍጠሩ።"
+
+msgid "Save Staff Account"
+msgstr "የሰራተኛ መለያ አስቀምጥ"
+
+msgid "Back to staff list"
+msgstr "ወደ ሰራተኞች ዝርዝር ተመለስ"
+
+msgid "Staff & Roles"
+msgstr "ሰራተኞች እና ሚናዎች"
+
+msgid "Manage who can access PharmaCare and what they can do."
+msgstr "ወደ PharmaCare ማን ሊገባ እና ምን ማድረግ እንደሚችል ያስተዳድሩ።"
+
+msgid "Search"
+msgstr "ፈልግ"
+
+msgid "Name, username, or email"
+msgstr "ስም፣ የተጠቃሚ ስም ወይም ኢሜይል"
+
+msgid "Role"
+msgstr "ሚና"
+
+msgid "All roles"
+msgstr "ሁሉም ሚናዎች"
+
+msgid "Administrator"
+msgstr "አስተዳዳሪ"
+
+msgid "Pharmacist"
+msgstr "ፋርማሲስት"
+
+msgid "Cashier"
+msgstr "ገንዘብ ተቀባይ"
+
+msgid "Store Manager"
+msgstr "የመደብር አስተዳዳሪ"
+
+msgid "Filter"
+msgstr "አጣራ"
+
+msgid "Actions"
+msgstr "ተግባሮች"
+
+msgid "View"
+msgstr "ይመልከቱ"
+
+msgid "Delete"
+msgstr "ሰርዝ"
+
+msgid "No staff members found."
+msgstr "ምንም ሰራተኞች አልተገኙም።"
+
+msgid "Previous"
+msgstr "ቀዳሚ"
+
+#, python-format
+msgid "%(num)s of %(total)s"
+msgstr "%(num)s ከ%(total)s"
+
+msgid "Next"
+msgstr "ቀጣይ"
+
+msgid ""
+"Append-only record of who changed what, when, and from which IP address. "
+"Entries cannot be edited or deleted."
+msgstr ""
+"ማንም ምን፣ መቼ እና ከየትኛው የአይፒ አድራሻ እንደቀየረ የሚያሳይ ተጨማሪ-ብቻ መዝገብ። ግቤቶች ማስተካከል ወይም "
+"መሰረዝ አይችሉም።"
+
+msgid "Username or record"
+msgstr "የተጠቃሚ ስም ወይም መዝገብ"
+
+msgid "All"
+msgstr "ሁሉም"
+
+msgid "No audit entries found."
+msgstr "ምንም የኦዲት ግቤቶች አልተገኙም።"
+
+msgid "PharmaCare"
+msgstr "ፋርማኬር"
+
+msgid "Main"
+msgstr "ዋና"
+
+msgid "Stock"
+msgstr "ክምችት"
+
+msgid "Stock Units"
+msgstr "የክምችት አሃዶች"
+
+msgid "Sales Recorded"
+msgstr "የተመዘገቡ ሽያጮች"
+
+msgid "Staff at this branch"
+msgstr "በዚህ ቅርንጫፍ ያሉ ሰራተኞች"
+
+msgid "No staff assigned yet."
+msgstr "እስካሁን ምንም ሰራተኛ አልተመደበም።"
+
+msgid "Needs reordering here"
+msgstr "እዚህ ዳግም ማዘዝ የሚያስፈልጋቸው"
+
+msgid "Qty"
+msgstr "ብዛት"
+
+msgid "Reorder at"
+msgstr "ዳግም የሚታዘዘው በ"
+
+msgid "Nothing below its reorder level."
+msgstr "ከዳግም ማዘዣ መጠኑ በታች ምንም የለም።"
+
+#, python-format
+msgid "%(c)s product is out of stock here."
+msgid_plural "%(c)s products are out of stock here."
+msgstr[0] "%(c)s ምርት እዚህ ከክምችት ውጪ ነው።"
+msgstr[1] "%(c)s ምርቶች እዚህ ከክምችት ውጪ ናቸው።"
+
+msgid "Recent sales at this branch"
+msgstr "በዚህ ቅርንጫፍ የቅርብ ጊዜ ሽያጮች"
+
+msgid "No sales recorded here yet."
+msgstr "እስካሁን እዚህ ምንም ሽያጭ አልተመዘገበም።"
+
+msgid "Back to branches"
+msgstr "ወደ ቅርንጫፎች ተመለስ"
+
+msgid "Edit Branch"
+msgstr "ቅርንጫፍ አስተካክል"
+
+msgid "Add Branch"
+msgstr "ቅርንጫፍ ጨምር"
+
+msgid ""
+"A new branch starts with no stock. Stock it by recording a purchase against "
+"it, or by transferring from another branch."
+msgstr ""
+"አዲስ ቅርንጫፍ ያለ ክምችት ይጀምራል። በእሱ ስም ግዢ በመመዝገብ ወይም ከሌላ ቅርንጫፍ በማዛወር ክምችት ያሟሉ።"
+
+msgid "Save Branch"
+msgstr "ቅርንጫፍ አስቀምጥ"
+
+msgid ""
+"Each branch holds its own stock. The product catalogue and customers are "
+"shared."
+msgstr "እያንዳንዱ ቅርንጫፍ የራሱን ክምችት ይይዛል። የምርት ካታሎጉ እና ደንበኞቹ የጋራ ናቸው።"
+
+msgid "Compare Stock"
+msgstr "ክምችት አወዳድር"
+
+msgid "Units"
+msgstr "አሃዶች"
+
+msgid "Low"
+msgstr "ዝቅተኛ"
+
+msgid "Staff"
+msgstr "ሰራተኞች"
+
+msgid "No manager assigned"
+msgstr "ምንም አስተዳዳሪ አልተመደበም"
+
+msgid "No branches yet."
+msgstr "እስካሁን ምንም ቅርንጫፍ የለም።"
+
+msgid "Branch Stock"
+msgstr "የቅርንጫፍ ክምችት"
+
+msgid "Stock held at this branch only. Other branches are counted separately."
+msgstr "በዚህ ቅርንጫፍ ብቻ የተያዘ ክምችት። ሌሎች ቅርንጫፎች በተለየ ይቆጠራሉ።"
+
+msgid "Transfer Stock"
+msgstr "ክምችት አዛውር"
+
+msgid "Products Held"
+msgstr "የተያዙ ምርቶች"
+
+msgid "Product name or code"
+msgstr "የምርት ስም ወይም ኮድ"
+
+msgid "Level"
+msgstr "ደረጃ"
+
+msgid "Low stock"
+msgstr "ዝቅተኛ ክምችት"
+
+msgid "Out of stock"
+msgstr "ከክምችት ውጪ"
+
+msgid "Apply"
+msgstr "ተግብር"
+
+msgid "Shelf"
+msgstr "መደርደሪያ"
+
+msgid "OK"
+msgstr "ጥሩ"
+
+msgid "No stock recorded at this branch yet."
+msgstr "እስካሁን በዚህ ቅርንጫፍ ምንም ክምችት አልተመዘገበም።"
+
+msgid "Stock Across Branches"
+msgstr "ክምችት በቅርንጫፎች መካከል"
+
+msgid ""
+"Where everything is. Use this to spot a product sitting in one branch while "
+"another has none — a transfer is usually cheaper than a new order."
+msgstr ""
+"ሁሉም ነገር ያለበት ቦታ። አንድ ምርት በአንድ ቅርንጫፍ ተቀምጦ ሌላው ሲያጣ ለማወቅ ይህን ይጠቀሙ — ዝውውር ብዙውን "
+"ጊዜ ከአዲስ ትዕዛዝ ያነሰ ወጪ አለው።"
+
+msgid "Product name"
+msgstr "የምርት ስም"
+
+msgid "No products found."
+msgstr "ምንም ምርቶች አልተገኙም።"
+
+msgid "out of stock"
+msgstr "ከክምችት ውጪ"
+
+msgid "at or below that branch's reorder level"
+msgstr "በዚያ ቅርንጫፍ የዳግም ማዘዣ መጠን ወይም ከዚያ በታች"
+
+#, python-format
+msgid "Moving stock out of %(branch)s."
+msgstr "ክምችት ከ%(branch)s እየተወሰደ ነው።"
+
+msgid ""
+"Units arrive at the destination at the cost they left at, keeping both "
+"branches' profit figures accurate."
+msgstr ""
+"አሃዶቹ ወደ መድረሻው የሚደርሱት በወጡበት ወጪ ነው፤ በዚህም የሁለቱም ቅርንጫፎች የትርፍ አኃዞች ትክክለኛ ሆነው ይቆያሉ።"
+
+msgid "Back to branch stock"
+msgstr "ወደ የቅርንጫፍ ክምችት ተመለስ"
+
+msgid "Open your stock item"
+msgstr "የእርስዎን የክምችት እቃ ክፈት"
+
+msgid "Register This Product"
+msgstr "ይህን ምርት መዝግብ"
+
+msgid "Standard identity"
+msgstr "መደበኛ መለያ"
+
+msgid "not recorded"
+msgstr "አልተመዘገበም"
+
+msgid "Flags"
+msgstr "ምልክቶች"
+
+msgid "Prescription required — the till will warn before selling"
+msgstr "ማዘዣ ያስፈልጋል — ከመሸጥ በፊት የሽያጭ ቦታው ያስጠነቅቃል"
+
+msgid "Essential medicine — shortages matter more"
+msgstr "አስፈላጊ መድሃኒት — እጥረቱ የበለጠ ያሳስባል"
+
+msgid "Not on the essential list"
+msgstr "በአስፈላጊ ዝርዝር ውስጥ አይደለም"
+
+msgid "Requires cold chain storage"
+msgstr "ቀዝቃዛ ማከማቻ ያስፈልጋል"
+
+msgid "Ambient storage"
+msgstr "በተለመደ ሙቀት ማከማቻ"
+
+msgid "Data source"
+msgstr "የመረጃ ምንጭ"
+
+msgid ""
+"This entry has not been verified against an authority list. Treat its "
+"details as provisional for regulatory purposes."
+msgstr "ይህ ግቤት ከባለስልጣን ዝርዝር ጋር አልተረጋገጠም። ዝርዝሮቹን ለቁጥጥር ዓላማ እንደ ጊዜያዊ ይያዙት።"
+
+msgid "Taken from an authority list."
+msgstr "ከባለስልጣን ዝርዝር የተወሰደ።"
+
+msgid "Your stock item"
+msgstr "የእርስዎ የክምችት እቃ"
+
+msgid "Your Name"
+msgstr "የእርስዎ ስም"
+
+msgid "Total Stock"
+msgstr "ጠቅላላ ክምችት"
+
+msgid "Back to catalogue"
+msgstr "ወደ ካታሎግ ተመለስ"
+
+msgid "Add Catalogue Entry"
+msgstr "የካታሎግ ግቤት ጨምር"
+
+msgid ""
+"Only add something the catalogue genuinely does not have — search first. "
+"Entries added here are marked as local, so reports can tell them apart from "
+"authority-sourced records."
+msgstr ""
+"ካታሎጉ በእውነት የሌለውን ብቻ ይጨምሩ — በቅድሚያ ይፈልጉ። እዚህ የተጨመሩ ግቤቶች በአካባቢው እንደተጨመሩ ምልክት "
+"ይደረግባቸዋል፣ በዚህም ሪፖርቶች ከባለስልጣን መዝገቦች ሊለዩዋቸው ይችላሉ።"
+
+msgid "Save Catalogue Entry"
+msgstr "የካታሎግ ግቤት አስቀምጥ"
+
+msgid "Standard Catalogue"
+msgstr "መደበኛ ካታሎግ"
+
+msgid ""
+"Register your stock against a standard record instead of typing names. This "
+"keeps naming consistent and makes group reporting possible."
+msgstr ""
+"ስሞችን በመፃፍ ፋንታ ክምችትዎን ከመደበኛ መዝገብ ጋር ያመዝግቡ። ይህ ስያሜውን ወጥ ያደርጋል እና የቡድን ሪፖርት "
+"ማድረግ ያስችላል።"
+
+msgid "Catalogue Size"
+msgstr "የካታሎግ መጠን"
+
+msgid "You Stock"
+msgstr "እርስዎ የያዙት"
+
+msgid "Not Standardised"
+msgstr "መደበኛ ያልሆነ"
+
+msgid "Your Stock Linked"
+msgstr "የተገናኘ የእርስዎ ክምችት"
+
+#, python-format
+msgid "%(c)s of your products is not linked to the catalogue."
+msgid_plural "%(c)s of your products are not linked to the catalogue."
+msgstr[0] "ከምርቶችዎ %(c)s ከካታሎግ ጋር አልተገናኘም።"
+msgstr[1] "ከምርቶችዎ %(c)s ከካታሎግ ጋር አልተገናኙም።"
+
+msgid ""
+"Unlinked products still work normally, but they will not roll up in group or "
+"regulatory reporting. Link them by editing the product and choosing a "
+"catalogue record."
+msgstr ""
+"ያልተገናኙ ምርቶች በመደበኛ ሁኔታ ይሠራሉ፣ ግን በቡድን ወይም በቁጥጥር ሪፖርት ውስጥ አይካተቱም። ምርቱን በማስተካከል "
+"እና የካታሎግ መዝገብ በመምረጥ ያገናኙዋቸው።"
+
+msgid "Generic name, brand, ATC code or barcode"
+msgstr "አጠቃላይ ስም፣ ስያሜ፣ የATC ኮድ ወይም ባርኮድ"
+
+msgid "You stock it"
+msgstr "እርስዎ ይዘውታል"
+
+msgid "Not stocked"
+msgstr "አልተከማቸም"
+
+msgid "ATC"
+msgstr "ATC"
+
+msgid "Class"
+msgstr "ምድብ"
+
+msgid "Essential"
+msgstr "አስፈላጊ"
+
+msgid "Cold chain"
+msgstr "ቀዝቃዛ ማከማቻ"
+
+msgid "Verified"
+msgstr "የተረጋገጠ"
+
+msgid "Stocked"
+msgstr "ተከማችቷል"
+
+msgid "Register"
+msgstr "መዝግብ"
+
+msgid "No catalogue products match these filters."
+msgstr "ከእነዚህ አጣሪዎች ጋር የሚዛመድ የካታሎግ ምርት የለም።"
+
+msgid "About the bundled catalogue"
+msgstr "ስለ አብሮ የቀረበው ካታሎግ"
+
+msgid ""
+"The entries shipped with the system are a starter set of common medicines, "
+"marked as such. They are not an extract of the EFDA register, and "
+"registration numbers are intentionally left blank. Before using this for "
+"regulatory reporting, load the authority's own list — an administrator can "
+"do this with the import_catalogue command."
+msgstr ""
+"ከሥርዓቱ ጋር የቀረቡት ግቤቶች የተለመዱ መድሃኒቶች የመጀመሪያ ስብስብ ናቸው፣ እንደዚያም ምልክት ተደርጎባቸዋል። "
+"የEFDA መዝገብ ቅንጭብ አይደሉም፣ እና የምዝገባ ቁጥሮች ሆን ተብሎ ባዶ ተትተዋል። ይህን ለቁጥጥር ሪፖርት ከመጠቀም "
+"በፊት የባለስልጣኑን የራሱን ዝርዝር ይጫኑ — አስተዳዳሪ በimport_catalogue ትዕዛዝ ማድረግ ይችላል።"
+
+msgid "Register Product"
+msgstr "ምርት መዝግብ"
+
+msgid "From the standard catalogue"
+msgstr "ከመደበኛ ካታሎግ"
+
+msgid "Prescription required"
+msgstr "ማዘዣ ያስፈልጋል"
+
+msgid ""
+"The name, strength, form and legal class come from the catalogue and cannot "
+"be changed here — that is what keeps naming consistent across pharmacies. "
+"You set only the commercial details below."
+msgstr ""
+"ስሙ፣ የመጠን ጥንካሬው፣ ቅርጹ እና የሕግ ምድቡ ከካታሎጉ የሚመጡ ናቸው እና እዚህ መቀየር አይችሉም — በፋርማሲዎች "
+"መካከል ስያሜውን ወጥ የሚያደርገው ይህ ነው። እርስዎ ከታች ያሉትን የንግድ ዝርዝሮች ብቻ ያስቀምጣሉ።"
+
+msgid "Delete Customer"
+msgstr "ደንበኛ ሰርዝ"
+
+msgid "Delete this customer?"
+msgstr "ይህን ደንበኛ መሰረዝ ይፈልጋሉ?"
+
+#, python-format
+msgid "\"%(name)s\" and their history will be permanently removed."
+msgstr "«%(name)s» እና ታሪካቸው በቋሚነት ይወገዳሉ።"
+
+msgid "Customer Details"
+msgstr "የደንበኛ ዝርዝሮች"
+
+msgid "Customer Since"
+msgstr "ደንበኛ ከሆነበት ጊዜ"
+
+msgid "Back to customers"
+msgstr "ወደ ደንበኞች ተመለስ"
+
+msgid "Edit Customer"
+msgstr "ደንበኛ አርትዕ"
+
+msgid "Add Customer"
+msgstr "ደንበኛ ጨምር"
+
+msgid "Register New Customer"
+msgstr "አዲስ ደንበኛ መዝግብ"
+
+msgid "Save Customer"
+msgstr "ደንበኛ አስቀምጥ"
+
+msgid "Everyone on staff can register or update a customer."
+msgstr "ማንኛውም ሰራተኛ ደንበኛ መመዝገብ ወይም ማዘመን ይችላል።"
+
+msgid "Name, phone, or email"
+msgstr "ስም፣ ስልክ ወይም ኢሜይል"
+
+msgid "No customers found."
+msgstr "ምንም ደንበኞች አልተገኙም።"
+
+msgid "Dashboard"
+msgstr "ዳሽቦርድ"
+
+#, python-format
+msgid "Welcome back, %(name)s"
+msgstr "እንኳን ደህና መጡ፣ %(name)s"
+
+#, python-format
+msgid "%(role)s view"
+msgstr "የ%(role)s እይታ"
+
+msgid "Phase 1: Core platform live"
+msgstr "ምዕራፍ 1፦ ዋናው መድረክ ስራ ላይ ውሏል"
+
+msgid "Total Medicines"
+msgstr "ጠቅላላ መድሃኒቶች"
+
+msgid "Expired Medicines"
+msgstr "ጊዜያቸው ያለፈ መድሃኒቶች"
+
+msgid "Today's Sales"
+msgstr "የዛሬ ሽያጭ"
+
+msgid "Monthly Sales"
+msgstr "ወርሃዊ ሽያጭ"
+
+msgid "Total Customers"
+msgstr "ጠቅላላ ደንበኞች"
+
+msgid "Total Suppliers"
+msgstr "ጠቅላላ አቅራቢዎች"
+
+msgid "Sales Value"
+msgstr "የሽያጭ መጠን"
+
+msgid "Profit Summary"
+msgstr "የትርፍ ማጠቃለያ"
+
+msgid "Sales Trend"
+msgstr "የሽያጭ አዝማሚያ"
+
+msgid "Top Selling Medicines"
+msgstr "በብዛት የሚሸጡ መድሃኒቶች"
+
+msgid "Stock by Category"
+msgstr "ክምችት በምድብ"
+
+msgid "Analytics"
+msgstr "ትንታኔ"
+
+msgid "Administrator only"
+msgstr "ለአስተዳዳሪ ብቻ"
+
+msgid "Revenue vs Cost of Goods Sold"
+msgstr "ገቢ በተሸጡ ዕቃዎች ወጪ ንጽጽር"
+
+msgid "The gap between the two bars is your gross margin."
+msgstr "በሁለቱ አምዶች መካከል ያለው ልዩነት ጠቅላላ ትርፍዎ ነው።"
+
+msgid "Payment Method Mix"
+msgstr "የመክፈያ ዘዴ ስብጥር"
+
+msgid "By revenue, not transaction count."
+msgstr "በገቢ መሰረት፣ በግብይት ቁጥር አይደለም።"
+
+msgid "Expiry Risk Profile"
+msgstr "የመቆያ ጊዜ አደጋ መገለጫ"
+
+msgid "Stock value at risk by remaining shelf life."
+msgstr "በቀረው የመቆያ ጊዜ መሰረት ለአደጋ የተጋለጠ የክምችት ዋጋ።"
+
+msgid "Top Customers by Spend"
+msgstr "በወጪ ከፍተኛ ደንበኞች"
+
+msgid "Lifetime value — who is worth retaining."
+msgstr "የዕድሜ ልክ ዋጋ — ማንን ማቆየት ተገቢ ነው።"
+
+msgid "Sales by Staff Member"
+msgstr "ሽያጭ በሰራተኛ"
+
+msgid "Revenue served, completed sales only."
+msgstr "የተገኘ ገቢ፣ የተጠናቀቁ ሽያጮች ብቻ።"
+
+msgid ""
+"Charts and KPIs above will populate automatically once the Medicine, Sales, "
+"and Purchase modules are installed in Phase 2-4. No further changes to this "
+"page will be needed."
+msgstr ""
+"ከላይ ያሉት ገበታዎች እና ቁልፍ አመልካቾች የመድሃኒት፣ የሽያጭ እና የግዢ ክፍሎች በምዕራፍ 2-4 ከተጫኑ በኋላ በራስ-"
+"ሰር ይሞላሉ። በዚህ ገጽ ላይ ተጨማሪ ለውጥ አያስፈልግም።"
+
+msgid "Medicines"
+msgstr "መድሃኒቶች"
+
+msgid "Spend"
+msgstr "ወጪ"
+
+msgid "Stock Aging"
+msgstr "የክምችት እርጅና"
+
+msgid ""
+"Stock on hand grouped by how long it has left, valued at what each batch "
+"actually cost."
+msgstr "በእጅ ያለው ክምችት በቀረው ጊዜ የተከፋፈለ፣ እያንዳንዱ ጭነት በትክክል ባስከፈለው ዋጋ የተተመነ።"
+
+msgid "Total Units"
+msgstr "ጠቅላላ አሃዶች"
+
+msgid "At Risk (expired or ≤30 days)"
+msgstr "ለአደጋ የተጋለጠ (ጊዜው ያለፈ ወይም ≤30 ቀናት)"
+
+msgid "By remaining shelf life"
+msgstr "በቀረው የመቆያ ጊዜ"
+
+msgid "Remaining Life"
+msgstr "የቀረ የመቆያ ጊዜ"
+
+msgid "Value"
+msgstr "ዋጋ"
+
+msgid "Share of stock"
+msgstr "የክምችት ድርሻ"
+
+msgid ""
+"Watch the value column, not just the units. A small number of expensive "
+"items expiring matters more than a large number of cheap ones."
+msgstr ""
+"የዋጋውን አምድ ይመልከቱ፣ አሃዶቹን ብቻ አይደለም። ጥቂት ውድ ዕቃዎች ጊዜያቸው ማለፉ ከብዙ ርካሽ ዕቃዎች የበለጠ "
+"ያሳስባል።"
+
+msgid "Back to inventory"
+msgstr "ወደ ክምችት ተመለስ"
+
+msgid ""
+"Each purchase is stored as its own batch with its own cost. Sales draw from "
+"the batch expiring soonest first (FEFO), so profit reflects what the units "
+"actually cost."
+msgstr ""
+"እያንዳንዱ ግዢ የራሱ ወጪ ካለው የራሱ ጭነት ሆኖ ይቀመጣል። ሽያጮች በቅድሚያ ጊዜው ከሚያልፈው ጭነት ይወስዳሉ "
+"(FEFO)፤ በዚህም ትርፍ ክፍሎቹ በትክክል ያስከፈሉትን ያሳያል።"
+
+msgid "Medicine or batch number"
+msgstr "የመድሃኒት ወይም የጭነት ቁጥር"
+
+msgid "Show"
+msgstr "አሳይ"
+
+msgid "With stock remaining"
+msgstr "ክምችት የቀረው"
+
+msgid "Depleted"
+msgstr "ተሟጧል"
+
+msgid "Remaining"
+msgstr "የቀረ"
+
+msgid "Remaining Value"
+msgstr "የቀረው ዋጋ"
+
+msgid "No batches found."
+msgstr "ምንም ጭነቶች አልተገኙም።"
+
+msgid "Expired Stock"
+msgstr "ጊዜው ያለፈ ክምችት"
+
+msgid "Expired & Expiring Stock"
+msgstr "ጊዜው ያለፈ እና የሚያልፍ ክምችት"
+
+msgid ""
+"Expired stock should be quarantined and written off with a Stock Out "
+"movement."
+msgstr "ጊዜው ያለፈ ክምችት ተለይቶ መቀመጥና በStock Out እንቅስቃሴ መሰረዝ አለበት።"
+
+msgid "Within 30 days"
+msgstr "በ30 ቀናት ውስጥ"
+
+msgid "Within 60 days"
+msgstr "በ60 ቀናት ውስጥ"
+
+msgid "Batches"
+msgstr "ጭነቶች"
+
+msgid "Nothing in this window."
+msgstr "በዚህ ክፍለ ጊዜ ምንም የለም።"
+
+msgid ""
+"Every change to stock and what caused it — purchases, sales, voids, "
+"transfers, manual movements and stocktakes — with the running balance. "
+"Append-only."
+msgstr ""
+"በክምችት ላይ የተደረገ ማንኛውም ለውጥ እና መንስኤው — ግዢዎች፣ ሽያጮች፣ ውድቅ ማድረጎች፣ ዝውውሮች፣ በእጅ የተደረጉ "
+"እንቅስቃሴዎች እና የክምችት ቆጠራዎች — ከተከታታይ ሚዛን ጋር። ተጨማሪ-ብቻ።"
+
+msgid "Product name or reference (e.g. INV-000042)"
+msgstr "የምርት ስም ወይም ማጣቀሻ (ለምሳሌ INV-000042)"
+
+msgid "All causes"
+msgstr "ሁሉም መንስኤዎች"
+
+msgid "Balance"
+msgstr "ሚዛን"
+
+msgid "No ledger entries match these filters."
+msgstr "ከእነዚህ አጣሪዎች ጋር የሚዛመድ የመዝገብ ግቤት የለም።"
+
+msgid "Current Stock"
+msgstr "ወቅታዊ ክምችት"
+
+msgid "Nothing is low on stock right now."
+msgstr "በአሁኑ ጊዜ ምንም ዝቅተኛ ክምችት የለም።"
+
+msgid "Record Stock Movement"
+msgstr "የክምችት እንቅስቃሴ መዝግብ"
+
+msgid ""
+"Use Stock In/Out for manual corrections, Adjustment after a physical count, "
+"or Transfer when stock leaves for another location."
+msgstr ""
+"ለእጅ ማስተካከያ ክምችት ግባ/ውጣ ይጠቀሙ፣ ከአካላዊ ቆጠራ በኋላ ማስተካከያ፣ ወይም ክምችት ወደ ሌላ ቦታ ሲሄድ ዝውውር "
+"ይጠቀሙ።"
+
+msgid "Record Movement"
+msgstr "እንቅስቃሴ መዝግብ"
+
+msgid "Back to movement history"
+msgstr "ወደ እንቅስቃሴ ታሪክ ተመለስ"
+
+msgid "Stock Movement History"
+msgstr "የክምችት እንቅስቃሴ ታሪክ"
+
+msgid "Every manual stock change, fully audited."
+msgstr "እያንዳንዱ በእጅ የተደረገ የክምችት ለውጥ፣ ሙሉ በሙሉ የተመዘገበ።"
+
+msgid "Medicine name"
+msgstr "የመድሃኒት ስም"
+
+msgid "Before"
+msgstr "በፊት"
+
+msgid "After"
+msgstr "በኋላ"
+
+msgid "Reason"
+msgstr "ምክንያት"
+
+msgid "No stock movements found."
+msgstr "ምንም የክምችት እንቅስቃሴ አልተገኘም።"
+
+msgid "Out of Stock Report"
+msgstr "ከክምችት ውጪ ሪፖርት"
+
+msgid "Medicines currently at zero quantity."
+msgstr "በአሁኑ ጊዜ በዜሮ መጠን ያሉ መድሃኒቶች።"
+
+msgid "Nothing is out of stock right now."
+msgstr "በአሁኑ ጊዜ ምንም ከክምችት ውጪ የለም።"
+
+msgid "Inventory"
+msgstr "ክምችት"
+
+msgid "Inventory Overview"
+msgstr "የክምችት አጠቃላይ እይታ"
+
+msgid "Current stock health and full stock position."
+msgstr "ወቅታዊ የክምችት ጤናና ሙሉ የክምችት ሁኔታ።"
+
+msgid "Manage"
+msgstr "አስተዳድር"
+
+msgid "Reorder Plan"
+msgstr "የዳግም ማዘዣ ዕቅድ"
+
+msgid "Total Stock Units"
+msgstr "ጠቅላላ የክምችት ብዛት"
+
+msgid "Medicine name or code"
+msgstr "የመድሃኒት ስም ወይም ኮድ"
+
+msgid "All stock levels"
+msgstr "ሁሉም የክምችት ደረጃዎች"
+
+msgid "Expiring soon"
+msgstr "በቅርቡ ያበቃል"
+
+msgid "No medicines match these filters."
+msgstr "ከእነዚህ አጣሪዎች ጋር የሚዛመድ መድሃኒት የለም።"
+
+msgid "Recent Stock Movements"
+msgstr "የቅርብ ጊዜ የክምችት እንቅስቃሴዎች"
+
+msgid "View all"
+msgstr "ሁሉንም ይመልከቱ"
+
+msgid "No stock movements recorded yet."
+msgstr "እስካሁን ምንም የክምችት እንቅስቃሴ አልተመዘገበም።"
+
+#, python-format
+msgid ""
+"Based on units actually sold over the last %(w)s days, this suggests how "
+"much to order to hold %(d)s days of stock."
+msgstr ""
+"ባለፉት %(w)s ቀናት በትክክል በተሸጡ አሃዶች መሠረት፣ የ%(d)s ቀናት ክምችት ለመያዝ ምን ያህል ማዘዝ እንዳለብዎ "
+"ይጠቁማል።"
+
+msgid "Lines to Order"
+msgstr "የሚታዘዙ መስመሮች"
+
+msgid "Estimated Cost"
+msgstr "የሚገመት ወጪ"
+
+msgid "Days of cover to hold"
+msgstr "የሚያዙ የሽፋን ቀናት"
+
+msgid "Include products that are not low yet"
+msgstr "እስካሁን ዝቅተኛ ያልሆኑ ምርቶችንም አካትት"
+
+msgid "Recalculate"
+msgstr "ደግመህ አስላ"
+
+#, python-format
+msgid "%(c)s line"
+msgid_plural "%(c)s lines"
+msgstr[0] "%(c)s መስመር"
+msgstr[1] "%(c)s መስመሮች"
+
+msgid "On Hand"
+msgstr "በእጅ ያለ"
+
+msgid "Sold / Day"
+msgstr "በቀን የተሸጠ"
+
+msgid "Days of Cover"
+msgstr "የሚሸፍኑ ቀናት"
+
+msgid "Suggested Order"
+msgstr "የተጠቆመ ትዕዛዝ"
+
+msgid "Est. Cost"
+msgstr "የሚገመት ወጪ"
+
+msgid "Out"
+msgstr "ጨርሷል"
+
+msgid "No recent sales to measure"
+msgstr "ለመለካት የቅርብ ጊዜ ሽያጭ የለም"
+
+msgid "Nothing needs reordering at this branch."
+msgstr "በዚህ ቅርንጫፍ ዳግም ማዘዝ የሚያስፈልገው ምንም የለም።"
+
+msgid "How to read this"
+msgstr "ይህን እንዴት እንደሚያነቡ"
+
+msgid ""
+"Days of cover is what you have on hand divided by how fast it sells. Under 7 "
+"days is shown in red."
+msgstr "የሚሸፍኑ ቀናት በእጅ ያለው በሚሸጥበት ፍጥነት የተከፈለ ነው። ከ7 ቀናት በታች በቀይ ይታያል።"
+
+msgid ""
+"A dash means the product has had no sales in the window, so there is no rate "
+"to measure — the suggestion falls back to topping up to twice the reorder "
+"level."
+msgstr ""
+"ሰረዝ ማለት ምርቱ በዚህ ክፍለ ጊዜ ምንም ሽያጭ አልነበረውም፣ ስለዚህ የሚለካ መጣኔ የለም — ጥቆማው ወደ የዳግም ማዘዣ "
+"መጠኑ እጥፍ ወደ መሙላት ይመለሳል።"
+
+msgid ""
+"Record the order through Purchases when the goods arrive, so cost and batch "
+"tracking stay accurate."
+msgstr "ዕቃዎቹ ሲደርሱ ትዕዛዙን በግዢዎች በኩል ይመዝግቡ፤ በዚህም የወጪ እና የጭነት ክትትል ትክክለኛ ሆነው ይቆያሉ።"
+
+msgid "All products"
+msgstr "ሁሉም ምርቶች"
+
+msgid "started"
+msgstr "ተጀምሯል"
+
+msgid "by"
+msgstr "በ"
+
+msgid "Count Sheet"
+msgstr "የቆጠራ ወረቀት"
+
+msgid ""
+"Post this stocktake? Counted differences will be applied to stock. Uncounted "
+"products are left untouched."
+msgstr ""
+"ይህን የክምችት ቆጠራ ይመዝገብ? የተቆጠሩ ልዩነቶች በክምችቱ ላይ ይተገበራሉ። ያልተቆጠሩ ምርቶች እንዳሉ ይቆያሉ።"
+
+msgid "Post Stocktake"
+msgstr "የክምችት ቆጠራ መዝግብ"
+
+msgid "Cancel this stocktake? No stock will be changed."
+msgstr "ይህን የክምችት ቆጠራ ይሰረዝ? ምንም ክምችት አይቀየርም።"
+
+msgid "Progress"
+msgstr "ሂደት"
+
+msgid "Net Variance"
+msgstr "የተጣራ ልዩነት"
+
+msgid "Variance Value"
+msgstr "የልዩነት ዋጋ"
+
+msgid "Not yet counted"
+msgstr "እስካሁን ያልተቆጠረ"
+
+msgid "Differences only"
+msgstr "ልዩነቶች ብቻ"
+
+msgid "Difference"
+msgstr "ልዩነት"
+
+msgid "optional"
+msgstr "አማራጭ"
+
+msgid "Nothing to show in this view."
+msgstr "በዚህ እይታ የሚታይ ምንም የለም።"
+
+msgid ""
+"Leave a box empty to mark a product as not yet counted — an empty box is "
+"never treated as zero."
+msgstr ""
+"አንድ ምርት እስካሁን እንዳልተቆጠረ ለማመልከት ሳጥኑን ባዶ ይተዉት — ባዶ ሳጥን በጭራሽ ዜሮ ተብሎ አይወሰድም።"
+
+msgid "Save Counts"
+msgstr "ቆጠራዎችን አስቀምጥ"
+
+msgid "Back to stocktakes"
+msgstr "ወደ የክምችት ቆጠራዎች ተመለስ"
+
+msgid ""
+"Count a whole branch or one section, review the differences, then post them "
+"all at once."
+msgstr "ሙሉ ቅርንጫፍ ወይም አንድ ክፍል ይቁጠሩ፣ ልዩነቶቹን ይገምግሙ፣ ከዚያ ሁሉንም በአንድ ጊዜ ይመዝግቡ።"
+
+msgid "is in progress"
+msgstr "በሂደት ላይ ነው"
+
+msgid "counted"
+msgstr "ተቆጥሯል"
+
+msgid "Continue counting"
+msgstr "ቆጠራ ቀጥል"
+
+msgid "Start a new stocktake"
+msgstr "አዲስ የክምችት ቆጠራ ጀምር"
+
+msgid "Start Counting"
+msgstr "ቆጠራ ጀምር"
+
+msgid ""
+"Opening a stocktake freezes the expected figures, so sales made while you "
+"count are not mistaken for counting errors."
+msgstr ""
+"የክምችት ቆጠራ መክፈት የሚጠበቁትን አኃዞች ያቆማል፤ በዚህም እርስዎ በሚቆጥሩበት ጊዜ የተደረጉ ሽያጮች የቆጠራ ስህተት "
+"ተብለው አይሳሳቱም።"
+
+msgid "Scope"
+msgstr "ወሰን"
+
+msgid "Open"
+msgstr "ክፈት"
+
+msgid "No stocktakes yet."
+msgstr "እስካሁን ምንም የክምችት ቆጠራ የለም።"
+
+msgid "Open menu"
+msgstr "ማውጫ ክፈት"
+
+msgid "Delete Category"
+msgstr "ምድብ ሰርዝ"
+
+msgid "Delete this category?"
+msgstr "ይህን ምድብ መሰረዝ ይፈልጋሉ?"
+
+#, python-format
+msgid ""
+"\"%(name)s\" will be removed. This category currently has %(count)s "
+"medicine(s) linked to it — deletion is blocked if any exist."
+msgstr ""
+"«%(name)s» ይወገዳል። ይህ ምድብ በአሁኑ ጊዜ %(count)s መድሃኒት(ዎች) የተያያዙበት ነው — ካሉ መሰረዝ "
+"ይታገዳል።"
+
+msgid "Edit Category"
+msgstr "ምድብ አርትዕ"
+
+msgid "Add Category"
+msgstr "ምድብ ጨምር"
+
+msgid "Save Category"
+msgstr "ምድብ አስቀምጥ"
+
+msgid "Back to categories"
+msgstr "ወደ ምድቦች ተመለስ"
+
+msgid "Group medicines for easier browsing and stock reporting."
+msgstr "መድሃኒቶችን ለቀላል አሰሳ እና የክምችት ሪፖርት ማድረጊያ በምድብ ይክፈሉ።"
+
+msgid "Category name"
+msgstr "የምድብ ስም"
+
+msgid "No categories found."
+msgstr "ምንም ምድቦች አልተገኙም።"
+
+msgid "Delete Medicine"
+msgstr "መድሃኒት ሰርዝ"
+
+msgid "Delete this medicine?"
+msgstr "ይህን መድሃኒት መሰረዝ ይፈልጋሉ?"
+
+#, python-format
+msgid ""
+"\"%(name)s\" (%(code)s) will be permanently removed from the catalog. This "
+"cannot be undone."
+msgstr "«%(name)s» (%(code)s) ከካታሎጉ በቋሚነት ይወገዳል። ይህ መቀልበስ አይቻልም።"
+
+msgid "Medicine Details"
+msgstr "የመድሃኒት ዝርዝሮች"
+
+msgid "Print Label"
+msgstr "መለያ አትም"
+
+msgid "Catalog Information"
+msgstr "የካታሎግ መረጃ"
+
+msgid "Tax"
+msgstr "ግብር"
+
+msgid "Final Price"
+msgstr "የመጨረሻ ዋጋ"
+
+msgid "Back to medicines"
+msgstr "ወደ መድሃኒቶች ተመለስ"
+
+msgid "Edit Medicine"
+msgstr "መድሃኒት አርትዕ"
+
+msgid "Add Medicine"
+msgstr "መድሃኒት ጨምር"
+
+msgid "Add New Medicine"
+msgstr "አዲስ መድሃኒት ጨምር"
+
+msgid "Save Medicine"
+msgstr "መድሃኒት አስቀምጥ"
+
+msgid "Label"
+msgstr "መለያ"
+
+msgid "Exp"
+msgstr "ማብቂያ"
+
+msgid "Print"
+msgstr "አትም"
+
+msgid "Back"
+msgstr "ተመለስ"
+
+msgid "Browse the catalog, check stock, and print shelf labels."
+msgstr "ካታሎጉን ይመልከቱ፣ ክምችትን ያረጋግጡ እና የመደርደሪያ መለያዎችን ያትሙ።"
+
+msgid "Name, code, generic name, or barcode"
+msgstr "ስም፣ ኮድ፣ አጠቃላይ ስም ወይም ባርኮድ"
+
+msgid "All categories"
+msgstr "ሁሉም ምድቦች"
+
+msgid "All types"
+msgstr "ሁሉም አይነቶች"
+
+msgid "Expiry"
+msgstr "የማብቂያ ቀን"
+
+msgid "Cost"
+msgstr "ወጪ"
+
+msgid "Price"
+msgstr "ዋጋ"
+
+msgid "Requires prescription"
+msgstr "ማዘዣ ያስፈልጋል"
+
+msgid "No medicines found."
+msgstr "ምንም መድሃኒቶች አልተገኙም።"
+
+msgid ""
+"Alerts relevant to your role. Stock and expiry alerts clear themselves once "
+"resolved."
+msgstr "ለሚናዎ የሚመለከቱ ማሳወቂያዎች። የክምችት እና የመቆያ ጊዜ ማሳወቂያዎች ሲፈቱ በራሳቸው ይጠራሉ።"
+
+msgid "Refresh"
+msgstr "አድስ"
+
+msgid "Mark all read"
+msgstr "ሁሉንም እንደተነበበ ምልክት አድርግ"
+
+msgid "Unread"
+msgstr "ያልተነበበ"
+
+msgid "Read"
+msgstr "ተነቧል"
+
+msgid "Mark read"
+msgstr "እንደተነበበ ምልክት አድርግ"
+
+msgid "Nothing to show here."
+msgstr "እዚህ የሚታይ ምንም የለም።"
+
+msgid "Active branch"
+msgstr "ንቁ ቅርንጫፍ"
+
+msgid "Switch branch"
+msgstr "ቅርንጫፍ ቀይር"
+
+msgid "Compare all branches"
+msgstr "ሁሉንም ቅርንጫፎች አወዳድር"
+
+msgid "Your branch"
+msgstr "ቅርንጫፍዎ"
+
+msgid "Change language"
+msgstr "ቋንቋ ቀይር"
+
+msgid "unread notifications"
+msgstr "ያልተነበቡ ማሳወቂያዎች"
+
+msgid "No unread notifications."
+msgstr "ያልተነበበ ማሳወቂያ የለም።"
+
+msgid "View all notifications"
+msgstr "ሁሉንም ማሳወቂያዎች ይመልከቱ"
+
+msgid "Manage Staff"
+msgstr "ሰራተኞችን አስተዳድር"
+
+msgid "Logout"
+msgstr "ውጣ"
+
+msgid "Management System"
+msgstr "የአስተዳደር ሥርዓት"
+
+msgid "Overview"
+msgstr "አጠቃላይ እይታ"
+
+msgid "Catalog"
+msgstr "ካታሎግ"
+
+msgid "Operations"
+msgstr "ስራዎች"
+
+msgid "Point of Sale"
+msgstr "የሽያጭ ነጥብ"
+
+msgid "Insights"
+msgstr "ትንታኔዎች"
+
+msgid "Reports"
+msgstr "ሪፖርቶች"
+
+msgid "Administration"
+msgstr "አስተዳደር"
+
+msgid "Settings"
+msgstr "ቅንብሮች"
+
+msgid "Delete Purchase"
+msgstr "ግዢ ሰርዝ"
+
+msgid "Delete this purchase?"
+msgstr "ይህን ግዢ መሰረዝ ይፈልጋሉ?"
+
+#, python-format
+msgid ""
+"Deleting \"%(number)s\" will also reverse the stock it added — every "
+"medicine on this invoice will have its quantity reduced back."
+msgstr ""
+"«%(number)s»ን መሰረዝ የጨመረውን ክምችት ደግሞ ይመልሳል — በዚህ ደረሰኝ ላይ ያለ እያንዳንዱ መድሃኒት መጠኑ "
+"ይቀነሳል።"
+
+msgid "Yes, Delete & Reverse Stock"
+msgstr "አዎ፣ ሰርዝ እና ክምችት መልስ"
+
+msgid "Purchase Details"
+msgstr "የግዢ ዝርዝሮች"
+
+msgid "Line Items"
+msgstr "የመስመር ንጥሎች"
+
+msgid "Line Total"
+msgstr "የመስመር ድምር"
+
+msgid "Back to purchases"
+msgstr "ወደ ግዢዎች ተመለስ"
+
+msgid "Record Purchase"
+msgstr "ግዢ መዝግብ"
+
+msgid ""
+"Each line item you add will increase that medicine's stock immediately on "
+"save."
+msgstr "የሚጨምሩት እያንዳንዱ የመስመር ንጥል ሲቀመጥ ወዲያውኑ የዚያን መድሃኒት ክምችት ይጨምራል።"
+
+msgid ""
+"Each intake is stored as its own batch with its own cost, so profit stays "
+"accurate when prices change. Fill in the new selling price only if this "
+"intake changes what you charge."
+msgstr ""
+"እያንዳንዱ መግቢያ የራሱ ወጪ ካለው የራሱ ጭነት ሆኖ ይቀመጣል፤ በዚህም ዋጋዎች ሲቀየሩ ትርፍ ትክክለኛ ሆኖ ይቆያል። "
+"አዲሱን የሽያጭ ዋጋ የሚሞሉት ይህ መግቢያ የሚያስከፍሉትን ዋጋ የሚቀይር ከሆነ ብቻ ነው።"
+
+msgid "Add Item"
+msgstr "እቃ ጨምር"
+
+msgid "Item"
+msgstr "እቃ"
+
+msgid "Remove"
+msgstr "አስወግድ"
+
+msgid "Line total"
+msgstr "የመስመር ድምር"
+
+msgid "Invoice Total"
+msgstr "የደረሰኝ ድምር"
+
+msgid "Save Purchase & Update Stock"
+msgstr "ግዢ አስቀምጥ እና ክምችት አዘምን"
+
+msgid "Search medicine by name or code…"
+msgstr "መድሃኒት በስም ወይም በኮድ ይፈልጉ…"
+
+msgid "Recording a purchase automatically increases stock."
+msgstr "ግዢ መመዝገብ ክምችትን በራስ-ሰር ይጨምራል።"
+
+msgid "Purchase number or supplier"
+msgstr "የግዢ ቁጥር ወይም አቅራቢ"
+
+msgid "No purchases recorded yet."
+msgstr "እስካሁን ምንም ግዢ አልተመዘገበም።"
+
+msgid "Export"
+msgstr "ላክ"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "Excel"
+msgstr "Excel"
+
+msgid "CSV"
+msgstr "CSV"
+
+msgid "From"
+msgstr "ከ"
+
+msgid "To"
+msgstr "እስከ"
+
+msgid "Group By"
+msgstr "በዚህ መድብ"
+
+msgid "Daily"
+msgstr "ዕለታዊ"
+
+msgid "Weekly"
+msgstr "ሳምንታዊ"
+
+msgid "Monthly"
+msgstr "ወርሃዊ"
+
+msgid "Yearly"
+msgstr "ዓመታዊ"
+
+msgid "All suppliers"
+msgstr "ሁሉም አቅራቢዎች"
+
+#, python-format
+msgid "%(counter)s row"
+msgid_plural "%(counter)s rows"
+msgstr[0] "%(counter)s ረድፍ"
+msgstr[1] "%(counter)s ረድፎች"
+
+msgid "Back to reports"
+msgstr "ወደ ሪፖርቶች ተመለስ"
+
+msgid "Only the reports available to your role are listed here."
+msgstr "በዚህ ላይ የተዘረዘሩት ለሚናዎ የሚገኙ ሪፖርቶች ብቻ ናቸው።"
+
+msgid "View only — exporting requires Administrator or Store Manager"
+msgstr "እይታ ብቻ — ለመላክ አስተዳዳሪ ወይም የመደብር አስተዳዳሪ መሆን ያስፈልጋል"
+
+msgid "No reports are available for your role."
+msgstr "ለሚናዎ ምንም ሪፖርት አይገኝም።"
+
+msgid "Scan barcode or search by name / code"
+msgstr "ባርኮድ ይቃኙ ወይም በስም / ኮድ ይፈልጉ"
+
+msgid "Scan or type, then press Enter"
+msgstr "ይቃኙ ወይም ይፃፉ፣ ከዚያ Enter ይጫኑ"
+
+msgid ""
+"An exact barcode match is added to the cart immediately. Otherwise pick from "
+"the results below."
+msgstr "ትክክለኛ የባርኮድ ተመሳሳይ ወዲያውኑ ወደ ጋሪው ይታከላል። ካልሆነ ከታች ካሉት ውጤቶች ይምረጡ።"
+
+msgid "Search Results"
+msgstr "የፍለጋ ውጤቶች"
+
+msgid "Available"
+msgstr "ያለ"
+
+msgid "Start typing to search the catalog."
+msgstr "ካታሎጉን ለመፈለግ መፃፍ ይጀምሩ።"
+
+msgid "Cart"
+msgstr "ጋሪ"
+
+msgid "Clear"
+msgstr "አጽዳ"
+
+#, python-format
+msgid "Disc %%"
+msgstr "ቅናሽ %%"
+
+msgid "Cart is empty."
+msgstr "ጋሪው ባዶ ነው።"
+
+msgid "Grand Total"
+msgstr "ጠቅላላ ድምር"
+
+msgid "Walk-in customer"
+msgstr "በቀጥታ የመጣ ደንበኛ"
+
+msgid "Change due"
+msgstr "የሚመለስ ገንዘብ"
+
+msgid "Complete Sale"
+msgstr "ሽያጭ አጠናቅ"
+
+msgid ""
+"This item requires a prescription. Confirm you have seen a valid "
+"prescription before dispensing."
+msgstr "ይህ እቃ ማዘዣ ያስፈልገዋል። ከመስጠት በፊት ተገቢ ማዘዣ ማየትዎን ያረጋግጡ።"
+
+msgid "Add"
+msgstr "ጨምር"
+
+#, python-brace-format
+msgid "Only {n} left in stock."
+msgstr "በክምችት ውስጥ {n} ብቻ ቀርቷል።"
+
+msgid "Sale completed"
+msgstr "ሽያጭ ተጠናቅቋል"
+
+msgid "View / Print Invoice"
+msgstr "ደረሰኝ ይመልከቱ / ያትሙ"
+
+msgid "New Sale"
+msgstr "አዲስ ሽያጭ"
+
+msgid "Void Sale"
+msgstr "ሽያጭ ውድቅ አድርግ"
+
+msgid "Void this sale?"
+msgstr "ይህን ሽያጭ ውድቅ ማድረግ ይፈልጋሉ?"
+
+#, python-format
+msgid ""
+"Voiding \"%(number)s\" (%(total)s) will return every item on it to stock. "
+"The invoice stays on record, marked as voided."
+msgstr ""
+"«%(number)s» (%(total)s) ሲሰረዝ በእሱ ላይ ያሉ ሁሉም እቃዎች ወደ ክምችት ይመለሳሉ። ደረሰኙ ተሰርዟል "
+"ተብሎ ተመዝግቦ ይቆያል።"
+
+msgid "e.g. wrong item dispensed"
+msgstr "ለምሳሌ፦ የተሳሳተ እቃ ተሰጥቷል"
+
+msgid "Yes, Void & Return Stock"
+msgstr "አዎ፣ ውድቅ አድርግ እና ክምችት መልስ"
+
+msgid "Sale Details"
+msgstr "የሽያጭ ዝርዝሮች"
+
+msgid "a removed user"
+msgstr "የተወገደ ተጠቃሚ"
+
+#, python-format
+msgid "Voided by %(who)s on %(when)s."
+msgstr "በ%(who)s በ%(when)s ተሰርዟል።"
+
+msgid "Void"
+msgstr "ውድቅ አድርግ"
+
+msgid "Change Due"
+msgstr "የሚመለስ ገንዘብ"
+
+msgid "Back to sales"
+msgstr "ወደ ሽያጮች ተመለስ"
+
+msgid "VOIDED"
+msgstr "ውድቅ ተደርጓል"
+
+msgid "Pharmacy Invoice"
+msgstr "የፋርማሲ ደረሰኝ"
+
+msgid "Disc"
+msgstr "ቅናሽ"
+
+msgid "Thank you for your purchase."
+msgstr "ስለ ግዢዎ እናመሰግናለን።"
+
+msgid "Keep this invoice as proof of purchase."
+msgstr "ይህን ደረሰኝ የግዢ ማረጋገጫ አድርገው ያስቀምጡ።"
+
+msgid "Sales History"
+msgstr "የሽያጭ ታሪክ"
+
+msgid "Every completed and voided sale."
+msgstr "ሁሉም የተጠናቀቁ እና የተሰረዙ ሽያጮች።"
+
+msgid "Open POS"
+msgstr "የሽያጭ ነጥብ ክፈት"
+
+msgid "Today's Revenue"
+msgstr "የዛሬ ገቢ"
+
+msgid "Invoice number or customer"
+msgstr "የደረሰኝ ቁጥር ወይም ደንበኛ"
+
+msgid "No sales recorded yet."
+msgstr "እስካሁን ምንም ሽያጭ አልተመዘገበም።"
+
+msgid "These values appear on invoices, labels, and throughout the interface."
+msgstr "እነዚህ ዋጋዎች በደረሰኞች፣ በመለያዎች እና በአጠቃላይ በገጹ ላይ ይታያሉ።"
+
+msgid "Save Settings"
+msgstr "ቅንብሮችን አስቀምጥ"
+
+#, python-format
+msgid "Last updated %(when)s by %(who)s."
+msgstr "መጨረሻ በ%(when)s በ%(who)s ተዘምኗል።"
+
+#, python-format
+msgid "Last updated %(when)s."
+msgstr "መጨረሻ በ%(when)s ተዘምኗል።"
+
+msgid "Current Logo"
+msgstr "ወቅታዊ አርማ"
+
+msgid "Backup Database"
+msgstr "ዳታቤዝ አስቀምጥ"
+
+msgid "Current engine"
+msgstr "ወቅታዊ ኢንጂን"
+
+msgid ""
+"Downloads the SQLite database file — a complete, directly restorable backup. "
+"Store it somewhere secure: it contains all pharmacy data."
+msgstr ""
+"የSQLite ዳታቤዝ ፋይሉን ያወርዳል — ሙሉ እና በቀጥታ የሚመለስ ቅጂ። ደህንነቱ በተጠበቀ ቦታ ያስቀምጡት፦ ሁሉንም "
+"የፋርማሲ መረጃ ይዟል።"
+
+msgid "Download Backup"
+msgstr "ቅጂ አውርድ"
+
+msgid ""
+"This deployment uses PostgreSQL. Browser-based backup is deliberately "
+"disabled, because a valid dump must be taken on the database server with "
+"pg_dump — a download button here would produce an incomplete backup, which "
+"is worse than none."
+msgstr ""
+"ይህ ተከላ PostgreSQL ይጠቀማል። በአሳሽ ላይ የተመሠረተ ቅጂ ሆን ተብሎ ተሰናክሏል፤ ምክንያቱም ትክክለኛ ቅጂ "
+"በዳታቤዝ ሰርቨሩ ላይ በpg_dump መወሰድ አለበት — እዚህ ያለ የማውረድ አዝራር ያልተሟላ ቅጂ ይፈጥራል፣ ይህም "
+"ከምንም የከፋ ነው።"
+
+msgid "Run on the database server:"
+msgstr "በዳታቤዝ ሰርቨሩ ላይ ያስሂዱ፦"
+
+msgid "Delete Supplier"
+msgstr "አቅራቢ ሰርዝ"
+
+msgid "Delete this supplier?"
+msgstr "ይህን አቅራቢ መሰረዝ ይፈልጋሉ?"
+
+#, python-format
+msgid "\"%(name)s\" will be permanently removed."
+msgstr "«%(name)s» በቋሚነት ይወገዳል።"
+
+msgid "Supplier Details"
+msgstr "የአቅራቢ ዝርዝሮች"
+
+msgid "Back to suppliers"
+msgstr "ወደ አቅራቢዎች ተመለስ"
+
+msgid "Edit Supplier"
+msgstr "አቅራቢ አርትዕ"
+
+msgid "Add Supplier"
+msgstr "አቅራቢ ጨምር"
+
+msgid "Add New Supplier"
+msgstr "አዲስ አቅራቢ ጨምር"
+
+msgid "Save Supplier"
+msgstr "አቅራቢ አስቀምጥ"
+
+msgid "Vendors you purchase medicines from."
+msgstr "መድሃኒቶችን የሚገዙባቸው አቅራቢዎች።"
+
+msgid "Name, contact, or phone"
+msgstr "ስም፣ የግንኙነት ሰው ወይም ስልክ"
+
+msgid "No suppliers found."
+msgstr "ምንም አቅራቢዎች አልተገኙም።"

@@ -1,0 +1,192 @@
+"""
+Report views.
+
+Three views cover all nine reports, because everything is driven from the
+declarations in registry.py:
+  - ReportIndexView   : lists only the reports the user's role may open
+  - ReportDetailView  : renders one report as HTML with filter controls
+  - report_export     : same data, streamed as CSV / Excel / PDF
+
+Access is enforced twice on purpose: the index hides reports a role can't
+open, and the detail/export views re-check `allowed_roles` so a guessed URL
+returns 403 rather than data.
+"""
+from datetime import datetime
+
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.http import Http404
+from django.shortcuts import render
+from django.utils import timezone
+from django.utils.translation import gettext as _
+from django.views.generic import TemplateView, View
+
+from apps.medicine.models import Category
+from apps.suppliers.models import Supplier
+
+from .exporters import EXPORTERS
+from .registry import get_report, reports_for_user
+
+
+def _parse_date(value):
+    if not value:
+        return None
+    try:
+        return datetime.strptime(value, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+
+class ReportAccessMixin(LoginRequiredMixin):
+    """Resolves the report from the URL slug and enforces its own role list."""
+
+    def get_report_or_403(self, slug):
+        report = get_report(slug)
+        if report is None:
+            raise Http404(_("Unknown report."))
+        user = self.request.user
+        if not (user.is_administrator or user.role in report.allowed_roles):
+            raise PermissionDenied(_("You do not have permission to view this report."))
+        return report
+
+    def build_filters(self, request):
+        """Filters come from the query string so a report view is shareable
+        and bookmarkable, and the export links can simply reuse the same
+        query string."""
+        filters = {
+            "date_from": _parse_date(request.GET.get("date_from")),
+            "date_to": _parse_date(request.GET.get("date_to")),
+            "period": request.GET.get("period") or "day",
+            "category": request.GET.get("category") or None,
+            "supplier": request.GET.get("supplier") or None,
+            # Internal flag, not user input: lets a report hide cost columns
+            # from roles that may open it but not see money paid to suppliers.
+            "_can_view_cost": request.user.can_view_cost_price(),
+            # Resolved from the user's own access, never taken raw from the
+            # query string — see _resolve_branch below.
+            "_branch": self._resolve_branch(request),
+        }
+        return filters
+
+    @staticmethod
+    def _resolve_branch(request):
+        """Which branch this report covers.
+
+        A branch-assigned user always gets their own branch, whatever the
+        query string says, so a report cannot be coaxed into showing another
+        branch's takings. An Administrator may pass `?branch=<id>` to focus on
+        one branch, or `?branch=all` to see the whole pharmacy; with neither,
+        their currently active branch is used.
+        """
+        from apps.branches.models import Branch
+
+        user = request.user
+        if not user.can_access_all_branches():
+            return getattr(request, "branch", None) or user.branch
+
+        requested = request.GET.get("branch")
+        if requested == "all":
+            return None
+        if requested:
+            return Branch.objects.filter(pk=requested, is_active=True).first()
+        return getattr(request, "branch", None)
+
+    def report_context(self, report, filters):
+        organization = getattr(self.request, "organization", None)
+        if organization is not None:
+            from apps.settings_app.models import PharmacySettings
+            conf = PharmacySettings.load(organization)
+            pharmacy = (conf.name if conf else None) or organization.display_name
+        else:
+            from decouple import config
+            pharmacy = config("PHARMACY_PLATFORM_NAME", default="PharmaCare")
+        date_from, date_to = report.date_bounds(filters)
+        period_label = ""
+        if "date_range" in report.filters:
+            period_label = f"{date_from:%Y-%m-%d} → {date_to:%Y-%m-%d}"
+        # Name the branch on the report itself: an exported PDF that does not
+        # say which branch it covers is worse than useless in a review.
+        branch = filters.get("_branch")
+        if getattr(report, "branch_scoped", True):
+            branch_label = branch.name if branch else str(_("All branches"))
+        else:
+            branch_label = ""
+        return {
+            "branch_label": branch_label,
+            "pharmacy_name": pharmacy,
+            "generated_at": timezone.localtime().strftime("%Y-%m-%d %H:%M"),
+            "period_label": period_label,
+            "footer_note": _(
+                "%(pharmacy)s — generated by PharmaCare. AI-assisted output; "
+                "verify before external distribution."
+            ) % {"pharmacy": pharmacy},
+            # The PDF footer is drawn directly on the canvas, which cannot
+            # use ReportLab's inline <font> tags — so it needs an
+            # ASCII-only variant that renders in Helvetica regardless of
+            # the active language.
+            "footer_ascii": (
+                f"{pharmacy} - generated by PharmaCare. "
+                "AI-assisted output; verify before external distribution."
+            ),
+        }
+
+
+class ReportIndexView(LoginRequiredMixin, TemplateView):
+    template_name = "reports/index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["reports"] = sorted(
+            reports_for_user(self.request.user), key=lambda r: str(r.title)
+        )
+        context["can_export"] = self.request.user.can_export_reports()
+        return context
+
+
+class ReportDetailView(ReportAccessMixin, View):
+    def get(self, request, slug):
+        report = self.get_report_or_403(slug)
+        filters = self.build_filters(request)
+        rows = report.get_rows(filters)
+        summary = report.get_summary(filters)
+        date_from, date_to = report.date_bounds(filters)
+
+        return render(request, "reports/detail.html", {
+            "report": report,
+            "rows": rows,
+            "summary": summary,
+            "columns": report.columns,
+            # Indices of numeric columns, so the template can right-align
+            # cells without re-deriving alignment per row.
+            "right_aligned": [
+                i for i, col in enumerate(report.columns) if col[1] == "r"
+            ],
+            "filters": filters,
+            "date_from": date_from,
+            "date_to": date_to,
+            "categories": Category.objects.order_by("name"),
+            "suppliers": Supplier.objects.order_by("name"),
+            "branches": request.user.accessible_branches(),
+            "selected_branch": filters.get("_branch"),
+            "can_see_all_branches": request.user.can_access_all_branches(),
+            "can_export": request.user.can_export_reports(),
+            "query_string": request.GET.urlencode(),
+            "report_meta": self.report_context(report, filters),
+        })
+
+
+class ReportExportView(ReportAccessMixin, View):
+    def get(self, request, slug, fmt):
+        if not request.user.can_export_reports():
+            raise PermissionDenied(
+                _("You do not have permission to export reports.")
+            )
+        report = self.get_report_or_403(slug)
+        exporter = EXPORTERS.get(fmt)
+        if exporter is None:
+            raise Http404(_("Unsupported export format."))
+
+        filters = self.build_filters(request)
+        rows = report.get_rows(filters)
+        summary = report.get_summary(filters)
+        return exporter(report, rows, summary, self.report_context(report, filters))

@@ -1,0 +1,24 @@
+Django>=5.1,<6.2
+django-crispy-forms>=2.3
+crispy-bootstrap5>=2024.10
+django-axes>=6.5          # brute-force login protection / account lockout
+python-decouple>=3.8
+Pillow>=10.4
+python-barcode>=0.15       # shelf label barcode generation (Code128 SVG)
+qrcode>=7.4                # shelf label QR code generation
+reportlab>=4.2             # PDF report export
+openpyxl>=3.1              # Excel (.xlsx) report export
+whitenoise>=6.7            # serves static files without a separate web server
+dj-database-url>=2.2       # parses the DATABASE_URL managed Postgres gives you
+psycopg2-binary>=2.9   # PostgreSQL driver (production)
+gunicorn>=22.0          # production WSGI server (Linux/macOS/WSL/Docker only)
+waitress>=3.0           # production WSGI server for native Windows deployments
+
+# Added progressively in later phases:
+# python-barcode         # Phase 2: barcode generation
+# qrcode                 # Phase 2: QR code generation
+# django-widget-tweaks   # optional form tweaks
+
+# System requirement (not a pip package): the `gettext` toolchain (msgfmt,
+# msginit, msgmerge) must be installed on the OS to run
+# `manage.py compilemessages`. On Debian/Ubuntu: `apt-get install gettext`.

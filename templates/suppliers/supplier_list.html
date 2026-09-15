@@ -1,0 +1,84 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Suppliers" %}{% endblock %}
+{% block page_heading %}{% trans "Suppliers" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h4 class="brand-font mb-0">{% trans "Suppliers" %}</h4>
+        <p class="text-muted mb-0">{% trans "Vendors you purchase medicines from." %}</p>
+    </div>
+    {% if can_manage %}
+    <a href="{% url 'suppliers:supplier_create' %}" class="btn btn-brand"><i class="fa-solid fa-plus me-2"></i>{% trans "Add Supplier" %}</a>
+    {% endif %}
+</div>
+
+<div class="panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-6">
+            <label class="form-label small text-muted">{% trans "Search" %}</label>
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Name, contact, or phone' %}">
+        </div>
+        <div class="col-md-3">
+            <label class="form-label small text-muted">{% trans "Status" %}</label>
+            <select name="status" class="form-select">
+                <option value="">{% trans "All" %}</option>
+                <option value="ACTIVE" {% if request.GET.status == "ACTIVE" %}selected{% endif %}>{% trans "Active" %}</option>
+                <option value="INACTIVE" {% if request.GET.status == "INACTIVE" %}selected{% endif %}>{% trans "Inactive" %}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Contact Person" %}</th>
+                    <th>{% trans "Phone" %}</th>
+                    <th>{% trans "Email" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th class="text-end">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for supplier in suppliers %}
+                <tr>
+                    <td class="fw-semibold">{{ supplier.name }}</td>
+                    <td>{{ supplier.contact_person|default:"—" }}</td>
+                    <td>{{ supplier.phone }}</td>
+                    <td>{{ supplier.email|default:"—" }}</td>
+                    <td>
+                        {% if supplier.is_active %}<span class="badge bg-success-subtle text-success">{% trans "Active" %}</span>
+                        {% else %}<span class="badge bg-secondary-subtle text-secondary">{% trans "Inactive" %}</span>{% endif %}
+                    </td>
+                    <td class="text-end">
+                        <a href="{% url 'suppliers:supplier_detail' supplier.pk %}" class="btn btn-sm btn-light" title="{% trans 'View' %}"><i class="fa-solid fa-eye"></i></a>
+                        {% if can_manage %}
+                        <a href="{% url 'suppliers:supplier_update' supplier.pk %}" class="btn btn-sm btn-light" title="{% trans 'Edit' %}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{% url 'suppliers:supplier_delete' supplier.pk %}" class="btn btn-sm btn-light text-danger" title="{% trans 'Delete' %}"><i class="fa-solid fa-trash"></i></a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center text-muted py-4">{% trans "No suppliers found." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-end mb-0">
+            {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

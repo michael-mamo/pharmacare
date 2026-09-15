@@ -1,0 +1,359 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Point of Sale" %}{% endblock %}
+{% block page_heading %}{% trans "Point of Sale" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .pos-grid { display: grid; grid-template-columns: 1fr 400px; gap: 1rem; align-items: start; }
+  .pos-results { max-height: 340px; overflow-y: auto; }
+  .pos-result-row { cursor: pointer; }
+  .pos-result-row:hover { background: var(--brand-yellow-tint); }
+  .cart-table td, .cart-table th { padding: .5rem .4rem; font-size: .86rem; }
+  .cart-qty { width: 62px; }
+  .cart-disc { width: 68px; }
+  .totals-row { display: flex; justify-content: space-between; padding: .25rem 0; font-size: .9rem; }
+  .totals-row.grand { font-family: var(--font-display); font-weight: 800; font-size: 1.25rem;
+                      border-top: 2px solid var(--brand-black); margin-top: .4rem; padding-top: .5rem; }
+  @media (max-width: 1199.98px) { .pos-grid { grid-template-columns: 1fr; } }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="pos-grid">
+  <!-- ============ LEFT: search + results ============ -->
+  <div>
+    <div class="panel mb-3">
+      <label class="form-label small text-muted">
+        {% trans "Scan barcode or search by name / code" %}
+      </label>
+      <div class="input-group">
+        <span class="input-group-text"><i class="fa-solid fa-barcode"></i></span>
+        <input type="text" id="posSearch" class="form-control form-control-lg"
+               placeholder="{% trans 'Scan or type, then press Enter' %}" autofocus autocomplete="off">
+      </div>
+      <div class="form-text">
+        {% trans "An exact barcode match is added to the cart immediately. Otherwise pick from the results below." %}
+      </div>
+    </div>
+
+    <div class="panel">
+      <h6 class="panel-title mb-3">{% trans "Search Results" %}</h6>
+      <div class="pos-results">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th>{% trans "Code" %}</th>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Available" %}</th>
+              <th class="text-end">{% trans "Price" %}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="posResults">
+            <tr><td colspan="5" class="text-center text-muted py-4">{% trans "Start typing to search the catalog." %}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RIGHT: cart + payment ============ -->
+  <div>
+    <div class="panel mb-3">
+      <div class="d-flex justify-content-between align-items-center mb-2">
+        <h6 class="panel-title mb-0">{% trans "Cart" %}</h6>
+        <button class="btn btn-sm btn-outline-brand" id="clearCart" type="button">
+          <i class="fa-solid fa-trash me-1"></i>{% trans "Clear" %}
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table class="table cart-table mb-0">
+          <thead>
+            <tr>
+              <th>{% trans "Item" %}</th>
+              <th>{% trans "Qty" %}</th>
+              <th>{% trans "Disc %" %}</th>
+              <th class="text-end">{% trans "Total" %}</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="cartBody">
+            <tr id="cartEmptyRow"><td colspan="5" class="text-center text-muted py-3">{% trans "Cart is empty." %}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="totals-row"><span>{% trans "Subtotal" %}</span><span id="tSubtotal">0.00</span></div>
+      <div class="totals-row"><span>{% trans "Discount" %}</span><span id="tDiscount">0.00</span></div>
+      <div class="totals-row"><span>{% trans "VAT" %}</span><span id="tVat">0.00</span></div>
+      <div class="totals-row grand"><span>{% trans "Grand Total" %}</span><span id="tGrand">0.00</span></div>
+
+      <hr>
+
+      <div class="mb-2">
+        <label class="form-label small text-muted">{% trans "Customer" %} <span class="text-muted">({% trans "optional" %})</span></label>
+        <select id="posCustomer" class="form-select">
+          <option value="">{% trans "Walk-in customer" %}</option>
+          {% for c in customers %}<option value="{{ c.pk }}">{{ c.name }} — {{ c.phone }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-2">
+        <label class="form-label small text-muted">{% trans "Payment Method" %}</label>
+        <select id="posPayment" class="form-select">
+          {% for value, label in payment_methods %}<option value="{{ value }}">{{ label }}</option>{% endfor %}
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label small text-muted">{% trans "Amount Paid" %} ({{ PHARMACY_CURRENCY }})</label>
+        <input type="number" step="0.01" min="0" id="posPaid" class="form-control" value="0">
+        <div class="form-text">{% trans "Change due" %}: <strong id="tChange">0.00</strong> {{ PHARMACY_CURRENCY }}</div>
+      </div>
+
+      <button class="btn btn-brand w-100 btn-lg" id="checkoutBtn" type="button" disabled>
+        <i class="fa-solid fa-cash-register me-2"></i>{% trans "Complete Sale" %}
+      </button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  const CURRENCY   = "{{ PHARMACY_CURRENCY }}";
+  const LOOKUP_URL = "{% url 'sales:medicine_lookup' %}";
+  const CHECKOUT_URL = "{% url 'sales:pos_checkout' %}";
+  const CSRF = document.querySelector('[name=csrfmiddlewaretoken]')?.value
+               || document.cookie.match(/csrftoken=([^;]+)/)?.[1] || "";
+
+  const T = {
+    emptyCart:  "{% trans 'Cart is empty.' %}",
+    startTyping: "{% trans 'Start typing to search the catalog.' %}",
+    noResults:  "{% trans 'No medicines found.' %}",
+    expired:    "{% trans 'Expired' %}",
+    rx:         "{% trans 'Prescription required' %}",
+    rxWarn:     "{% trans 'This item requires a prescription. Confirm you have seen a valid prescription before dispensing.' %}",
+    add:        "{% trans 'Add' %}",
+    onlyLeft:   "{% trans 'Only {n} left in stock.' %}",
+    saleDone:   "{% trans 'Sale completed' %}",
+    invoiceNo:  "{% trans 'Invoice' %}",
+    changeDue:  "{% trans 'Change due' %}",
+    viewInvoice: "{% trans 'View / Print Invoice' %}",
+    newSale:    "{% trans 'New Sale' %}"
+  };
+
+  let cart = [];   // {id, name, price, tax, disc, qty, available}
+  let searchTimer = null;
+
+  const $ = (id) => document.getElementById(id);
+  const money = (n) => (Math.round(n * 100) / 100).toFixed(2);
+
+  // ---------- search ----------
+  $("posSearch").addEventListener("input", function () {
+    clearTimeout(searchTimer);
+    const q = this.value.trim();
+    if (!q) { renderResults([]); return; }
+    searchTimer = setTimeout(() => doSearch(q, false), 220);
+  });
+
+  // Enter = treat as a barcode scan (scanners send Enter automatically)
+  $("posSearch").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); const q = this.value.trim(); if (q) doSearch(q, true); }
+  });
+
+  async function doSearch(q, isScan) {
+    try {
+      const res = await fetch(`${LOOKUP_URL}?q=${encodeURIComponent(q)}`, {
+        headers: { "X-Requested-With": "XMLHttpRequest" }
+      });
+      const data = await res.json();
+      const results = data.results || [];
+      // On a scan with exactly one hit, add straight to the cart.
+      if (isScan && results.length === 1) {
+        addToCart(results[0]);
+        $("posSearch").value = "";
+        renderResults([]);
+        return;
+      }
+      renderResults(results);
+    } catch (err) {
+      renderResults([]);
+    }
+  }
+
+  function renderResults(rows) {
+    const tbody = $("posResults");
+    if (!rows.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">${
+        $("posSearch").value.trim() ? T.noResults : T.startTyping}</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = rows.map(r => `
+      <tr class="pos-result-row" data-med='${JSON.stringify(r).replace(/'/g, "&apos;")}'>
+        <td class="text-muted small">${r.code}</td>
+        <td>
+          <div class="fw-semibold">${escapeHtml(r.name)}</div>
+          <div class="text-muted small">${escapeHtml(r.generic_name || r.product_type || "")}</div>
+          ${r.is_expired ? `<span class="badge bg-danger-subtle text-danger">${T.expired}</span>` : ""}
+          ${r.requires_prescription ? `<span class="badge bg-danger-subtle text-danger">${T.rx}</span>` : ""}
+        </td>
+        <td>${r.quantity_available} ${escapeHtml(r.unit)}</td>
+        <td class="text-end">${r.selling_price} ${CURRENCY}</td>
+        <td class="text-end"><button class="btn btn-sm btn-brand" type="button">${T.add}</button></td>
+      </tr>`).join("");
+
+    tbody.querySelectorAll(".pos-result-row").forEach(row => {
+      row.addEventListener("click", () => {
+        addToCart(JSON.parse(row.dataset.med.replace(/&apos;/g, "'")));
+      });
+    });
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => (
+      { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]
+    ));
+  }
+
+  // ---------- cart ----------
+  function addToCart(m) {
+    // A prescription-only item gets an explicit confirmation, so it cannot be
+    // rung up by reflex. The check is a counter-discipline aid, not a legal
+    // control — the pharmacist remains responsible.
+    if (m.requires_prescription && !cart.find(c => c.id === m.id)) {
+      Swal.fire({ icon: "warning", title: T.rx, text: T.rxWarn });
+    }
+    const existing = cart.find(c => c.id === m.id);
+    if (existing) {
+      if (existing.qty + 1 > existing.available) { warnStock(existing.available); return; }
+      existing.qty += 1;
+    } else {
+      cart.push({
+        id: m.id, name: m.name, price: parseFloat(m.selling_price),
+        tax: parseFloat(m.tax_percent), disc: parseFloat(m.discount_percent),
+        qty: 1, available: m.quantity_available
+      });
+    }
+    renderCart();
+  }
+
+  function warnStock(available) {
+    Swal.fire({ icon: "warning", title: T.onlyLeft.replace("{n}", available),
+                toast: true, position: "top-end", showConfirmButton: false, timer: 2500 });
+  }
+
+  function renderCart() {
+    const tbody = $("cartBody");
+    if (!cart.length) {
+      tbody.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-3">${T.emptyCart}</td></tr>`;
+      updateTotals();
+      return;
+    }
+    tbody.innerHTML = cart.map((c, i) => `
+      <tr>
+        <td>
+          <div class="fw-semibold">${escapeHtml(c.name)}</div>
+          <div class="text-muted small">${money(c.price)} ${CURRENCY} · VAT ${money(c.tax)}%</div>
+        </td>
+        <td><input type="number" min="1" max="${c.available}" value="${c.qty}"
+                   class="form-control form-control-sm cart-qty" data-i="${i}" data-f="qty"></td>
+        <td><input type="number" min="0" max="100" step="0.01" value="${money(c.disc)}"
+                   class="form-control form-control-sm cart-disc" data-i="${i}" data-f="disc"></td>
+        <td class="text-end">${money(lineTotal(c))}</td>
+        <td class="text-end"><button class="btn btn-sm btn-light text-danger" data-rm="${i}" type="button">
+          <i class="fa-solid fa-xmark"></i></button></td>
+      </tr>`).join("");
+
+    tbody.querySelectorAll("input[data-i]").forEach(inp => {
+      inp.addEventListener("change", function () {
+        const i = +this.dataset.i, f = this.dataset.f;
+        let v = parseFloat(this.value) || 0;
+        if (f === "qty") {
+          v = Math.max(1, Math.round(v));
+          if (v > cart[i].available) { warnStock(cart[i].available); v = cart[i].available; }
+          cart[i].qty = v;
+        } else {
+          cart[i].disc = Math.min(100, Math.max(0, v));
+        }
+        renderCart();
+      });
+    });
+    tbody.querySelectorAll("[data-rm]").forEach(btn => {
+      btn.addEventListener("click", function () { cart.splice(+this.dataset.rm, 1); renderCart(); });
+    });
+    updateTotals();
+  }
+
+  // Mirrors SaleItem's server-side maths exactly: discount first, then VAT.
+  function lineSubtotal(c) { return c.price * c.qty; }
+  function lineDiscount(c) { return lineSubtotal(c) * c.disc / 100; }
+  function lineVat(c) { return (lineSubtotal(c) - lineDiscount(c)) * c.tax / 100; }
+  function lineTotal(c) { return lineSubtotal(c) - lineDiscount(c) + lineVat(c); }
+
+  function updateTotals() {
+    const sub = cart.reduce((s, c) => s + lineSubtotal(c), 0);
+    const dis = cart.reduce((s, c) => s + lineDiscount(c), 0);
+    const vat = cart.reduce((s, c) => s + lineVat(c), 0);
+    const grand = sub - dis + vat;
+    $("tSubtotal").textContent = money(sub);
+    $("tDiscount").textContent = money(dis);
+    $("tVat").textContent = money(vat);
+    $("tGrand").textContent = money(grand);
+    const paid = parseFloat($("posPaid").value) || 0;
+    $("tChange").textContent = money(Math.max(0, paid - grand));
+    $("checkoutBtn").disabled = cart.length === 0;
+  }
+
+  $("posPaid").addEventListener("input", updateTotals);
+  $("clearCart").addEventListener("click", () => { cart = []; renderCart(); });
+
+  // ---------- checkout ----------
+  $("checkoutBtn").addEventListener("click", async function () {
+    this.disabled = true;
+    try {
+      const res = await fetch(CHECKOUT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-CSRFToken": CSRF },
+        body: JSON.stringify({
+          cart: cart.map(c => ({ medicine_id: c.id, quantity: c.qty, discount_percent: c.disc })),
+          customer_id: $("posCustomer").value || null,
+          payment_method: $("posPayment").value,
+          amount_paid: $("posPaid").value || "0"
+        })
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        Swal.fire({ icon: "error", title: data.error || "Error" });
+        this.disabled = false;
+        return;
+      }
+      Swal.fire({
+        icon: "success",
+        title: T.saleDone,
+        html: `<div class="text-start">
+                 <div><strong>${T.invoiceNo}:</strong> ${data.invoice_number}</div>
+                 <div><strong>${T.changeDue}:</strong> ${data.change_due} ${CURRENCY}</div>
+               </div>`,
+        showCancelButton: true,
+        confirmButtonText: T.viewInvoice,
+        cancelButtonText: T.newSale
+      }).then(r => {
+        if (r.isConfirmed) window.location = `/sales/${data.sale_id}/invoice/`;
+        else { cart = []; $("posPaid").value = 0; $("posCustomer").value = "";
+               $("posSearch").value = ""; renderResults([]); renderCart(); $("posSearch").focus(); }
+      });
+    } catch (err) {
+      Swal.fire({ icon: "error", title: String(err) });
+      this.disabled = false;
+    }
+  });
+
+  renderCart();
+})();
+</script>
+{% endblock %}

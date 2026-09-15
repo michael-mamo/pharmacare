@@ -1,0 +1,96 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Branch Stock" %}{% endblock %}
+{% block page_heading %}{% trans "Branch Stock" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-0">{% if branch %}{{ branch.name }}{% else %}{% trans "Branch Stock" %}{% endif %}</h4>
+    <p class="text-muted mb-0">{% trans "Stock held at this branch only. Other branches are counted separately." %}</p>
+  </div>
+  {% if can_transfer %}
+  <a href="{% url 'branches:transfer' %}" class="btn btn-brand"><i class="fa-solid fa-right-left me-2"></i>{% trans "Transfer Stock" %}</a>
+  {% endif %}
+</div>
+
+{% if totals %}
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Stock Units" %}</div><div class="kpi-value">{{ totals.units }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Products Held" %}</div><div class="kpi-value">{{ totals.products }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card kpi-alert"><div class="kpi-label">{% trans "Low Stock" %}</div><div class="kpi-value">{{ totals.low }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card kpi-alert"><div class="kpi-label">{% trans "Out of Stock" %}</div><div class="kpi-value">{{ totals.out }}</div></div></div>
+</div>
+{% endif %}
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    {% if branches|length > 1 %}
+    <div class="col-md-3">
+      <label class="form-label small text-muted">{% trans "Branch" %}</label>
+      <select name="branch" class="form-select">
+        {% for b in branches %}
+        <option value="{{ b.pk }}" {% if branch and b.pk == branch.pk %}selected{% endif %}>{{ b.name }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    {% endif %}
+    <div class="col-md-5">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Product name or code' %}">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small text-muted">{% trans "Level" %}</label>
+      <select name="level" class="form-select no-search">
+        <option value="">{% trans "All" %}</option>
+        <option value="low" {% if level == "low" %}selected{% endif %}>{% trans "Low stock" %}</option>
+        <option value="out" {% if level == "out" %}selected{% endif %}>{% trans "Out of stock" %}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Apply" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Code" %}</th><th>{% trans "Product" %}</th><th>{% trans "Type" %}</th>
+          <th class="text-end">{% trans "Quantity" %}</th><th class="text-end">{% trans "Reorder Level" %}</th>
+          <th>{% trans "Shelf" %}</th><th>{% trans "Status" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in stock_rows %}
+        <tr>
+          <td class="text-muted small">{{ s.medicine.code }}</td>
+          <td class="fw-semibold">{{ s.medicine.name }}
+            {% if s.medicine.requires_prescription %}<span class="badge bg-danger-subtle text-danger">Rx</span>{% endif %}
+          </td>
+          <td><span class="badge bg-light text-dark border">{{ s.medicine.get_product_type_display }}</span></td>
+          <td class="text-end fw-semibold">{{ s.quantity }}</td>
+          <td class="text-end text-muted">{{ s.reorder_level }}</td>
+          <td class="text-muted small">{{ s.shelf_location|default:"—" }}</td>
+          <td>
+            {% if s.is_out_of_stock %}<span class="badge bg-danger-subtle text-danger">{% trans "Out of stock" %}</span>
+            {% elif s.is_low_stock %}<span class="badge bg-warning-subtle text-warning-emphasis">{% trans "Low" %}</span>
+            {% else %}<span class="badge bg-success-subtle text-success">{% trans "OK" %}</span>{% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center text-muted py-4">{% trans "No stock recorded at this branch yet." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav><ul class="pagination justify-content-end mb-0">
+    {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}&level={{ level }}&branch={{ branch.pk }}">{% trans "Previous" %}</a></li>{% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}&level={{ level }}&branch={{ branch.pk }}">{% trans "Next" %}</a></li>{% endif %}
+  </ul></nav>
+  {% endif %}
+</div>
+{% endblock %}

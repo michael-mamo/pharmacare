@@ -1,0 +1,39 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% if object %}{% trans "Edit Medicine" %}{% else %}{% trans "Add Medicine" %}{% endif %}{% endblock %}
+{% block page_heading %}{% if object %}{% trans "Edit Medicine" %}{% else %}{% trans "Add Medicine" %}{% endif %}{% endblock %}
+{% block content %}
+<div class="panel">
+    <h4 class="brand-font mb-3">{% if object %}{% trans "Edit Medicine" %}{% else %}{% trans "Add New Medicine" %}{% endif %}</h4>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form|crispy }}
+                <button type="submit" class="btn btn-brand w-100 mt-2"><i class="fa-solid fa-check me-2"></i>{% trans "Save Medicine" %}</button>
+    </form>
+    <a href="{% url 'medicine:medicine_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to medicines" %}</a>
+</div>
+<script>
+// Once a catalogue entry is picked, Name/Generic Name are locked server-side
+// (Medicine.clean() overwrites them from the catalogue record) — grey the
+// fields out here too so the form doesn't look like typing them still does
+// something. Purely cosmetic; the real enforcement is in the model.
+document.addEventListener("DOMContentLoaded", function () {
+  const catalogueSelect = document.getElementById("id_catalogue_product");
+  const nameField = document.getElementById("id_name");
+  const genericField = document.getElementById("id_generic_name");
+  if (!catalogueSelect || !nameField || !genericField) return;
+
+  function sync() {
+    const linked = !!catalogueSelect.value;
+    [nameField, genericField].forEach(function (field) {
+      field.classList.toggle("bg-light", linked);
+      field.title = linked
+        ? "{% trans 'Locked to the selected catalogue entry' %}"
+        : "";
+    });
+  }
+  sync();
+  catalogueSelect.addEventListener("change", sync);
+});
+</script>
+{% endblock %}

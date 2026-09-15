@@ -1,0 +1,55 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ purchase.purchase_number }}{% endblock %}
+{% block page_heading %}{% trans "Purchase Details" %}{% endblock %}
+{% block content %}
+<div class="panel mb-3">
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-2">
+        <div>
+            <h4 class="brand-font mb-0">{{ purchase.purchase_number }}</h4>
+            <p class="text-muted mb-0">{{ purchase.supplier.name }} &middot; {{ purchase.purchase_date }}</p>
+        </div>
+        {% if can_delete %}
+        <a href="{% url 'purchases:purchase_delete' purchase.pk %}" class="btn btn-outline-brand text-danger"><i class="fa-solid fa-trash me-2"></i>{% trans "Delete" %}</a>
+        {% endif %}
+    </div>
+    {% if purchase.notes %}<p class="text-muted mt-2 mb-0">{{ purchase.notes }}</p>{% endif %}
+</div>
+
+<div class="panel">
+    <h6 class="panel-title mb-3">{% trans "Line Items" %}</h6>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Medicine" %}</th>
+                    <th>{% trans "Quantity" %}</th>
+                    <th>{% trans "Purchase Price" %}</th>
+                    <th>{% trans "Discount" %}</th>
+                    <th>{% trans "VAT" %}</th>
+                    <th class="text-end">{% trans "Line Total" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in purchase.items.all %}
+                <tr>
+                    <td>{{ item.medicine.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.purchase_price }} {{ PHARMACY_CURRENCY }}</td>
+                    <td>{{ item.discount_percent }}%</td>
+                    <td>{{ item.vat_percent }}%</td>
+                    <td class="text-end fw-semibold">{{ item.line_total }} {{ PHARMACY_CURRENCY }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5" class="text-end">{% trans "Total" %}</th>
+                    <th class="text-end">{{ purchase.total_amount }} {{ PHARMACY_CURRENCY }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <a href="{% url 'purchases:purchase_list' %}" class="btn btn-link"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to purchases" %}</a>
+</div>
+{% endblock %}

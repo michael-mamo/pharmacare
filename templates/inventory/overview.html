@@ -1,0 +1,198 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Inventory" %}{% endblock %}
+{% block page_heading %}{% trans "Inventory" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-0">{% trans "Inventory Overview" %}</h4>
+    <p class="text-muted mb-0">{% trans "Current stock health and full stock position." %}</p>
+  </div>
+  <div class="d-flex gap-2">
+    <div class="dropdown">
+      <button class="btn btn-outline-brand" data-bs-toggle="dropdown">
+        <i class="fa-solid fa-warehouse me-2"></i>{% trans "Manage" %}
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="{% url 'inventory:batch_list' %}"><i class="fa-solid fa-layer-group me-2"></i>{% trans "Batches" %}</a></li>
+        <li><a class="dropdown-item" href="{% url 'inventory:ledger' %}"><i class="fa-solid fa-list-check me-2"></i>{% trans "Stock Ledger" %}</a></li>
+        <li><a class="dropdown-item" href="{% url 'inventory:aging' %}"><i class="fa-solid fa-hourglass-half me-2"></i>{% trans "Stock Aging" %}</a></li>
+        {% if can_manage %}
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="{% url 'inventory:stocktake_list' %}"><i class="fa-solid fa-clipboard-list me-2"></i>{% trans "Stocktakes" %}</a></li>
+        <li><a class="dropdown-item" href="{% url 'inventory:reorder_plan' %}"><i class="fa-solid fa-cart-plus me-2"></i>{% trans "Reorder Plan" %}</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% if can_manage %}
+    <a href="{% url 'inventory:movement_create' %}" class="btn btn-brand">
+      <i class="fa-solid fa-plus me-2"></i>{% trans "Record Stock Movement" %}
+    </a>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Every KPI card navigates to the matching filtered view -->
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3">
+    <a href="?" class="text-decoration-none">
+      <div class="kpi-card">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="kpi-label">{% trans "Total Stock Units" %}</div>
+            <div class="kpi-value">{{ total_stock_units }}</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'inventory:low_stock_report' %}" class="text-decoration-none">
+      <div class="kpi-card kpi-alert">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="kpi-label">{% trans "Low Stock" %}</div>
+            <div class="kpi-value">{{ low_stock_count }}</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'inventory:out_of_stock_report' %}" class="text-decoration-none">
+      <div class="kpi-card kpi-alert">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="kpi-label">{% trans "Out of Stock" %}</div>
+            <div class="kpi-value">{{ out_of_stock_count }}</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-ban"></i></div>
+        </div>
+      </div>
+    </a>
+  </div>
+  <div class="col-6 col-lg-3">
+    <a href="{% url 'inventory:expired_report' %}" class="text-decoration-none">
+      <div class="kpi-card kpi-alert">
+        <div class="d-flex justify-content-between align-items-start">
+          <div>
+            <div class="kpi-label">{% trans "Expired Medicines" %}</div>
+            <div class="kpi-value">{{ expired_count }}</div>
+          </div>
+          <div class="kpi-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-7">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ request.GET.q }}" class="form-control"
+             placeholder="{% trans 'Medicine name or code' %}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label small text-muted">{% trans "Stock" %}</label>
+      <select name="stock" class="form-select no-search">
+        <option value="">{% trans "All stock levels" %}</option>
+        <option value="low" {% if stock_filter == "low" %}selected{% endif %}>{% trans "Low stock" %}</option>
+        <option value="out" {% if stock_filter == "out" %}selected{% endif %}>{% trans "Out of stock" %}</option>
+        <option value="expired" {% if stock_filter == "expired" %}selected{% endif %}>{% trans "Expired" %}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel mb-3">
+  <h6 class="panel-title mb-3">{% trans "Current Stock" %}</h6>
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Code" %}</th>
+          <th>{% trans "Medicine" %}</th>
+          <th>{% trans "Category" %}</th>
+          <th class="text-end">{% trans "Quantity" %}</th>
+          <th class="text-end">{% trans "Reorder Level" %}</th>
+          <th>{% trans "Expiry Date" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th class="text-end">{% trans "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for m in medicines %}
+        <tr>
+          <td class="text-muted small">{{ m.code }}</td>
+          <td class="fw-semibold">{{ m.name }}</td>
+          <td>{{ m.category.name }}</td>
+          <td class="text-end">{{ m.quantity }} {{ m.get_unit_display }}</td>
+          <td class="text-end">{{ m.reorder_level }}</td>
+          <td>{{ m.expiry_date }}</td>
+          <td>
+            {% if m.quantity == 0 %}<span class="badge bg-danger-subtle text-danger">{% trans "Out of stock" %}</span>
+            {% elif m.is_low_stock %}<span class="badge bg-warning-subtle text-warning-emphasis">{% trans "Low" %}</span>
+            {% else %}<span class="badge bg-success-subtle text-success">{% trans "OK" %}</span>{% endif %}
+            {% if m.is_expired %}<span class="badge bg-danger-subtle text-danger">{% trans "Expired" %}</span>
+            {% elif m.expires_within_30_days %}<span class="badge bg-warning-subtle text-warning-emphasis">{% trans "Expiring soon" %}</span>{% endif %}
+          </td>
+          <td class="text-end">
+            <a href="{% url 'medicine:medicine_detail' m.pk %}" class="btn btn-sm btn-light" title="{% trans 'View' %}"><i class="fa-solid fa-eye"></i></a>
+            <a href="{% url 'inventory:batch_list' %}?q={{ m.name|urlencode }}" class="btn btn-sm btn-light" title="{% trans 'Batches' %}"><i class="fa-solid fa-layer-group"></i></a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center text-muted py-4">{% trans "No medicines match these filters." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav>
+    <ul class="pagination justify-content-end mb-0">
+      {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ request.GET.q }}&stock={{ stock_filter }}">{% trans "Previous" %}</a></li>{% endif %}
+      <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+      {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ request.GET.q }}&stock={{ stock_filter }}">{% trans "Next" %}</a></li>{% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+</div>
+
+<div class="panel">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h6 class="panel-title mb-0">{% trans "Recent Stock Movements" %}</h6>
+    <a href="{% url 'inventory:movement_list' %}" class="small">{% trans "View all" %} &rarr;</a>
+  </div>
+  <div class="table-responsive">
+    <table class="table align-middle mb-0">
+      <thead>
+        <tr>
+          <th>{% trans "Medicine" %}</th><th>{% trans "Type" %}</th>
+          <th class="text-end">{% trans "Before" %}</th><th class="text-end">{% trans "After" %}</th>
+          <th>{% trans "By" %}</th><th>{% trans "Date" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for mv in recent_movements %}
+        <tr>
+          <td>{{ mv.medicine.name }}</td>
+          <td><span class="badge bg-light text-dark border">{{ mv.get_movement_type_display }}</span></td>
+          <td class="text-end">{{ mv.quantity_before }}</td>
+          <td class="text-end">{{ mv.quantity_after }}</td>
+          <td>{{ mv.performed_by.get_full_name|default:mv.performed_by.username|default:"—" }}</td>
+          <td>{{ mv.created_at|date:"M j, Y H:i" }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="6" class="text-center text-muted py-3">{% trans "No stock movements recorded yet." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

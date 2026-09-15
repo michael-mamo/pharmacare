@@ -1,0 +1,9 @@
+# Keep the serverless bundle small — it has a hard size limit.
+docs/
+locale/**/*.po
+media/
+db.sqlite3
+*.zip
+.git/
+__pycache__/
+*.pyc

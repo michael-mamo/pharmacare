@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Account Temporarily Locked" %}{% endblock %}
+{% block body %}
+<div class="auth-shell">
+    <div class="auth-visual">
+        <div class="pill-pattern"></div><div class="brand-mark mb-4">PC</div>
+        <h1 class="brand-font display-6 mb-3" style="color:#fff;">{% trans "Too many attempts" %}</h1>
+    </div>
+    <div class="auth-form-side">
+        <div class="auth-card text-center">
+            <i class="fa-solid fa-lock fa-3x text-danger mb-3"></i>
+            <h3 class="brand-font mb-2">{% trans "Account temporarily locked" %}</h3>
+            <p class="text-muted">
+                {% trans "This account or IP address has had too many failed sign-in attempts. For your security, sign-in has been temporarily disabled. Please try again in 30 minutes or contact your Administrator." %}
+            </p>
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-brand mt-3">{% trans "Back to sign in" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

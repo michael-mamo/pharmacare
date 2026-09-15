@@ -1,0 +1,138 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Standard Catalogue" %}{% endblock %}
+{% block page_heading %}{% trans "Standard Catalogue" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-0">{% trans "Standard Catalogue" %}</h4>
+    <p class="text-muted mb-0">
+      {% trans "Register your stock against a standard record instead of typing names. This keeps naming consistent and makes group reporting possible." %}
+    </p>
+  </div>
+  {% if can_manage %}
+  <a href="{% url 'catalogue:product_create' %}" class="btn btn-outline-brand">
+    <i class="fa-solid fa-plus me-2"></i>{% trans "Add Catalogue Entry" %}
+  </a>
+  {% endif %}
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Catalogue Size" %}</div><div class="kpi-value">{{ coverage.catalogue_size }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "You Stock" %}</div><div class="kpi-value">{{ coverage.registered }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card {% if coverage.unlinked %}kpi-alert{% endif %}"><div class="kpi-label">{% trans "Not Standardised" %}</div><div class="kpi-value">{{ coverage.unlinked }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Your Stock Linked" %}</div><div class="kpi-value">{{ coverage.linked_percent }}%</div></div></div>
+</div>
+
+{% if coverage.unlinked %}
+<div class="note">
+  <strong>{% blocktranslate count c=coverage.unlinked %}{{ c }} of your products is not linked to the catalogue.{% plural %}{{ c }} of your products are not linked to the catalogue.{% endblocktranslate %}</strong>
+  {% trans "Unlinked products still work normally, but they will not roll up in group or regulatory reporting. Link them by editing the product and choosing a catalogue record." %}
+</div>
+{% endif %}
+
+<div class="panel mb-3">
+  <form method="get" class="row g-2 align-items-end">
+    <div class="col-md-4">
+      <label class="form-label small text-muted">{% trans "Search" %}</label>
+      <input type="text" name="q" value="{{ filters.q }}" class="form-control"
+             placeholder="{% trans 'Generic name, brand, ATC code or barcode' %}">
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small text-muted">{% trans "Category" %}</label>
+      <select name="category" class="form-select">
+        <option value="">{% trans "All" %}</option>
+        {% for c in categories %}<option value="{{ c.pk }}" {% if filters.category == c.pk|stringformat:"s" %}selected{% endif %}>{{ c.name }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small text-muted">{% trans "Legal Class" %}</label>
+      <select name="schedule" class="form-select no-search">
+        <option value="">{% trans "All" %}</option>
+        {% for v, l in schedules %}<option value="{{ v }}" {% if filters.schedule == v %}selected{% endif %}>{{ l }}</option>{% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2">
+      <label class="form-label small text-muted">{% trans "Status" %}</label>
+      <select name="status" class="form-select no-search">
+        <option value="">{% trans "All" %}</option>
+        <option value="registered" {% if filters.status == "registered" %}selected{% endif %}>{% trans "You stock it" %}</option>
+        <option value="unregistered" {% if filters.status == "unregistered" %}selected{% endif %}>{% trans "Not stocked" %}</option>
+      </select>
+    </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+    </div>
+  </form>
+</div>
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Product" %}</th>
+          <th>{% trans "ATC" %}</th>
+          <th>{% trans "Category" %}</th>
+          <th>{% trans "Class" %}</th>
+          <th>{% trans "Source" %}</th>
+          <th>{% trans "Status" %}</th>
+          <th class="text-end">{% trans "Actions" %}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in products %}
+        <tr>
+          <td>
+            <a href="{% url 'catalogue:product_detail' p.pk %}" class="fw-semibold text-decoration-none text-body">{{ p.display_name }}</a>
+            <div class="text-muted small">
+              {{ p.get_route_display }}{% if p.pack_size %} · {{ p.pack_size }}{% endif %}
+              {% if p.is_essential %}<span class="badge bg-success-subtle text-success ms-1">{% trans "Essential" %}</span>{% endif %}
+              {% if p.requires_cold_chain %}<span class="badge bg-info-subtle text-info ms-1"><i class="fa-solid fa-snowflake"></i> {% trans "Cold chain" %}</span>{% endif %}
+            </div>
+          </td>
+          <td class="text-muted small">{{ p.atc_code|default:"—" }}</td>
+          <td class="text-muted small">{{ p.category.name|default:"—" }}</td>
+          <td>
+            {% if p.schedule == "CONTROLLED" %}<span class="badge bg-danger-subtle text-danger">{{ p.get_schedule_display }}</span>
+            {% elif p.schedule == "POM" %}<span class="badge bg-warning-subtle text-warning-emphasis">Rx</span>
+            {% else %}<span class="badge bg-light text-dark border">{{ p.get_schedule_display }}</span>{% endif %}
+          </td>
+          <td>
+            {% if p.is_verified_source %}<span class="badge bg-success-subtle text-success" title="{{ p.get_data_source_display }}"><i class="fa-solid fa-circle-check"></i> {% trans "Verified" %}</span>
+            {% else %}<span class="badge bg-light text-muted border" title="{{ p.get_data_source_display }}">{{ p.get_data_source_display|truncatechars:18 }}</span>{% endif %}
+          </td>
+          <td>
+            {% if p.registration_count %}<span class="badge bg-success-subtle text-success">{% trans "Stocked" %}</span>
+            {% else %}<span class="text-muted small">{% trans "Not stocked" %}</span>{% endif %}
+          </td>
+          <td class="text-end">
+            {% if p.registration_count %}
+            <a href="{% url 'catalogue:product_detail' p.pk %}" class="btn btn-sm btn-light">{% trans "View" %}</a>
+            {% elif can_manage %}
+            <a href="{% url 'catalogue:register' p.pk %}" class="btn btn-sm btn-brand">{% trans "Register" %}</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="7" class="text-center text-muted py-4">{% trans "No catalogue products match these filters." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if is_paginated %}
+  <nav><ul class="pagination justify-content-end mb-0">
+    {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}&q={{ filters.q }}&category={{ filters.category }}&schedule={{ filters.schedule }}&status={{ filters.status }}">{% trans "Previous" %}</a></li>{% endif %}
+    <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+    {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}&q={{ filters.q }}&category={{ filters.category }}&schedule={{ filters.schedule }}&status={{ filters.status }}">{% trans "Next" %}</a></li>{% endif %}
+  </ul></nav>
+  {% endif %}
+</div>
+
+<div class="note mt-3">
+  <strong>{% trans "About the bundled catalogue" %}</strong>
+  <p class="mb-0 mt-1">
+    {% trans "The entries shipped with the system are a starter set of common medicines, marked as such. They are not an extract of the EFDA register, and registration numbers are intentionally left blank. Before using this for regulatory reporting, load the authority's own list — an administrator can do this with the import_catalogue command." %}
+  </p>
+</div>
+{% endblock %}

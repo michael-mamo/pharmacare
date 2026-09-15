@@ -1,0 +1,20 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Record Stock Movement" %}{% endblock %}
+{% block page_heading %}{% trans "Record Stock Movement" %}{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-7">
+        <div class="panel">
+            <h4 class="brand-font mb-1">{% trans "Record Stock Movement" %}</h4>
+            <p class="text-muted mb-3">{% trans "Use Stock In/Out for manual corrections, Adjustment after a physical count, or Transfer when stock leaves for another location." %}</p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-brand w-100 mt-2"><i class="fa-solid fa-check me-2"></i>{% trans "Record Movement" %}</button>
+            </form>
+            <a href="{% url 'inventory:movement_list' %}" class="btn btn-link mt-2"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to movement history" %}</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

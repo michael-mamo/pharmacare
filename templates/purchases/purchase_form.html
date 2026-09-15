@@ -1,0 +1,219 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Record Purchase" %}{% endblock %}
+{% block page_heading %}{% trans "Record Purchase" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+  .item-row { border: 1px solid var(--ink-150); border-radius: var(--radius-sm);
+              padding: .85rem .9rem .35rem; margin-bottom: .75rem; background: var(--surface); }
+  .item-row .row-index { font-family: var(--font-display); font-weight: 800;
+                         color: var(--ink-500); font-size: .78rem; margin-bottom: .35rem; }
+  .item-row .mb-3 { margin-bottom: .6rem !important; }
+  .line-total { font-family: var(--font-display); font-weight: 800; }
+  [data-theme="dark"] .item-row { background: #1C1D21; border-color: #2E3038; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="panel">
+  <h4 class="brand-font mb-1">{% trans "Record Purchase" %}</h4>
+  <p class="text-muted mb-3">
+    {% trans "Each line item you add will increase that medicine's stock immediately on save." %}
+    {% trans "Each intake is stored as its own batch with its own cost, so profit stays accurate when prices change. Fill in the new selling price only if this intake changes what you charge." %}
+  </p>
+
+  {% if formset.non_form_errors %}
+    <div class="alert alert-danger">{{ formset.non_form_errors }}</div>
+  {% endif %}
+
+  <form method="post" id="purchaseForm">
+    {% csrf_token %}
+    {{ invoice_form|crispy }}
+
+    <hr class="my-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h6 class="panel-title mb-0">{% trans "Line Items" %}</h6>
+      <button type="button" class="btn btn-sm btn-outline-brand" id="addItemBtn">
+        <i class="fa-solid fa-plus me-1"></i>{% trans "Add Item" %}
+      </button>
+    </div>
+
+    {{ formset.management_form }}
+
+    <div id="itemRows">
+      {% for form in formset %}
+      <div class="item-row" data-form-index="{{ forloop.counter0 }}">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="row-index">{% trans "Item" %} <span class="row-number">{{ forloop.counter }}</span></div>
+          <button type="button" class="btn btn-sm btn-light text-danger remove-row" title="{% trans 'Remove' %}">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-3">{{ form.medicine|as_crispy_field }}</div>
+          <div class="col-md-2">{{ form.quantity|as_crispy_field }}</div>
+          <div class="col-md-2">{{ form.purchase_price|as_crispy_field }}</div>
+          <div class="col-md-2">{{ form.new_selling_price|as_crispy_field }}</div>
+          <div class="col-md-2">{{ form.discount_percent|as_crispy_field }}</div>
+          <div class="col-md-1">{{ form.vat_percent|as_crispy_field }}</div>
+        </div>
+        <div class="text-end small text-muted">
+          {% trans "Line total" %}: <span class="line-total">0.00</span> {{ PHARMACY_CURRENCY }}
+        </div>
+        {% for hidden in form.hidden_fields %}{{ hidden }}{% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Blank template cloned by the + button. Django's empty_form uses the
+         __prefix__ placeholder, which we swap for the new row index. -->
+    <template id="emptyRowTemplate">
+      <div class="item-row" data-form-index="__prefix__">
+        <div class="d-flex justify-content-between align-items-start">
+          <div class="row-index">{% trans "Item" %} <span class="row-number"></span></div>
+          <button type="button" class="btn btn-sm btn-light text-danger remove-row" title="{% trans 'Remove' %}">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="row g-2">
+          <div class="col-md-3">{{ formset.empty_form.medicine|as_crispy_field }}</div>
+          <div class="col-md-2">{{ formset.empty_form.quantity|as_crispy_field }}</div>
+          <div class="col-md-2">{{ formset.empty_form.purchase_price|as_crispy_field }}</div>
+          <div class="col-md-2">{{ formset.empty_form.new_selling_price|as_crispy_field }}</div>
+          <div class="col-md-2">{{ formset.empty_form.discount_percent|as_crispy_field }}</div>
+          <div class="col-md-1">{{ formset.empty_form.vat_percent|as_crispy_field }}</div>
+        </div>
+        <div class="text-end small text-muted">
+          {% trans "Line total" %}: <span class="line-total">0.00</span> {{ PHARMACY_CURRENCY }}
+        </div>
+      </div>
+    </template>
+
+    <div class="d-flex justify-content-end align-items-center gap-3 mt-3 mb-2">
+      <span class="text-muted">{% trans "Invoice Total" %}</span>
+      <span class="brand-font fs-4" id="invoiceTotal">0.00</span>
+      <span class="text-muted">{{ PHARMACY_CURRENCY }}</span>
+    </div>
+
+    <button type="submit" class="btn btn-brand w-100 mt-2">
+      <i class="fa-solid fa-check me-2"></i>{% trans "Save Purchase & Update Stock" %}
+    </button>
+  </form>
+
+  <a href="{% url 'purchases:purchase_list' %}" class="btn btn-link mt-2">
+    <i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to purchases" %}
+  </a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  const rows       = document.getElementById("itemRows");
+  const addBtn     = document.getElementById("addItemBtn");
+  const tpl        = document.getElementById("emptyRowTemplate");
+  const totalForms = document.querySelector("[name$='-TOTAL_FORMS']");
+
+  // ---- add a row -------------------------------------------------------
+  addBtn.addEventListener("click", function () {
+    const index = parseInt(totalForms.value, 10);
+    // Swap Django's __prefix__ placeholder for the real index.
+    const html = tpl.innerHTML.replace(/__prefix__/g, index);
+    const wrap = document.createElement("div");
+    wrap.innerHTML = html.trim();
+    const row = wrap.firstElementChild;
+    rows.appendChild(row);
+    totalForms.value = index + 1;
+    initSearchable(row);
+    renumber();
+    const sel = row.querySelector("select[name$='-medicine']");
+    if (sel && sel.tomselect) sel.tomselect.focus();
+    else if (sel) sel.focus();
+  });
+
+  // ---- remove a row ----------------------------------------------------
+  rows.addEventListener("click", function (e) {
+    const btn = e.target.closest(".remove-row");
+    if (!btn) return;
+    const row = btn.closest(".item-row");
+    const visible = Array.from(rows.querySelectorAll(".item-row"))
+                         .filter(r => r.style.display !== "none");
+
+    // Never leave zero rows — the formset requires at least one.
+    if (visible.length === 1) { clearRow(row); recalc(); return; }
+
+    // A row already saved in the DB has a DELETE checkbox: tick it and hide
+    // the row so Django deletes it, rather than dropping it from the POST.
+    const del = row.querySelector("input[type=checkbox][name$='-DELETE']");
+    if (del) { del.checked = true; row.style.display = "none"; }
+    else { row.remove(); }
+    renumber();
+    recalc();
+  });
+
+  function clearRow(row) {
+    row.querySelectorAll("input, select").forEach(el => {
+      if (el.type === "hidden" || el.name.endsWith("-id")) return;
+      if (el.tagName === "SELECT") {
+        el.value = "";
+        if (el.tomselect) el.tomselect.clear(true);
+      } else if (el.type !== "checkbox") {
+        el.value = "";
+      }
+    });
+  }
+
+  function renumber() {
+    let n = 0;
+    rows.querySelectorAll(".item-row").forEach(row => {
+      if (row.style.display === "none") return;
+      n += 1;
+      const label = row.querySelector(".row-number");
+      if (label) label.textContent = n;
+    });
+  }
+
+  // ---- running totals (mirrors PurchaseItem.line_total server-side:
+  //      discount applied first, then VAT) -------------------------------
+  function recalc() {
+    let invoiceTotal = 0;
+    rows.querySelectorAll(".item-row").forEach(row => {
+      if (row.style.display === "none") return;
+      const val = (suffix) => {
+        const el = row.querySelector("[name$='-" + suffix + "']");
+        return el ? (parseFloat(el.value) || 0) : 0;
+      };
+      const sub  = val("purchase_price") * val("quantity");
+      const disc = sub * val("discount_percent") / 100;
+      const vat  = (sub - disc) * val("vat_percent") / 100;
+      const line = sub - disc + vat;
+      const out  = row.querySelector(".line-total");
+      if (out) out.textContent = line.toFixed(2);
+      invoiceTotal += line;
+    });
+    document.getElementById("invoiceTotal").textContent = invoiceTotal.toFixed(2);
+  }
+
+  rows.addEventListener("input", recalc);
+  rows.addEventListener("change", recalc);
+
+  // ---- searchable medicine select --------------------------------------
+  function initSearchable(scope) {
+    (scope || document).querySelectorAll("select[name$='-medicine']").forEach(el => {
+      if (el.tomselect || typeof TomSelect === "undefined") return;
+      new TomSelect(el, {
+        create: false,
+        maxOptions: null,
+        placeholder: "{% trans 'Search medicine by name or code…' %}",
+        onChange: recalc
+      });
+    });
+  }
+
+  initSearchable(document);
+  renumber();
+  recalc();
+})();
+</script>
+{% endblock %}

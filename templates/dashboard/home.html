@@ -1,0 +1,320 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block page_heading %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h4 class="brand-font mb-1">{% blocktranslate with name=user.get_full_name|default:user.username %}Welcome back, {{ name }}{% endblocktranslate %}</h4>
+        <p class="text-muted mb-0">{{ today|date:"l, F j, Y" }} &middot; {% blocktranslate with role=user.get_role_display %}{{ role }} view{% endblocktranslate %}</p>
+    </div>
+    <span class="badge bg-dark p-2"><i class="fa-solid fa-circle-check text-warning me-1"></i> {% trans "Phase 1: Core platform live" %}</span>
+</div>
+
+<!-- KPI Row 1 — every card links to the page that explains the figure -->
+<div class="row g-3 mb-3">
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'medicine:medicine_list' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="kpi-label">{% trans "Total Medicines" %}</div>
+                        <div class="kpi-value">{{ total_medicines }}</div>
+                    </div>
+                    <div class="kpi-icon"><i class="fa-solid fa-pills"></i></div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'medicine:category_list' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="kpi-label">{% trans "Categories" %}</div>
+                        <div class="kpi-value">{{ total_categories }}</div>
+                    </div>
+                    <div class="kpi-icon"><i class="fa-solid fa-tags"></i></div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'inventory:low_stock_report' %}" class="text-decoration-none">
+            <div class="kpi-card kpi-alert">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="kpi-label">{% trans "Low Stock" %}</div>
+                        <div class="kpi-value">{{ low_stock_count }}</div>
+                    </div>
+                    <div class="kpi-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'inventory:expired_report' %}" class="text-decoration-none">
+            <div class="kpi-card kpi-alert">
+                <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                        <div class="kpi-label">{% trans "Expired Medicines" %}</div>
+                        <div class="kpi-value">{{ expired_count }}</div>
+                    </div>
+                    <div class="kpi-icon"><i class="fa-solid fa-calendar-xmark"></i></div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- KPI Row 2 -->
+<div class="row g-3 mb-3">
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'sales:sale_list' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Today's Sales" %}</div>
+                <div class="kpi-value">{{ todays_sales }}</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'reports:detail' 'sales-summary' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Monthly Sales" %}</div>
+                <div class="kpi-value">{{ monthly_sales }}</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'customers:customer_list' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Total Customers" %}</div>
+                <div class="kpi-value">{{ total_customers }}</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-6 col-lg-3">
+        <a href="{% url 'suppliers:supplier_list' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Total Suppliers" %}</div>
+                <div class="kpi-value">{{ total_suppliers }}</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- KPI Row 3: financial summary -->
+<div class="row g-3 mb-4">
+    <div class="col-md-4">
+        <a href="{% url 'reports:detail' 'purchases' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Purchase Value" %} ({{ PHARMACY_CURRENCY }})</div>
+                <div class="kpi-value">{{ purchase_value }}</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'reports:detail' 'sales' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Sales Value" %} ({{ PHARMACY_CURRENCY }})</div>
+                <div class="kpi-value">{{ sales_value }}</div>
+            </div>
+        </a>
+    </div>
+    <div class="col-md-4">
+        <a href="{% url 'reports:detail' 'profit' %}" class="text-decoration-none">
+            <div class="kpi-card">
+                <div class="kpi-label">{% trans "Profit Summary" %} ({{ PHARMACY_CURRENCY }})</div>
+                <div class="kpi-value">{{ profit_summary }}</div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="row g-3 mb-3">
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-3">{% trans "Monthly Sales" %}</h6>
+            <canvas id="chartMonthlySales" height="180"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-3">{% trans "Sales Trend" %}</h6>
+            <canvas id="chartSalesTrend" height="180"></canvas>
+        </div>
+    </div>
+</div>
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-3">{% trans "Top Selling Medicines" %}</h6>
+            <canvas id="chartTopMedicines" height="180"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-3">{% trans "Stock by Category" %}</h6>
+            <canvas id="chartStockByCategory" height="180"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- ===================== Analytical charts ===================== -->
+<div class="d-flex align-items-center gap-2 mt-4 mb-3">
+    <h5 class="brand-font mb-0">{% trans "Analytics" %}</h5>
+    <span class="badge bg-dark"><i class="fa-solid fa-lock me-1"></i>{% trans "Administrator only" %}</span>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-lg-8">
+        <div class="panel">
+            <h6 class="panel-title mb-1">{% trans "Revenue vs Cost of Goods Sold" %}</h6>
+            <p class="text-muted small mb-3">{% trans "The gap between the two bars is your gross margin." %}</p>
+            <canvas id="chartRevenueVsCost" height="150"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel">
+            <h6 class="panel-title mb-1">{% trans "Payment Method Mix" %}</h6>
+            <p class="text-muted small mb-3">{% trans "By revenue, not transaction count." %}</p>
+            <canvas id="chartPaymentMix" height="220"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3 mb-3">
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-1">{% trans "Expiry Risk Profile" %}</h6>
+            <p class="text-muted small mb-3">{% trans "Stock value at risk by remaining shelf life." %}</p>
+            <canvas id="chartExpiryRisk" height="180"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-1">{% trans "Top Customers by Spend" %}</h6>
+            <p class="text-muted small mb-3">{% trans "Lifetime value — who is worth retaining." %}</p>
+            <canvas id="chartTopCustomers" height="180"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row g-3">
+    <div class="col-lg-6">
+        <div class="panel">
+            <h6 class="panel-title mb-1">{% trans "Sales by Staff Member" %}</h6>
+            <p class="text-muted small mb-3">{% trans "Revenue served, completed sales only." %}</p>
+            <canvas id="chartStaffPerformance" height="180"></canvas>
+        </div>
+    </div>
+</div>
+
+{% if total_medicines == 0 %}
+<div class="alert alert-warning mt-4 d-flex align-items-start gap-2" data-auto-dismiss>
+    <i class="fa-solid fa-circle-info mt-1"></i>
+    <div>{% trans "Charts and KPIs above will populate automatically once the Medicine, Sales, and Purchase modules are installed in Phase 2-4. No further changes to this page will be needed." %}</div>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const chartData = {{ chart_data|safe }};
+const brandYellow = "#F1AB15";
+const brandBlack = "#0B0B0C";
+
+function lineChart(ctx, labels, values, label) {
+    return new Chart(ctx, {
+        type: "line",
+        data: { labels: labels, datasets: [{ label: label, data: values, borderColor: brandYellow, backgroundColor: "rgba(241,171,21,.15)", fill: true, tension: .35 }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+}
+function barChart(ctx, labels, values, label) {
+    return new Chart(ctx, {
+        type: "bar",
+        data: { labels: labels, datasets: [{ label: label, data: values, backgroundColor: brandYellow, borderRadius: 6 }] },
+        options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+}
+function doughnutChart(ctx, labels, values) {
+    return new Chart(ctx, {
+        type: "doughnut",
+        data: { labels: labels, datasets: [{ data: values, backgroundColor: [brandYellow, brandBlack, "#C98C0C", "#6B6E78", "#A7AAB3"] }] },
+        options: { plugins: { legend: { position: "bottom" } } }
+    });
+}
+
+lineChart(document.getElementById("chartMonthlySales"), chartData.monthly_sales.labels, chartData.monthly_sales.values, "Sales");
+lineChart(document.getElementById("chartSalesTrend"), chartData.sales_trend.labels, chartData.sales_trend.values, "Trend");
+barChart(document.getElementById("chartTopMedicines"), chartData.top_selling_medicines.labels, chartData.top_selling_medicines.values, "Units Sold");
+doughnutChart(document.getElementById("chartStockByCategory"), chartData.stock_by_category.labels, chartData.stock_by_category.values);
+
+// ---------------- Analytical charts ----------------
+const currency = "{{ PHARMACY_CURRENCY }}";
+
+// Revenue vs cost: grouped bars, so the margin gap is visible at a glance.
+new Chart(document.getElementById("chartRevenueVsCost"), {
+    type: "bar",
+    data: {
+        labels: chartData.revenue_vs_cost.labels,
+        datasets: [
+            { label: "{% trans 'Revenue' %}", data: chartData.revenue_vs_cost.revenue,
+              backgroundColor: brandYellow, borderRadius: 5 },
+            { label: "{% trans 'Cost of Goods' %}", data: chartData.revenue_vs_cost.cost,
+              backgroundColor: brandBlack, borderRadius: 5 }
+        ]
+    },
+    options: {
+        plugins: { legend: { position: "bottom" } },
+        scales: { y: { beginAtZero: true, ticks: { callback: v => v + " " + currency } } }
+    }
+});
+
+doughnutChart(document.getElementById("chartPaymentMix"), chartData.payment_mix.labels, chartData.payment_mix.values);
+
+// Expiry risk: item count as bars, value at risk as an overlaid line, so a
+// small number of expensive items can't hide behind a low count.
+new Chart(document.getElementById("chartExpiryRisk"), {
+    data: {
+        labels: chartData.expiry_risk.labels,
+        datasets: [
+            { type: "bar", label: "{% trans 'Medicines' %}", data: chartData.expiry_risk.values,
+              backgroundColor: brandYellow, borderRadius: 5, yAxisID: "y" },
+            { type: "line", label: "{% trans 'Value at Risk' %}", data: chartData.expiry_risk.value_at_risk,
+              borderColor: "#D8332A", backgroundColor: "rgba(216,51,42,.12)",
+              tension: .3, yAxisID: "y1" }
+        ]
+    },
+    options: {
+        plugins: { legend: { position: "bottom" } },
+        scales: {
+            y:  { beginAtZero: true, position: "left", title: { display: true, text: "{% trans 'Medicines' %}" } },
+            y1: { beginAtZero: true, position: "right", grid: { drawOnChartArea: false },
+                  ticks: { callback: v => v + " " + currency } }
+        }
+    }
+});
+
+// Horizontal bars for name-heavy series — labels stay readable.
+function horizontalBar(ctx, labels, values, label) {
+    return new Chart(ctx, {
+        type: "bar",
+        data: { labels: labels, datasets: [{ label: label, data: values,
+                backgroundColor: brandYellow, borderRadius: 5 }] },
+        options: {
+            indexAxis: "y",
+            plugins: { legend: { display: false } },
+            scales: { x: { beginAtZero: true, ticks: { callback: v => v + " " + currency } } }
+        }
+    });
+}
+
+horizontalBar(document.getElementById("chartTopCustomers"), chartData.top_customers.labels, chartData.top_customers.values, "{% trans 'Spend' %}");
+horizontalBar(document.getElementById("chartStaffPerformance"), chartData.staff_performance.labels, chartData.staff_performance.values, "{% trans 'Revenue' %}");
+
+</script>
+{% endblock %}

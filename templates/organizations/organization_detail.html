@@ -1,0 +1,99 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ organization.display_name }}{% endblock %}
+{% block page_heading %}{{ organization.display_name }}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+  <div>
+    <div class="text-muted">{{ organization.code }}</div>
+    <div class="mt-1">
+      {% if organization.status == "ACTIVE" %}<span class="badge bg-success-subtle text-success">{% trans "Active" %}</span>
+      {% elif organization.status == "SUSPENDED" %}<span class="badge bg-danger-subtle text-danger">{% trans "Suspended" %}</span>
+      {% else %}<span class="badge bg-secondary-subtle text-secondary">{% trans "Closed" %}</span>{% endif %}
+      <span class="badge bg-dark-subtle text-dark ms-1">{{ organization.get_plan_display }}</span>
+      {% if organization.pk == active_organization_id %}<span class="badge bg-dark ms-1">{% trans "Currently active" %}</span>{% endif %}
+    </div>
+  </div>
+  <div class="d-flex gap-2">
+    {% if organization.status == "ACTIVE" %}
+    <form method="post" action="{% url 'organizations:switch' %}">
+      {% csrf_token %}
+      <input type="hidden" name="organization" value="{{ organization.pk }}">
+      <input type="hidden" name="next" value="{% url 'dashboard:landing' %}">
+      <button type="submit" class="btn btn-outline-brand"><i class="fa-solid fa-right-to-bracket me-2"></i>{% trans "Switch into this pharmacy" %}</button>
+    </form>
+    {% endif %}
+    <a href="{% url 'organizations:update' organization.pk %}" class="btn btn-brand"><i class="fa-solid fa-pen me-2"></i>{% trans "Edit" %}</a>
+    <a href="{% url 'organizations:record_payment' organization.pk %}" class="btn btn-outline-brand"><i class="fa-solid fa-money-bill me-2"></i>{% trans "Record Payment" %}</a>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-md-8">
+    <div class="panel mb-3">
+      <h6 class="panel-title">{% trans "Company" %}</h6>
+      <dl class="row mb-0">
+        <dt class="col-sm-4 text-muted">{% trans "Legal name" %}</dt><dd class="col-sm-8">{{ organization.legal_name }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Trade name" %}</dt><dd class="col-sm-8">{{ organization.trade_name|default:"—" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "TIN" %}</dt><dd class="col-sm-8">{{ organization.tin|default:"—" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Licence number" %}</dt><dd class="col-sm-8">{{ organization.license_number|default:"—" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Phone" %}</dt><dd class="col-sm-8">{{ organization.phone|default:"—" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Email" %}</dt><dd class="col-sm-8">{{ organization.email|default:"—" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Location" %}</dt><dd class="col-sm-8">{{ organization.city|default:"—" }}{% if organization.region %}, {{ organization.region }}{% endif %}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Address" %}</dt><dd class="col-sm-8">{{ organization.address|default:"—"|linebreaksbr }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Currency" %}</dt><dd class="col-sm-8">{{ organization.currency }}</dd>
+      </dl>
+    </div>
+    <div class="panel">
+      <h6 class="panel-title">{% trans "Plan & billing" %}</h6>
+      <dl class="row mb-0">
+        <dt class="col-sm-4 text-muted">{% trans "Plan" %}</dt><dd class="col-sm-8">{{ organization.get_plan_display }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Subscription ends" %}</dt><dd class="col-sm-8">{{ organization.subscription_ends_at|default:"Open-ended" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Branch limit" %}</dt><dd class="col-sm-8">{{ organization.max_branches|default:"Unlimited" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Staff limit" %}</dt><dd class="col-sm-8">{{ organization.max_users|default:"Unlimited" }}</dd>
+        <dt class="col-sm-4 text-muted">{% trans "Notes" %}</dt><dd class="col-sm-8">{{ organization.plan_notes|default:"—" }}</dd>
+      </dl>
+      <div class="note mt-2 mb-0">{% trans "Plan and status are set manually here for now — there's no automatic payment processing wired up yet." %}</div>
+    </div>
+    <div class="panel mt-3">
+      <h6 class="panel-title">{% trans "Payment history" %}</h6>
+      {% if organization.payments.all %}
+      <table class="table table-sm mb-0">
+        <thead><tr>
+          <th>{% trans "Date" %}</th><th>{% trans "Amount" %}</th><th>{% trans "Plan" %}</th>
+          <th>{% trans "Covers until" %}</th><th>{% trans "Provider" %}</th><th>{% trans "Status" %}</th>
+          <th>{% trans "Notes" %}</th>
+        </tr></thead>
+        <tbody>
+        {% for payment in organization.payments.all %}
+          <tr>
+            <td>{{ payment.created_at|date:"Y-m-d" }}</td>
+            <td>{{ payment.amount }} {{ payment.currency }}</td>
+            <td>{{ payment.get_plan_at_payment_display }}</td>
+            <td>{{ payment.period_end }}</td>
+            <td>{{ payment.get_provider_display }}</td>
+            <td>
+              {% if payment.status == "SUCCESSFUL" %}<span class="badge bg-success-subtle text-success">{{ payment.get_status_display }}</span>
+              {% elif payment.status == "PENDING" %}<span class="badge bg-warning-subtle text-warning">{{ payment.get_status_display }}</span>
+              {% else %}<span class="badge bg-danger-subtle text-danger">{{ payment.get_status_display }}</span>{% endif %}
+            </td>
+            <td class="text-muted small">{{ payment.notes|default:"—" }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <p class="text-muted mb-0">{% trans "No payments recorded yet." %}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel text-center">
+      <div class="row g-2">
+        <div class="col-6"><div class="text-muted small">{% trans "Branches" %}</div><div class="brand-font fs-4">{{ organization.branch_count }}</div></div>
+        <div class="col-6"><div class="text-muted small">{% trans "Staff" %}</div><div class="brand-font fs-4">{{ organization.user_count }}</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

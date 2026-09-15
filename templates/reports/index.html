@@ -1,0 +1,39 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Reports" %}{% endblock %}
+{% block page_heading %}{% trans "Reports" %}{% endblock %}
+{% block content %}
+<div class="mb-4">
+  <h4 class="brand-font mb-1">{% trans "Reports" %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "Only the reports available to your role are listed here." %}
+    {% if not can_export %}
+      <span class="badge bg-light text-dark border ms-1">
+        <i class="fa-solid fa-circle-info me-1"></i>{% trans "View only — exporting requires Administrator or Store Manager" %}
+      </span>
+    {% endif %}
+  </p>
+</div>
+
+<div class="row g-3">
+  {% for report in reports %}
+  <div class="col-md-6 col-xl-4">
+    <a href="{% url 'reports:detail' report.slug %}" class="text-decoration-none">
+      <div class="panel h-100">
+        <div class="d-flex align-items-start gap-3">
+          <div class="kpi-icon flex-shrink-0"><i class="fa-solid {{ report.icon }}"></i></div>
+          <div>
+            <h6 class="panel-title mb-1">{{ report.title }}</h6>
+            <p class="text-muted small mb-0">{{ report.description }}</p>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {% empty %}
+  <div class="col-12">
+    <div class="panel text-center text-muted py-5">{% trans "No reports are available for your role." %}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

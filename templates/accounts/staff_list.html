@@ -1,0 +1,90 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Staff & Roles" %}{% endblock %}
+{% block page_heading %}{% trans "Staff & Roles" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h4 class="brand-font mb-0">{% trans "Staff & Roles" %}</h4>
+        <p class="text-muted mb-0">{% trans "Manage who can access PharmaCare and what they can do." %}</p>
+    </div>
+    <a href="{% url 'accounts:staff_create' %}" class="btn btn-brand"><i class="fa-solid fa-user-plus me-2"></i>{% trans "Add Staff" %}</a>
+</div>
+
+<div class="panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-5">
+            <label class="form-label small text-muted">{% trans "Search" %}</label>
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Name, username, or email' %}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label small text-muted">{% trans "Role" %}</label>
+            <select name="role" class="form-select">
+                <option value="">{% trans "All roles" %}</option>
+                <option value="ADMIN" {% if request.GET.role == "ADMIN" %}selected{% endif %}>{% trans "Administrator" %}</option>
+                <option value="PHARMACIST" {% if request.GET.role == "PHARMACIST" %}selected{% endif %}>{% trans "Pharmacist" %}</option>
+                <option value="CASHIER" {% if request.GET.role == "CASHIER" %}selected{% endif %}>{% trans "Cashier" %}</option>
+                <option value="STORE_MANAGER" {% if request.GET.role == "STORE_MANAGER" %}selected{% endif %}>{% trans "Store Manager" %}</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Name" %}</th>
+                    <th>{% trans "Username" %}</th>
+                    <th>{% trans "Role" %}</th>
+                    <th>{% trans "Email" %}</th>
+                    <th>{% trans "Status" %}</th>
+                    <th class="text-end">{% trans "Actions" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for staff in staff_members %}
+                <tr>
+                    <td>{{ staff.get_full_name|default:"—" }}</td>
+                    <td>{{ staff.username }}</td>
+                    <td><span class="badge-role">{{ staff.get_role_display }}</span></td>
+                    <td>{{ staff.email|default:"—" }}</td>
+                    <td>
+                        {% if staff.is_active_employee %}
+                        <span class="badge bg-success-subtle text-success">{% trans "Active" %}</span>
+                        {% else %}
+                        <span class="badge bg-secondary-subtle text-secondary">{% trans "Inactive" %}</span>
+                        {% endif %}
+                    </td>
+                    <td class="text-end">
+                        <a href="{% url 'accounts:user_detail' staff.pk %}" class="btn btn-sm btn-light" title="{% trans 'View' %}"><i class="fa-solid fa-eye"></i></a>
+                        <a href="{% url 'accounts:staff_update' staff.pk %}" class="btn btn-sm btn-light" title="{% trans 'Edit' %}"><i class="fa-solid fa-pen"></i></a>
+                        <a href="{% url 'accounts:staff_delete' staff.pk %}" class="btn btn-sm btn-light text-danger" title="{% trans 'Delete' %}"><i class="fa-solid fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="6" class="text-center text-muted py-4">{% trans "No staff members found." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-end mb-0">
+            {% if page_obj.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>
+            {% endif %}
+            <li class="page-item active"><span class="page-link">{% blocktranslate with num=page_obj.number total=page_obj.paginator.num_pages %}{{ num }} of {{ total }}{% endblocktranslate %}</span></li>
+            {% if page_obj.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

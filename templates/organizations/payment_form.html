@@ -1,0 +1,17 @@
+{% extends "layout_app.html" %}
+{% load i18n crispy_forms_tags %}
+{% block title %}{% trans "Record Payment" %}{% endblock %}
+{% block page_heading %}{% trans "Record Payment" %} — {{ organization.display_name }}{% endblock %}
+{% block content %}
+<div class="panel" style="max-width:600px">
+  <p class="text-muted">{% trans "There is no automatic payment processing yet — this logs that money arrived (bank transfer, cash, a mobile money screenshot you verified) and extends the subscription accordingly." %}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <div class="d-flex gap-2 mt-3">
+      <button type="submit" class="btn btn-brand">{% trans "Record Payment" %}</button>
+      <a href="{% url 'organizations:detail' organization.pk %}" class="btn btn-outline-secondary">{% trans "Cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

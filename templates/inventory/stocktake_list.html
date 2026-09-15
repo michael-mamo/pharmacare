@@ -1,0 +1,79 @@
+{% extends "layout_app.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Stocktakes" %}{% endblock %}
+{% block page_heading %}{% trans "Stocktakes" %}{% endblock %}
+{% block content %}
+<div class="mb-3">
+  <h4 class="brand-font mb-0">{% trans "Stocktakes" %}</h4>
+  <p class="text-muted mb-0">
+    {% trans "Count a whole branch or one section, review the differences, then post them all at once." %}
+  </p>
+</div>
+
+{% if open_stocktake %}
+<div class="note alert alert-warning d-flex justify-content-between align-items-center">
+  <div>
+    <strong>{{ open_stocktake.reference }}</strong> {% trans "is in progress" %} —
+    {{ open_stocktake.counted_lines }}/{{ open_stocktake.total_lines }} {% trans "counted" %}
+    ({{ open_stocktake.progress_percent }}%)
+  </div>
+  <a href="{% url 'inventory:stocktake_detail' open_stocktake.pk %}" class="btn btn-sm btn-brand">{% trans "Continue counting" %}</a>
+</div>
+{% else %}
+<div class="panel mb-3">
+  <h6 class="panel-title mb-3">{% trans "Start a new stocktake" %}</h6>
+  <form method="post" action="{% url 'inventory:stocktake_start' %}" class="row g-2 align-items-end">
+    {% csrf_token %}
+    <div class="col-md-4">
+      <label class="form-label small text-muted">{% trans "Category" %}</label>
+      {{ form.category }}
+      <div class="form-text">{{ form.category.help_text }}</div>
+    </div>
+    <div class="col-md-5">
+      <label class="form-label small text-muted">{% trans "Note" %}</label>
+      {{ form.note }}
+    </div>
+    <div class="col-md-3">
+      <button type="submit" class="btn btn-brand w-100"><i class="fa-solid fa-clipboard-list me-2"></i>{% trans "Start Counting" %}</button>
+    </div>
+  </form>
+  <p class="text-muted small mb-0 mt-2">
+    {% trans "Opening a stocktake freezes the expected figures, so sales made while you count are not mistaken for counting errors." %}
+  </p>
+</div>
+{% endif %}
+
+<div class="panel">
+  <div class="table-responsive">
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th>{% trans "Reference" %}</th><th>{% trans "Branch" %}</th><th>{% trans "Scope" %}</th>
+          <th>{% trans "Status" %}</th><th class="text-end">{% trans "Counted" %}</th>
+          <th>{% trans "Started" %}</th><th>{% trans "By" %}</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for st in stocktakes %}
+        <tr>
+          <td class="fw-semibold">{{ st.reference }}</td>
+          <td>{{ st.branch.name }}</td>
+          <td class="text-muted small">{{ st.category.name|default:_("All products") }}</td>
+          <td>
+            {% if st.status == "DRAFT" %}<span class="badge bg-warning-subtle text-warning-emphasis">{{ st.get_status_display }}</span>
+            {% elif st.status == "POSTED" %}<span class="badge bg-success-subtle text-success">{{ st.get_status_display }}</span>
+            {% else %}<span class="badge bg-light text-muted border">{{ st.get_status_display }}</span>{% endif %}
+          </td>
+          <td class="text-end">{{ st.counted_lines }} / {{ st.total_lines }}</td>
+          <td class="text-muted small">{{ st.started_at|date:"M j, Y H:i" }}</td>
+          <td class="text-muted small">{{ st.started_by.username|default:"—" }}</td>
+          <td class="text-end"><a href="{% url 'inventory:stocktake_detail' st.pk %}" class="btn btn-sm btn-light">{% trans "Open" %}</a></td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="8" class="text-center text-muted py-4">{% trans "No stocktakes yet." %}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

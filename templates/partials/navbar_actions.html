@@ -1,0 +1,161 @@
+{% load i18n %}
+{% comment %}
+Active branch. Administrators get a switcher; branch-assigned staff see a
+static label, because their branch is enforced server-side and offering a
+dropdown would imply otherwise.
+
+Note the tag: Django's {# ... #} comment is SINGLE-LINE ONLY. A multi-line
+{# ... #} is not treated as a comment at all — it renders as visible text on
+the page, which is exactly what happened here. Use {% comment %} for anything
+spanning more than one line.
+{% endcomment %}
+{% if user.is_platform_staff %}
+  {% if request.organization %}
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-brand d-flex align-items-center gap-2" data-bs-toggle="dropdown"
+            title="{% trans 'Acting as this pharmacy' %}">
+      <i class="fa-solid fa-building"></i>
+      <span class="d-none d-md-inline">{{ request.organization.display_name }}</span>
+      <i class="fa-solid fa-chevron-down small"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end p-0" style="min-width:250px;">
+      <div class="px-3 py-2 border-bottom small text-muted">{% trans "Acting as this pharmacy" %}</div>
+      <a class="dropdown-item" href="{% url 'organizations:list' %}"><i class="fa-solid fa-arrows-rotate me-2"></i>{% trans "Switch to another pharmacy" %}</a>
+      <form method="post" action="{% url 'organizations:switch' %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{% url 'organizations:list' %}">
+        <button type="submit" class="dropdown-item"><i class="fa-solid fa-right-from-bracket me-2"></i>{% trans "Return to platform view" %}</button>
+      </form>
+    </div>
+  </div>
+  {% else %}
+  <a href="{% url 'organizations:list' %}" class="btn btn-sm btn-outline-brand d-flex align-items-center gap-2">
+    <i class="fa-solid fa-building"></i>
+    <span class="d-none d-md-inline">{% trans "Platform view" %}</span>
+  </a>
+  {% endif %}
+{% endif %}
+
+{% if request.branch %}
+  {% if available_branches|length > 1 %}
+  <div class="dropdown">
+    <button class="btn btn-sm btn-outline-brand d-flex align-items-center gap-2" data-bs-toggle="dropdown"
+            title="{% trans 'Active branch' %}">
+      <i class="fa-solid fa-store"></i>
+      <span class="d-none d-md-inline">{{ request.branch.name }}</span>
+      <i class="fa-solid fa-chevron-down small"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end p-0" style="min-width:250px;">
+      <div class="px-3 py-2 border-bottom small text-muted">{% trans "Switch branch" %}</div>
+      {% for b in available_branches %}
+      <form method="post" action="{% url 'branches:switch' %}">
+        {% csrf_token %}
+        <input type="hidden" name="branch" value="{{ b.pk }}">
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center">
+          <span>{{ b.name }}{% if b.is_main %} <span class="badge bg-dark ms-1">{% trans "Main" %}</span>{% endif %}</span>
+          {% if b.pk == request.branch.pk %}<i class="fa-solid fa-check text-success"></i>{% endif %}
+        </button>
+      </form>
+      {% endfor %}
+      <a class="dropdown-item border-top small py-2" href="{% url 'branches:compare' %}">
+        <i class="fa-solid fa-table-columns me-2"></i>{% trans "Compare all branches" %}
+      </a>
+    </div>
+  </div>
+  {% else %}
+  <span class="badge bg-light text-dark border d-flex align-items-center gap-2" title="{% trans 'Your branch' %}">
+    <i class="fa-solid fa-store"></i>
+    <span class="d-none d-md-inline">{{ request.branch.name }}</span>
+  </span>
+  {% endif %}
+{% endif %}
+
+<!-- Language switcher -->
+<div class="dropdown">
+    <button class="btn-icon d-flex align-items-center gap-2 px-3" style="width:auto;" data-bs-toggle="dropdown" aria-label="{% trans 'Change language' %}">
+        <i class="fa-solid fa-globe"></i>
+        {% get_current_language as CUR_LANG %}
+        <span class="d-none d-sm-inline small fw-semibold">{% if CUR_LANG == 'am' %}አማ{% else %}EN{% endif %}</span>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end p-2">
+        {% get_available_languages as AVAILABLE_LANGUAGES %}
+        {% for code, name in AVAILABLE_LANGUAGES %}
+        <form action="{% url 'set_language' %}" method="post" class="mb-0">
+            {% csrf_token %}
+            <input type="hidden" name="language" value="{{ code }}">
+            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+            <button type="submit" class="dropdown-item d-flex justify-content-between align-items-center gap-3 {% if code == CUR_LANG %}fw-bold{% endif %}">
+                {{ name }}
+                {% if code == CUR_LANG %}<i class="fa-solid fa-check text-warning"></i>{% endif %}
+            </button>
+        </form>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Dark mode -->
+<div class="form-check form-switch mb-0 d-none d-md-flex align-items-center">
+    <input class="form-check-input" type="checkbox" role="switch" id="themeToggle">
+    <label class="form-check-label ms-2 small text-muted" for="themeToggle">
+        <i class="fa-solid fa-moon"></i>
+    </label>
+</div>
+
+<!-- Notifications -->
+<div class="dropdown">
+    <button class="btn-icon position-relative" data-bs-toggle="dropdown" aria-label="{% trans 'Notifications' %}">
+        <i class="fa-solid fa-bell"></i>
+        {% if UNREAD_NOTIFICATION_COUNT %}
+        <span class="position-absolute translate-middle badge rounded-pill bg-danger"
+              style="top:6px; left:76%; font-size:.62rem;">
+            {{ UNREAD_NOTIFICATION_COUNT }}
+            <span class="visually-hidden">{% trans "unread notifications" %}</span>
+        </span>
+        {% endif %}
+    </button>
+    <div class="dropdown-menu dropdown-menu-end p-0" style="width: 330px;">
+        <div class="px-3 py-2 border-bottom d-flex justify-content-between align-items-center">
+            <strong class="small">{% trans "Notifications" %}</strong>
+            <span class="badge bg-dark">{{ UNREAD_NOTIFICATION_COUNT }}</span>
+        </div>
+        <div style="max-height:320px; overflow-y:auto;">
+            {% for n in UNREAD_NOTIFICATIONS %}
+            <a href="{% if n.link %}{{ n.link }}{% else %}{% url 'notifications:list' %}{% endif %}"
+               class="d-flex gap-2 px-3 py-2 border-bottom text-decoration-none text-body">
+                <i class="fa-solid {{ n.icon }} mt-1 {% if n.severity == 'CRITICAL' %}text-danger{% else %}text-warning{% endif %}"></i>
+                <span class="flex-grow-1">
+                    <span class="d-block small fw-semibold">{{ n.title|truncatechars:46 }}</span>
+                    <span class="d-block text-muted" style="font-size:.75rem;">{{ n.message|truncatechars:60 }}</span>
+                </span>
+            </a>
+            {% empty %}
+            <p class="text-muted small mb-0 px-3 py-4 text-center">{% trans "No unread notifications." %}</p>
+            {% endfor %}
+        </div>
+        <a class="dropdown-item text-center small py-2" href="{% url 'notifications:list' %}">
+            {% trans "View all notifications" %}
+        </a>
+    </div>
+</div>
+
+<!-- User menu -->
+<div class="dropdown">
+    <button class="btn btn-light d-flex align-items-center gap-2 border" data-bs-toggle="dropdown">
+        <span class="d-none d-sm-inline small fw-semibold">{{ user.get_full_name|default:user.username }}</span>
+        <span class="badge-role">{{ user.get_role_display }}</span>
+    </button>
+    <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="{% url 'accounts:profile' %}"><i class="fa-solid fa-user me-2"></i>{% trans "My Profile" %}</a></li>
+        {% if user.is_administrator %}
+        <li><a class="dropdown-item" href="{% url 'accounts:staff_list' %}"><i class="fa-solid fa-users-gear me-2"></i>{% trans "Manage Staff" %}</a></li>
+        {% endif %}
+        <li><hr class="dropdown-divider"></li>
+        <li>
+            <form method="post" action="{% url 'accounts:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="dropdown-item text-danger"><i class="fa-solid fa-right-from-bracket me-2"></i>{% trans "Logout" %}</button>
+            </form>
+        </li>
+    </ul>
+</div>

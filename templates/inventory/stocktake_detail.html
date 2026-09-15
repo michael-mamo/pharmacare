@@ -1,0 +1,131 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{{ stocktake.reference }}{% endblock %}
+{% block page_heading %}{{ stocktake.reference }}{% endblock %}
+{% block extra_css %}
+<style>
+  .count-input { width: 90px; }
+  .var-pos { color: var(--ok, #1F9D55); font-weight: 700; }
+  .var-neg { color: #D8332A; font-weight: 700; }
+  .row-uncounted td { background: #FEFCF5; }
+  @media print { .no-print { display: none !important; } .count-input { border: none; } }
+</style>
+{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+  <div>
+    <h4 class="brand-font mb-0">{{ stocktake.reference }}
+      {% if stocktake.status == "DRAFT" %}<span class="badge bg-warning-subtle text-warning-emphasis align-middle">{{ stocktake.get_status_display }}</span>
+      {% elif stocktake.status == "POSTED" %}<span class="badge bg-success-subtle text-success align-middle">{{ stocktake.get_status_display }}</span>
+      {% else %}<span class="badge bg-light text-muted border align-middle">{{ stocktake.get_status_display }}</span>{% endif %}
+    </h4>
+    <p class="text-muted mb-0">
+      {{ stocktake.branch.name }} · {{ stocktake.category.name|default:_("All products") }} ·
+      {% trans "started" %} {{ stocktake.started_at|date:"M j, Y H:i" }}
+      {% if stocktake.started_by %} {% trans "by" %} {{ stocktake.started_by.username }}{% endif %}
+    </p>
+    {% if stocktake.note %}<p class="text-muted small mb-0">{{ stocktake.note }}</p>{% endif %}
+  </div>
+  <div class="d-flex gap-2 no-print">
+    <button class="btn btn-outline-brand" onclick="window.print()"><i class="fa-solid fa-print me-2"></i>{% trans "Count Sheet" %}</button>
+    {% if stocktake.is_editable %}
+    <form method="post" action="{% url 'inventory:stocktake_post' stocktake.pk %}"
+          onsubmit="return confirm('{% trans "Post this stocktake? Counted differences will be applied to stock. Uncounted products are left untouched." %}');">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-brand"><i class="fa-solid fa-check me-2"></i>{% trans "Post Stocktake" %}</button>
+    </form>
+    <form method="post" action="{% url 'inventory:stocktake_cancel' stocktake.pk %}"
+          onsubmit="return confirm('{% trans "Cancel this stocktake? No stock will be changed." %}');">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-light text-danger">{% trans "Cancel" %}</button>
+    </form>
+    {% endif %}
+  </div>
+</div>
+
+<div class="row g-3 mb-3">
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Progress" %}</div><div class="kpi-value">{{ stocktake.progress_percent }}%</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card"><div class="kpi-label">{% trans "Counted" %}</div><div class="kpi-value">{{ stocktake.counted_lines }} / {{ stocktake.total_lines }}</div></div></div>
+  <div class="col-6 col-lg-3"><div class="kpi-card kpi-alert"><div class="kpi-label">{% trans "Net Variance" %}</div><div class="kpi-value">{{ stocktake.net_variance }}</div></div></div>
+  {% if can_view_cost %}
+  <div class="col-6 col-lg-3"><div class="kpi-card kpi-alert"><div class="kpi-label">{% trans "Variance Value" %} ({{ PHARMACY_CURRENCY }})</div><div class="kpi-value">{{ stocktake.variance_value }}</div></div></div>
+  {% endif %}
+</div>
+
+<ul class="nav nav-pills mb-3 no-print">
+  <li class="nav-item"><a class="nav-link {% if show == 'all' %}active{% endif %}" href="?show=all">{% trans "All" %}</a></li>
+  <li class="nav-item"><a class="nav-link {% if show == 'uncounted' %}active{% endif %}" href="?show=uncounted">{% trans "Not yet counted" %}</a></li>
+  <li class="nav-item"><a class="nav-link {% if show == 'counted' %}active{% endif %}" href="?show=counted">{% trans "Counted" %}</a></li>
+  <li class="nav-item"><a class="nav-link {% if show == 'variance' %}active{% endif %}" href="?show=variance">{% trans "Differences only" %}</a></li>
+</ul>
+
+<form method="post" action="{% url 'inventory:stocktake_save' stocktake.pk %}">
+  {% csrf_token %}
+  <input type="hidden" name="show" value="{{ show }}">
+  <div class="panel">
+    <div class="table-responsive">
+      <table class="table align-middle">
+        <thead>
+          <tr>
+            <th>{% trans "Code" %}</th><th>{% trans "Product" %}</th>
+            <th class="text-end">{% trans "Expected" %}</th>
+            <th class="text-end">{% trans "Counted" %}</th>
+            <th class="text-end">{% trans "Difference" %}</th>
+            {% if can_view_cost %}<th class="text-end">{% trans "Value" %}</th>{% endif %}
+            <th>{% trans "Note" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for line in lines %}
+          <tr {% if not line.is_counted %}class="row-uncounted"{% endif %}>
+            <td class="text-muted small">{{ line.medicine.code }}</td>
+            <td class="fw-semibold">{{ line.medicine.name }}
+              <div class="text-muted small">{{ line.medicine.category.name }}</div>
+            </td>
+            <td class="text-end">{{ line.expected_quantity }}</td>
+            <td class="text-end">
+              {% if stocktake.is_editable %}
+              <input type="number" min="0" name="count_{{ line.pk }}"
+                     value="{{ line.counted_quantity|default_if_none:'' }}"
+                     class="form-control form-control-sm count-input text-end"
+                     placeholder="—">
+              {% else %}
+                {{ line.counted_quantity|default_if_none:"—" }}
+              {% endif %}
+            </td>
+            <td class="text-end">
+              {% if line.variance is None %}<span class="text-muted">—</span>
+              {% elif line.variance > 0 %}<span class="var-pos">+{{ line.variance }}</span>
+              {% elif line.variance < 0 %}<span class="var-neg">{{ line.variance }}</span>
+              {% else %}<span class="text-success">✓</span>{% endif %}
+            </td>
+            {% if can_view_cost %}
+            <td class="text-end {% if line.variance_value < 0 %}var-neg{% endif %}">
+              {% if line.has_variance %}{{ line.variance_value }}{% else %}—{% endif %}
+            </td>
+            {% endif %}
+            <td>
+              {% if stocktake.is_editable %}
+              <input type="text" name="note_{{ line.pk }}" value="{{ line.note }}"
+                     class="form-control form-control-sm" placeholder="{% trans 'optional' %}">
+              {% else %}<span class="text-muted small">{{ line.note|default:"—" }}</span>{% endif %}
+            </td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="7" class="text-center text-muted py-4">{% trans "Nothing to show in this view." %}</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% if stocktake.is_editable %}
+    <div class="d-flex justify-content-between align-items-center mt-3 no-print">
+      <p class="text-muted small mb-0">
+        {% trans "Leave a box empty to mark a product as not yet counted — an empty box is never treated as zero." %}
+      </p>
+      <button type="submit" class="btn btn-brand"><i class="fa-solid fa-floppy-disk me-2"></i>{% trans "Save Counts" %}</button>
+    </div>
+    {% endif %}
+  </div>
+</form>
+<a href="{% url 'inventory:stocktake_list' %}" class="btn btn-link mt-2 no-print"><i class="fa-solid fa-arrow-left me-1"></i>{% trans "Back to stocktakes" %}</a>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends "layout_app.html" %}
+{% load i18n %}
+{% block title %}{% trans "Stock Movements" %}{% endblock %}
+{% block page_heading %}{% trans "Stock Movements" %}{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+    <div>
+        <h4 class="brand-font mb-0">{% trans "Stock Movement History" %}</h4>
+        <p class="text-muted mb-0">{% trans "Every manual stock change, fully audited." %}</p>
+    </div>
+    {% if can_manage %}
+    <a href="{% url 'inventory:movement_create' %}" class="btn btn-brand"><i class="fa-solid fa-plus me-2"></i>{% trans "Record Movement" %}</a>
+    {% endif %}
+</div>
+
+<div class="panel mb-3">
+    <form method="get" class="row g-2 align-items-end">
+        <div class="col-md-6">
+            <label class="form-label small text-muted">{% trans "Search" %}</label>
+            <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="{% trans 'Medicine name' %}">
+        </div>
+        <div class="col-md-4">
+            <label class="form-label small text-muted">{% trans "Type" %}</label>
+            <select name="type" class="form-select">
+                <option value="">{% trans "All" %}</option>
+                <option value="IN" {% if request.GET.type == "IN" %}selected{% endif %}>{% trans "Stock In" %}</option>
+                <option value="OUT" {% if request.GET.type == "OUT" %}selected{% endif %}>{% trans "Stock Out" %}</option>
+                <option value="ADJUSTMENT" {% if request.GET.type == "ADJUSTMENT" %}selected{% endif %}>{% trans "Stock Adjustment" %}</option>
+                <option value="TRANSFER" {% if request.GET.type == "TRANSFER" %}selected{% endif %}>{% trans "Stock Transfer" %}</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-outline-brand w-100"><i class="fa-solid fa-filter me-2"></i>{% trans "Filter" %}</button>
+        </div>
+    </form>
+</div>
+
+<div class="panel">
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>{% trans "Medicine" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Before" %}</th>
+                    <th>{% trans "After" %}</th>
+                    <th>{% trans "Destination" %}</th>
+                    <th>{% trans "Reason" %}</th>
+                    <th>{% trans "By" %}</th>
+                    <th>{% trans "Date" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movement in movements %}
+                <tr>
+                    <td class="fw-semibold">{{ movement.medicine.name }}</td>
+                    <td><span class="badge bg-light text-dark border">{{ movement.get_movement_type_display }}</span></td>
+                    <td>{{ movement.quantity_before }}</td>
+                    <td>{{ movement.quantity_after }}</td>
+                    <td>{{ movement.destination|default:"—" }}</td>
+                    <td class="text-muted">{{ movement.reason|default:"—"|truncatechars:40 }}</td>
+                    <td>{{ movement.performed_by.get_full_name|default:movement.performed_by.username|default:"—" }}</td>
+                    <td>{{ movement.created_at|date:"M j, Y H:i" }}</td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="8" class="text-center text-muted py-4">{% trans "No stock movements found." %}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if is_paginated %}
+    <nav>
+        <ul class="pagination justify-content-end mb-0">
+            {% if page_obj.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{% trans "Previous" %}</a></li>{% endif %}
+            <li class="page-item active"><span class="page-link">{{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</span></li>
+            {% if page_obj.has_next %}<li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{% trans "Next" %}</a></li>{% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}
